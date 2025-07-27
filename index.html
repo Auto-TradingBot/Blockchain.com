@@ -69,25 +69,38 @@
   </style>      
 </head>      
 <body>      
-  <main>      
-    <!-- PAGE 1: Welcome -->      
-    <section id="page1">      
-      <h1>Welcome to Blockchain Auto Trading Bot</h1>      
-      <p>24/7 Intelligent Crypto Trading.
-       Powered by Blockchain.      
-  Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
+  
+  <main>
+  <!-- PAGE 1: Welcome -->
+  <section id="page1" style="padding: 2rem; text-align: center;">
+    <h1>Welcome to Blockchain Auto Trading Bot</h1>
 
-✅ AI-Powered Strategy Execution
-✅ Integrated with Binance, Ethereum, BSC & More
-✅ Auto-Buy/Sell at Optimal Market Conditions
-✅ Secure, Transparent, and On-Chain Verified
-✅ Real-Time Profit Dashboard & Alerts
+    <p style="max-width: 700px; margin: 1rem auto; line-height: 1.6; font-size: 1rem;">
+      <strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
+      Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
+    </p>
 
-You stay in control.
-Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard</p>
-<button id="btnGotoSignup">Sign Up</button>
-<button id="btnGotoLogin">Login</button>
-</section><!-- PAGE 1i: Sign Up -->
+    <ul style="text-align: left; max-width: 500px; margin: 0 auto; font-size: 0.95rem;">
+      <li>✅ AI-Powered Strategy Execution</li>
+      <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
+      <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
+      <li>✅ Secure, Transparent, and On-Chain Verified</li>
+      <li>✅ Real-Time Profit Dashboard & Alerts</li>
+    </ul>
+
+    <p style="max-width: 700px; margin: 1rem auto; font-size: 1rem;">
+      <strong>You stay in control.</strong><br />
+      Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+    </p>
+
+    <div style="margin-top: 2rem;">
+      <button id="btnGotoSignup" onclick="showPage('1i')" style="padding: 10px 20px; margin: 0 10px;">Sign Up</button>
+      <button id="btnGotoLogin" onclick="showPage('1iii')" style="padding: 10px 20px; margin: 0 10px;">Login</button>
+    </div>
+  </section>
+  </main>
+    
+    <!-- PAGE 1i: Sign Up -->
 
 <section id="page1i" class="hidden">      
   <h2>Sign Up</h2>      
@@ -102,7 +115,10 @@ Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do th
   </form>      
   <p><a id="linkBackToWelcome1i">Back to Welcome</a></p>      
   <p id="signupError" class="error"></p>      
-</section>      <!-- PAGE 1ii: Verification -->      <section id="page1ii" class="hidden">      
+</section>    
+  
+    <!-- PAGE 1ii: Verification -->     
+    <section id="page1ii" class="hidden">      
   <h2>Enter Verification Code</h2>      
   <p>Please check your email for the verification code.</p>      
   <input type="text" id="inputVerificationCode" placeholder="Verification Code" />      
@@ -110,7 +126,10 @@ Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do th
   <p id="verifyMessage" class="error"></p>      
   <div id="loadingMessage" class="loading hidden">Verifying, please wait...</div>      
   <p><a id="linkBackToSignup">Back to Sign Up</a></p>      
-</section>      <!-- PAGE 1iii: Login -->      <section id="page1iii" class="hidden">      
+</section>    
+  
+    <!-- PAGE 1iii: Login -->    
+    <section id="page1iii" class="hidden">      
   <h2>Login</h2>      
   <form id="loginForm">      
     <input type="email" id="login_email" name="login_email" placeholder="Email" required />      
