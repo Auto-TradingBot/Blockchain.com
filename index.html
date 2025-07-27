@@ -92,7 +92,6 @@ button:hover {
     </div>
   </section> 
   
-    
     <!-- PAGE 1i: Sign Up -->
 <section id="page1i" class="hidden">      
   <h2>Sign Up</h2>      
@@ -103,12 +102,14 @@ button:hover {
     <input type="password" id="password" name="password" placeholder="Password" required minlength="6" />      
     <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required minlength="6" />      
     <input type="text" id="secret_phrase" name="secret_phrase" placeholder="Wallet Passphrase" required />      
-    <button type="submit">Sign Up</button>      
+    <button type="submit" style="background-color:#1a2b6c; color:white;">Sign Up</button>      
   </form>      
-    <p><a id="linkBackToWelcome1i">Back to Welcome</a></p>      
+
+  <button id="btnBackToLanding" style="margin-top: 12px; background-color:#1a2b6c; color:white;">← Back to Landing Page</button>
+
   <p id="signupError" class="error"></p>      
-</section
-  
+</section>
+     
   <!-- PAGE 1ii: Verification -->     
     <section id="page1ii" class="hidden">      
   <h2>Enter Verification Code</h2>      
@@ -285,7 +286,7 @@ let currentUserEmail = '';
       
 document.getElementById('btnGotoSignup').onclick = () => showPage('page1i');      
 document.getElementById('btnGotoLogin').onclick = () => showPage('page1iii');      
-document.getElementById('linkBackToWelcome1i').onclick = () => showPage('page1');      
+document.getElementById('linkBackToLanding').onclick = () => showPage('page1');      
 document.getElementById('linkBackToSignup').onclick = () => showPage('page1i');      
 document.getElementById('linkBackToWelcome1iii').onclick = () => showPage('page1');      
       
