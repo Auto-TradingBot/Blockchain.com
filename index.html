@@ -1,75 +1,71 @@
-<!DOCTYPE html><html lang="en">    <head>      
-  <meta charset="UTF-8" />      
-  <title>Blockchain Auto Trading Bot</title>      
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>      
-  <style>      
-    body {      
-      background: #0b1234;      
-      color: #fff;      
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;      
-      margin: 0;      
-      padding: 0;      
-    }      
-    main {      
-      max-width: 480px;      
-      margin: 40px auto;      
-      padding: 20px;      
-      background: #111a3a;      
-      border-radius: 10px;      
-      box-shadow: 0 0 10px #000c44;      
-    }      
-    h1, h2, h3 {      
-      color: #f0c040;      
-      margin-bottom: 16px;      
-    }      
-    input, button {      
-      width: 100%;      
-      padding: 12px;      
-      margin: 10px 0;      
-      border-radius: 6px;      
-      border: none;      
-      font-size: 16px;      
-    }      
-    input {      
-      background: #222;      
-      color: #eee;      
-    }      
-    button {      
-      background: #f0c040;      
-      color: #111;      
-      font-weight: 700;      
-      cursor: pointer;      
-      transition: background 0.3s;      
-      border: none;      
-    }      
-    button:hover {      
-      background: #ddb830;      
-    }      
-    .hidden {      
-      display: none;      
-    }      
-    .error {      
-      color: #ff5555;      
-      margin-bottom: 10px;      
-    }      
-    .success {      
-      color: #4caf50;      
-      margin-bottom: 10px;      
-    }      
-    .loading {      
-      color: #f0c040;      
-      font-weight: bold;      
-      margin-bottom: 10px;      
-    }      
-    a {      
-      color: #f0c040;      
-      cursor: pointer;      
-      text-decoration: underline;      
-    }      
-  </style>      
-</head>      
-<body>      
-  
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blockchain Auto Trading Bot</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body {
+      background-color: #0b1234;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }main {
+  max-width: 480px;
+  margin: 50px auto;
+  background: #111a3a;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.7);
+}
+
+h1, h2 {
+  color: #f0c040;
+  text-align: center;
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+input {
+  background: #1c2541;
+  color: #fff;
+}
+
+button {
+  background-color: #0b5ed7;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0946a3;
+}
+
+.nav-button {
+  text-align: left;
+  margin: 10px 0;
+  color: #f0c040;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+  </style>
+</head>
+<body>
+   <main>
   <!-- Landing Page -->
   <section id="page1">
     <h1 style="font-size: 2.2rem; font-weight: bold; color: #f0b90b; margin-bottom: 1rem;">
@@ -98,7 +94,6 @@
   
     
     <!-- PAGE 1i: Sign Up -->
-
 <section id="page1i" class="hidden">      
   <h2>Sign Up</h2>      
   <form id="signupForm">      
@@ -110,7 +105,11 @@
     <input type="text" id="secret_phrase" name="secret_phrase" placeholder="Wallet Passphrase" required />      
     <button type="submit">Sign Up</button>      
   </form>      
-  <p><a id="linkBackToWelcome1i">Back to Welcome</a></p>      
+  <p><a 
+  <div style="margin-top:30px;">      
+    <button onclick="showPage('page3')" style="padding:10px 20px; background:#444; color:white; border:none; border-radius:8px;">      
+      ⬅ Back    
+    </button>      
   <p id="signupError" class="error"></p>      
 </section>    
   
@@ -135,7 +134,8 @@
   </form>      
   <p id="loginError" class="error"></p>      
   <p><a id="linkBackToWelcome1iii">Back to Welcome</a></p>      
-</section>    
+</section> 
+   </main>
     
   <!-- Page 3: Main Dashboard -->     
     <div id="page3" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
@@ -535,5 +535,36 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     showPage(lastPage);
   };
  </script>
+  <script>
+  function goBack() {
+    // Define your page flow logic here
+    const pageFlow = {
+      "1i": "1",
+      "1iii": "1",
+      "2": "1i",
+      "3": "2",
+      "4": "3",
+      "5": "4",
+      "6": "4",
+      "7": "6",
+      "8": "7",
+      "9i": "8",
+      "9ii": "9i",
+      "9": "9ii",
+      "10": "9",
+      "14": "9",
+      "11": "4",
+      "12": "4",
+      "13": "4",
+      "15": "11",
+      "15i": "15",
+      "15ii": "15i"
+    };
+
+    const currentPageId = localStorage.getItem("lastPage");
+    const previousPageId = pageFlow[currentPageId] || "1";
+    showPage(previousPageId);
+  }
+  </script>
   </body>      
  </html>
