@@ -516,18 +516,24 @@ document.querySelectorAll(".network-copy").forEach(btn => {
 });      
 </script>  
  <script>
-   function showPage(id) {
-      const sections = document.querySelectorAll("section");
-      sections.forEach(section => section.style.display = "none");
-      document.getElementById("page" + id).style.display = "flex";
-      localStorage.setItem("currentPage", id);
+  function showPage(pageId) {
+    const allPages = document.querySelectorAll("section[id^='page']");
+    allPages.forEach((page) => {
+      page.style.display = "none";
+    });
+    const selectedPage = document.getElementById("page" + pageId);
+    if (selectedPage) {
+      selectedPage.style.display = "block";
+      // Save last page ID to localStorage
+      localStorage.setItem("lastPage", pageId);
     }
+  }
 
-    // Stay on current page after refresh
-    window.onload = () => {
-      const savedPage = localStorage.getItem("currentPage") || "1";
-      showPage(savedPage);
-    }
-    </script>
+  // On page load, show last visited page or default to page 1
+  window.onload = () => {
+    const lastPage = localStorage.getItem("lastPage") || "1";
+    showPage(lastPage);
+  };
+ </script>
   </body>      
  </html>
