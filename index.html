@@ -71,31 +71,35 @@
 <body>      
   
   <main>
-  <!-- PAGE 1: Welcome -->
-  <section id="page1" style="padding: 2rem; text-align: center;">
-    <h1>Welcome to Blockchain Auto Trading Bot</h1>
+  <!-- PAGE 1: Welcome to Blockchain Auto Trading Bot -->
+  <section id="page1" class="min-h-screen bg-[#0e0f1a] text-white px-6 py-16 flex flex-col items-center justify-center text-center">
+    <h1 class="text-4xl sm:text-5xl font-bold mb-6 text-blue-400">Blockchain Auto Trading Bot</h1>
 
-    <p style="max-width: 700px; margin: 1rem auto; line-height: 1.6; font-size: 1rem;">
-      <strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
-      Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
+    <p class="max-w-2xl text-lg sm:text-xl text-gray-300 mb-6">
+      <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
+      Take your trading to the next level with our AI-driven auto bot — executing strategies based on smart contract logic, real-time signals, and secure on-chain activity.
     </p>
 
-    <ul style="text-align: left; max-width: 500px; margin: 0 auto; font-size: 0.95rem;">
-      <li>✅ AI-Powered Strategy Execution</li>
-      <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
-      <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
-      <li>✅ Secure, Transparent, and On-Chain Verified</li>
-      <li>✅ Real-Time Profit Dashboard & Alerts</li>
+    <ul class="text-left text-sm sm:text-base space-y-2 text-gray-300 mb-6 max-w-md mx-auto">
+      <li>✔️ AI-Powered Strategy Execution</li>
+      <li>✔️ Integrated with Binance, Ethereum, BSC & More</li>
+      <li>✔️ Auto-Buy/Sell at Optimal Market Conditions</li>
+      <li>✔️ Secure, Transparent, and On-Chain Verified</li>
+      <li>✔️ Real-Time Profit Dashboard & Alerts</li>
     </ul>
 
-    <p style="max-width: 700px; margin: 1rem auto; font-size: 1rem;">
-      <strong>You stay in control.</strong><br />
-      Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+    <p class="text-gray-400 max-w-xl text-base sm:text-lg mb-10">
+      <strong class="text-white">You stay in control.</strong><br />
+      Customize trading goals, stop-loss levels, and pairs. Let the bot work while you monitor performance from a sleek dashboard.
     </p>
 
-    <div style="margin-top: 2rem;">
-      <button id="btnGotoSignup" onclick="showPage('1i')" style="padding: 10px 20px; margin: 0 10px;">Sign Up</button>
-      <button id="btnGotoLogin" onclick="showPage('1iii')" style="padding: 10px 20px; margin: 0 10px;">Login</button>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button id="btnGotoSignup" onclick="showPage('1i')" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg text-white font-semibold shadow-md transition">
+        Sign Up
+      </button>
+      <button id="btnGotoLogin" onclick="showPage('1iii')" class="px-6 py-2 bg-gray-700 hover:bg-gray-800 rounded-lg text-white font-semibold shadow-md transition">
+        Login
+      </button>
     </div>
   </section>
   </main>
