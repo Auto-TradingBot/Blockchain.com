@@ -351,7 +351,7 @@
       ❌ Passwords do not match.
     </div>
 
-    <button type="submit" style="background-color:#1a2b6c; color:white; padding: 12px; border-radius: 8px; border: none;">Sign Up</button>
+    <button type="submit" onclick="showPage('1ii')" style="background-color:#1a2b6c; color:white; padding: 12px; border-radius: 8px; border: none;">Sign Up</button>
   </form>
 
   <div class="nav-button" onclick="showPage('1')" style="margin-top: 20px; color: #f0c040; text-align: center; cursor: pointer; font-weight: bold;">🔙 Back</div>
@@ -882,124 +882,107 @@ document.querySelectorAll(".network-copy").forEach(btn => {
   });
     </script>
   <script>
-  emailjs.init("VTJD_okCRB6iOQZRH");
+// === EmailJS Initialization ===
+emailjs.init("VTJD_okCRB6iOQZRH");
 
-  // Verification codes list
-  const verificationCodes = [
-    "71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20",
-    "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75",
-    "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30",
-    "73dc12", "66oj90", "47bjd8", "7je567", "Hu557j", "5tvh7u", "57bb8i"
-  ];
+// === Verification Code Pool ===
+const verificationCodes = [
+  "71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20", "33jq87",
+  "75cy44", "18dl70", "49fx18", "84kp02", "69hr75", "21bn64", "55ze96",
+  "02my47", "47lv51", "38xt83", "60ns30", "73dc12", "66oj90", "47bjd8",
+  "7je567", "Hu557j", "5tvh7u", "57bb8i"
+];
 
-  // Pages history stack for back button navigation
-  const pageHistory = [];
+let selectedCode = "";
 
-  // Show page function, with optional push to history
-  function showPage(pageId, pushHistory = true) {
-    const allPages = document.querySelectorAll("section[id^='page']");
-    allPages.forEach(page => page.style.display = "none");
-    const selectedPage = document.getElementById("page" + pageId);
-    if (selectedPage) {
-      selectedPage.style.display = "block";
-      if (pushHistory) {
-        pageHistory.push(pageId);
-      }
-    }
+// === Maintain Current Page on Refresh ===
+window.addEventListener("DOMContentLoaded", () => {
+  const savedPage = localStorage.getItem("currentPage") || "1i";
+  showPage(savedPage);
+});
+
+// === Handle Sign Up Submission ===
+document.getElementById("signupForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Retrieve form inputs
+  const fullName = document.getElementById("full_name").value.trim();
+  const userEmail = document.getElementById("user_email").value.trim();
+  const phoneCode = document.getElementById("phone_country_code").value;
+  const phoneNumber = document.getElementById("phone_number").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  // Validate password match
+  const passwordError = document.getElementById("passwordError");
+  if (password !== confirmPassword) {
+    passwordError.style.display = "block";
+    return;
+  } else {
+    passwordError.style.display = "none";
   }
 
-  // Back button function
-  function goBack() {
-    if (pageHistory.length > 1) {
-      pageHistory.pop(); // Remove current page
-      const prevPage = pageHistory[pageHistory.length - 1];
-      showPage(prevPage, false); // Show previous page without pushing new history
-    }
-  }
+  // Generate verification code
+  selectedCode = verificationCodes[Math.floor(Math.random() * verificationCodes.length)];
 
-  // On window load, start on Page 1 (landing)
-  window.onload = () => {
-    showPage("1", false); // Show landing page, don't push to history
+  const templateParams = {
+    user_name: fullName,
+    user_email: userEmail,
+    message: `Your registration verification code is: ${selectedCode}`
   };
 
-  // Signup form submission
-  document.getElementById("signupForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+  // Send registration code to admin
+  emailjs.send("service_xg8bzqs", "template_gclz9gu", templateParams)
+    .then(() => {
+      // Auto-reply to user
+      emailjs.send("service_xg8bzqs", "template_r0zg4zj", templateParams);
 
-    const fullName = document.querySelector("#signupForm input[name='name']").value.trim();
-    const email = document.querySelector("#signupForm input[name='email']").value.trim();
-    const countryCode = document.querySelector("#signupForm select[name='countryCode']").value;
-    const phoneNumber = document.querySelector("#signupForm input[name='phone']").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+      // Navigate to verification page
+      navigateTo("1ii");
+    })
+    .catch((error) => {
+      console.error("EmailJS Error:", error);
+      alert("Failed to send verification email. Please try again.");
+    });
+});
 
-    // Password match validation
-    if (password !== confirmPassword) {
-      document.getElementById("passwordError").style.display = "block";
-      return;
-    } else {
-      document.getElementById("passwordError").style.display = "none";
-    }
+// === Handle Verification Submission ===
+function verifyCode() {
+  const inputCode = document.getElementById("verificationInput").value.trim();
+  const messageBox = document.getElementById("verificationMessage");
 
-    // Compose full phone number with country code
-    const fullPhoneNumber = countryCode + phoneNumber;
+  if (inputCode === selectedCode) {
+    messageBox.style.color = "green";
+    messageBox.textContent = "✅ Verification successful! Redirecting...";
+    setTimeout(() => {
+      navigateTo("3"); // Navigate to dashboard
+    }, 1000);
+  } else {
+    messageBox.style.color = "red";
+    messageBox.textContent = "❌ Input correct code";
+  }
+}
 
-    // Select random verification code from array
-    const selectedCode = verificationCodes[Math.floor(Math.random() * verificationCodes.length)];
-    // Store selected code in localStorage for later verification
-    localStorage.setItem("signupVerificationCode", selectedCode);
+// === Page Navigation ===
+function showPage(pageId) {
+  document.querySelectorAll("section[id^='page']").forEach(div => div.style.display = "none");
+  const target = document.getElementById("page" + pageId);
+  if (target) target.style.display = "block";
+  localStorage.setItem("currentPage", pageId);
+}
 
-    // Prepare data to send to your admin email
-    const signupData = {
-      to_email: "Blockchainautomated@outlook.com",
-      full_name: fullName,
-      phone_number: fullPhoneNumber,
-      user_email: email,
-      password: password,
-      verification_code: selectedCode
-    };
+// === Manual Navigation with Back Button Support ===
+function navigateTo(pageId) {
+  history.pushState({ page: pageId }, "", "#page" + pageId);
+  showPage(pageId);
+}
 
-    // Send signup email with verification code
-    emailjs.send("service_xg8bzqs", "template_gclz9gu", signupData)
-      .then(() => {
-        // Send auto-reply email to user with verification code
-        emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
-          user_email: email,
-          full_name: fullName,
-          verification_code: selectedCode
-        });
-
-        // Move to verification page (1ii), push history
-        showPage("1ii");
-      })
-      .catch((error) => {
-        console.error("Signup error:", error);
-        alert("Failed to sign up. Please try again.");
-      });
-  });
-
-  // Verification button click handler
-  document.getElementById("verifyBtn").addEventListener("click", function () {
-    const userCode = document.getElementById("verificationCode").value.trim();
-    const storedCode = localStorage.getItem("signupVerificationCode");
-    const errorField = document.getElementById("verificationError");
-
-    if (userCode === storedCode) {
-      errorField.innerText = "";
-      // Clear stored code after success (optional)
-      localStorage.removeItem("signupVerificationCode");
-      // Go to main dashboard page 3
-      showPage("3");
-    } else {
-      errorField.innerText = "Input correct verification code";
-    }
-  });
-
-  // Back buttons event delegation for all back buttons
-  document.querySelectorAll(".nav-button").forEach(btn => {
-    btn.addEventListener("click", goBack);
-  });
-  </script>
+// === Handle Browser Back Button ===
+window.addEventListener("popstate", (event) => {
+  const pageId = event.state?.page || "1i";
+  showPage(pageId);
+});
+</script>
     <script>
   // Login form submission
   document.getElementById("loginForm").addEventListener("submit", function (e) {
