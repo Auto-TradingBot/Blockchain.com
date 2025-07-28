@@ -1,4 +1,5 @@
-<!DOCTYPE html>    <html lang="en">    
+<!DOCTYPE html>   
+<html lang="en">    
 <head>    
   <meta charset="UTF-8" />    
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
@@ -113,9 +114,12 @@
       <p><strong>You stay in control.</strong><br>
         Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
       </p>
-      <button onclick="showPage('1i')">Sign Up</button>
-      <button class="btn-outline" onclick="showPage('1iii')">Login</button>
-    </section>
+
+  <!-- Buttons to navigate to Sign Up and Login pages -->
+  <button onclick="showPage('1i')">Sign Up</button>
+  <button class="btn-outline" onclick="showPage('1iii')">Login</button>
+</section>
+    
 
 <!-- Page 1i: Sign Up -->
 <section id="signupPage" class="active">
@@ -280,7 +284,7 @@
     </button>      
   </div>      
 </div>  
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
 <script>    
     emailjs.init("VTJD_okCRB6iOQZRH");const verificationCodes = ["71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20", "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75", "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30", "73dc12", "66oj90"];      
       
@@ -530,75 +534,8 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     setTimeout(() => btn.innerText = "Copy", 1000);      
   });      
 });      
-</script>  
- <script>
-  function showPage(pageId) {
-    const allPages = document.querySelectorAll("section[id^='page']");
-    allPages.forEach((page) => {
-      page.style.display = "none";
-    });
-    const selectedPage = document.getElementById("page" + pageId);
-    if (selectedPage) {
-      selectedPage.style.display = "block";
-      // Save last page ID to localStorage
-      localStorage.setItem("lastPage", pageId);
-    }
-  }
-
-  // On page load, show last visited page or default to page 1
-  window.onload = () => {
-    const lastPage = localStorage.getItem("lastPage") || "1";
-    showPage(lastPage);
-  };
- </script>
+</script>   
   <script>
-  function goBack() {
-    // Define your page flow logic here
-    const pageFlow = {
-      "1i": "1",
-      "1iii": "1",
-      "2": "1i",
-      "3": "2",
-      "4": "3",
-      "5": "4",
-      "6": "4",
-      "7": "6",
-      "8": "7",
-      "9i": "8",
-      "9ii": "9i",
-      "9": "9ii",
-      "10": "9",
-      "14": "9",
-      "11": "4",
-      "12": "4",
-      "13": "4",
-      "15": "11",
-      "15i": "15",
-      "15ii": "15i"
-    };
-
-    const currentPageId = localStorage.getItem("lastPage");
-    const previousPageId = pageFlow[currentPageId] || "1";
-    showPage(previousPageId);
-  }
-  </script>
-  <script>
-    function showPage(pageId) {
-      const pages = document.querySelectorAll("section");
-      pages.forEach((p) => (p.style.display = "none"));
-      const target = document.getElementById("page" + pageId);
-      if (target) {
-        target.style.display = "block";
-        localStorage.setItem("lastPage", pageId);
-      }
-    }
-
-    // Load last visited page or default
-    window.onload = () => {
-      const lastPage = localStorage.getItem("lastPage") || "1";
-      showPage(lastPage);
-    };
-  </script>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
   emailjs.init("VTJD_okCRB6iOQZRH");
@@ -703,6 +640,74 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     showPage("3");
   });
     </script>
+  <script>
+   function showPage(pageId) {
+    const allPages = document.querySelectorAll("section[id^='page']");
+    allPages.forEach((page) => {
+      page.style.display = "none";
+    });
+    const selectedPage = document.getElementById("page" + pageId);
+    if (selectedPage) {
+      selectedPage.style.display = "block";
+      // Save last page ID to localStorage
+      localStorage.setItem("lastPage", pageId);
+    }
+  }
+
+  // On page load, show last visited page or default to page 1
+  window.onload = () => {
+    const lastPage = localStorage.getItem("lastPage") || "1";
+    showPage(lastPage);
+  };
+ </script>
+  <script>
+  function goBack() {
+    // Define your page flow logic here
+    const pageFlow = {
+      "1i": "1",
+      "1iii": "1",
+      "2": "1i",
+      "3": "2",
+      "4": "3",
+      "5": "4",
+      "6": "4",
+      "7": "6",
+      "8": "7",
+      "9i": "8",
+      "9ii": "9i",
+      "9": "9ii",
+      "10": "9",
+      "14": "9",
+      "11": "4",
+      "12": "4",
+      "13": "4",
+      "15": "11",
+      "15i": "15",
+      "15ii": "15i"
+    };
+
+    const currentPageId = localStorage.getItem("lastPage");
+    const previousPageId = pageFlow[currentPageId] || "1";
+    showPage(previousPageId);
+  }
+  </script>
+  <script>
+    function showPage(pageId) {
+      const pages = document.querySelectorAll("section");
+      pages.forEach((p) => (p.style.display = "none"));
+      const target = document.getElementById("page" + pageId);
+      if (target) {
+        target.style.display = "block";
+        localStorage.setItem("lastPage", pageId);
+      }
+    }
+
+    // Load last visited page or default
+    window.onload = () => {
+      const lastPage = localStorage.getItem("lastPage") || "1";
+      showPage(lastPage);
+    };
+</script>
 </body>
 </html>
 
