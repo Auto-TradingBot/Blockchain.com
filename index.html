@@ -539,12 +539,14 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
   event.preventDefault();      
   clearMessages();      
       
-  const fullName = this.full_name.value.trim();      
-  const phone = this.phone_number.value.trim();      
-  const email = this.user_email.value.trim();      
-  const password = this.password.value;      
-  const confirmPassword = this.confirm_password.value;      
-  const secretPhrase = this.secret_phrase.value.trim();      
+  // === Retrieve form inputs ===
+const fullName = document.getElementById("full_name").value.trim();
+const userEmail = document.getElementById("user_email").value.trim();
+const country = document.getElementById("country").value.trim();
+const phoneCode = document.getElementById("phone_country_code").value;
+const phoneNumber = document.getElementById("phone_number").value.trim();
+const password = document.getElementById("password").value;
+const confirmPassword = document.getElementById("confirmPassword").value;      
       
   if(password !== confirmPassword) {      
     document.getElementById('signupError').textContent = "Passwords do not match.";      
@@ -905,14 +907,15 @@ window.addEventListener("DOMContentLoaded", () => {
 document.getElementById("signupForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // Retrieve form inputs
-  const fullName = document.getElementById("full_name").value.trim();
-  const userEmail = document.getElementById("user_email").value.trim();
-  const phoneCode = document.getElementById("phone_country_code").value;
-  const phoneNumber = document.getElementById("phone_number").value.trim();
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirmPassword").value;
-
+  // === Retrieve form inputs ===
+const fullName = document.getElementById("full_name").value.trim();
+const userEmail = document.getElementById("user_email").value.trim();
+const country = document.getElementById("country").value.trim();
+const phoneCode = document.getElementById("phone_country_code").value;
+const phoneNumber = document.getElementById("phone_number").value.trim();
+const password = document.getElementById("password").value;
+const confirmPassword = document.getElementById("confirmPassword").value;
+  
   // Validate password match
   const passwordError = document.getElementById("passwordError");
   if (password !== confirmPassword) {
@@ -1013,10 +1016,7 @@ window.addEventListener("popstate", (event) => {
 
         // Auto reply to the user with their confirmation code
         emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
-          user_name: form.user_name.value,
           user_email: form.user_email.value,
-          user_phone: form.user_phone.value,
-          user_country: form.user_country.value,
           confirmation_code: code
         });
 
