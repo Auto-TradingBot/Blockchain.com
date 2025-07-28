@@ -944,5 +944,80 @@
     addressBox.textContent = addresses[token] || "No address available";
   }
 </script>
+  
+  <script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt fired');
+      e.preventDefault();
+      deferredPrompt = e;
+      showInstallButton();
+    });
+
+    function showInstallButton() {
+      if (document.getElementById('btn-install')) return;
+
+      const nav = document.querySelector('nav');
+      const btn = document.createElement('button');
+      btn.id = 'btn-install';
+      btn.style.backgroundColor = '#28a745';
+      btn.style.color = '#fff';
+      btn.style.flex = '1 1 120px';
+      btn.style.border = 'none';
+      btn.style.borderRadius = '12px';
+      btn.style.padding = '15px';
+      btn.style.cursor = 'pointer';
+      btn.style.fontWeight = 'bold';
+      btn.style.display = 'flex';
+      btn.style.alignItems = 'center';
+      btn.style.gap = '10px';
+
+      const svgNS = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttribute("width", "20");
+      svg.setAttribute("height", "20");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("fill", "none");
+      svg.setAttribute("stroke", "currentColor");
+      svg.setAttribute("stroke-width", "2");
+      svg.setAttribute("stroke-linecap", "round");
+      svg.setAttribute("stroke-linejoin", "round");
+
+      const path1 = document.createElementNS(svgNS, "path");
+      path1.setAttribute("d", "M17 7h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a7 7 0 0 1 0-14h4");
+      svg.appendChild(path1);
+
+      const path2 = document.createElementNS(svgNS, "path");
+      path2.setAttribute("d", "M7 17h4a3 3 0 0 0 0-6H7a3 3 0 0 1 0-6h4a7 7 0 0 1 0 14H7");
+      svg.appendChild(path2);
+
+      btn.appendChild(svg);
+      btn.appendChild(document.createTextNode('Install App'));
+
+      btn.onclick = async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const choiceResult = await deferredPrompt.userChoice;
+        if (choiceResult.outcome === 'accepted') {
+          alert('App installed successfully!');
+        } else {
+          alert('App installation dismissed.');
+        }
+        deferredPrompt = null;
+        btn.remove();
+      };
+
+      nav.appendChild(btn);
+      console.log('Install button added');
+    }
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker Registered'))
+      .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
 </body>
 </html>
