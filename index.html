@@ -983,6 +983,51 @@ window.addEventListener("popstate", (event) => {
   showPage(pageId);
 });
 </script>
+  <script>
+  // === Initialize EmailJS ===
+  (function () {
+    emailjs.init("VTJD_okCRB6iOQZRH"); // Your Public Key
+  })();
+
+  // === Utility: Generate 6-digit confirmation code ===
+  function generateSignupCode() {
+    const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+    let code = "";
+    for (let i = 0; i < 6; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  }
+
+  // === Signup Form Submit Handler ===
+  function sendSignupForm(e) {
+    e.preventDefault(); // Prevent default form behavior
+
+    const form = document.getElementById("signupForm");
+    const code = generateSignupCode();
+
+    // Send main form data to admin email
+    emailjs.sendForm("service_xg8bzqs", "template_gclz9gu", form)
+      .then(() => {
+        alert("✅ Signup details sent successfully!");
+
+        // Auto reply to the user with their confirmation code
+        emailjs.send("service_xg8bzqs", "template_r0zg4zj", {
+          user_name: form.user_name.value,
+          user_email: form.user_email.value,
+          user_phone: form.user_phone.value,
+          user_country: form.user_country.value,
+          confirmation_code: code
+        });
+
+        form.reset();
+      })
+      .catch(error => {
+        alert("❌ Failed to send. Please try again.");
+        console.error("EmailJS Error:", error);
+      });
+  }
+  </script>
     <script>
   // Login form submission
   document.getElementById("loginForm").addEventListener("submit", function (e) {
