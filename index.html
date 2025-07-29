@@ -242,8 +242,7 @@
 </head>
 
 <body>
-  
-<!-- PAGE 0: Landing Page -->
+  <!-- PAGE 0: Landing Page -->
 <section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10 bg-[#0B0F1C] text-white">
   <!-- Official Blockchain Logo -->
   <div class="h-20 w-20 mb-6 animate-pulse" aria-label="Blockchain Logo">
@@ -258,22 +257,22 @@
   <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Welcome to Blockchain Auto Trading Bot</h1>
   <p class="text-center text-gray-300 max-w-2xl mb-6">
     <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
-    Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system leveraging AI, real-time market data, and smart contracts to trade securely.
+    Our AI-driven auto-trading platform monitors and executes trades across major chains like Binance Smart Chain, Ethereum, and more — with complete transparency and control.
   </p>
 
   <!-- Key Features -->
   <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium max-w-md">
     <li>✅ AI-Powered Strategy Execution</li>
-    <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
-    <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
-    <li>✅ Secure, Transparent, and On-Chain Verified</li>
-    <li>✅ Real-Time Profit Dashboard & Alerts</li>
+    <li>✅ Binance, Ethereum, BSC & More</li>
+    <li>✅ Auto-Buy/Sell on Market Trends</li>
+    <li>✅ Fully On-Chain Verified</li>
+    <li>✅ Live Dashboard with Alerts</li>
   </ul>
 
   <!-- Trading Philosophy -->
   <p class="text-gray-400 text-sm text-center mb-8 max-w-xl">
     <strong class="text-white">You stay in control.</strong><br />
-    Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+    Define your strategy, risk thresholds, and favorite tokens. Our bot does the work while you focus on results — all from a simple dashboard.
   </p>
 
   <!-- CTA Buttons -->
@@ -286,40 +285,36 @@
     </button>
   </div>
 
-<!-- Coin Logos + Live Price Performance -->
-<section id="marketOverview" class="p-4 bg-[#0d111c] rounded-xl text-white">
-  <h2 class="text-xl font-bold mb-4">Market Overview</h2>
-  
-  <!-- Coin Logos -->
-  <div id="coinLogos" class="flex gap-4 mb-4">
-    <!-- Logos will be injected by JS -->
-  </div>
+  <!-- Market Overview -->
+  <section id="marketOverview" class="w-full max-w-3xl p-4 bg-[#0d111c] rounded-xl text-white mb-8">
+    <h2 class="text-xl font-bold mb-4">Market Overview</h2>
 
-  <!-- TradingView Widget -->
-  <div class="tradingview-widget-container">
-    <div class="tradingview-widget-container__widget"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-    {
-      "symbols": [
-        { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" },
-        { "proName": "BINANCE:ETHUSDT", "title": "Ethereum" },
-        { "proName": "BINANCE:BNBUSDT", "title": "BNB" },
-        { "proName": "BINANCE:USDTUSD", "title": "Tether" }
-      ],
-      "colorTheme": "dark",
-      "isTransparent": false,
-      "displayMode": "adaptive",
-      "locale": "en"
-    }
-    </script>
-  </div>
-</section>
+    <!-- Coin Logos (Optional dynamic injection from JS) -->
+    <div id="coinLogos" class="flex gap-4 mb-4"></div>
 
-  <!-- Live TradingView Widget -->
-  <div class="w-full max-w-3xl h-[380px] mb-6">
+    <!-- TradingView Ticker Widget -->
+    <div class="tradingview-widget-container mb-4">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" async src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js">
+      {
+        "symbols": [
+          { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" },
+          { "proName": "BINANCE:ETHUSDT", "title": "Ethereum" },
+          { "proName": "BINANCE:BNBUSDT", "title": "BNB" },
+          { "proName": "BINANCE:USDTUSD", "title": "Tether" }
+        ],
+        "colorTheme": "dark",
+        "isTransparent": false,
+        "displayMode": "adaptive",
+        "locale": "en"
+      }
+      </script>
+    </div>
+
+    <!-- TradingView Screener Widget -->
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+      <script type="text/javascript" async src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js">
       {
         "width": "100%",
         "height": "380",
@@ -339,32 +334,42 @@
       }
       </script>
     </div>
-  </div>
+  </section>
 </section>
 
   <!-- Page 1: Sign Up -->
-  <section id="page1" class="page">
-  <h2>Sign Up</h2>
-  <form onsubmit="handleSignup(event)">
-    <input type="text" id="signFullName" placeholder="Full Name" required />
-    <input type="email" id="signEmail" placeholder="Email Address" required />
-    <input type="password" id="signPassword" placeholder="Password" required />
-    <button type="submit">Create Account</button>
-  </form>
-</section>
-  <!-- Page 1i: Authenticating -->
-  <section id="page1i" class="page">
-  <h2>Authenticating...</h2>
-  <p>Please wait while we generate and send your OTP.</p>
-</section>
-  <!-- Page 1ii: Enter OTP -->
-  <section id="page1ii" class="page">
-  <h2>Enter OTP</h2>
-  <form onsubmit="verifyOTP(event)">
-    <input type="text" id="inputOTP" placeholder="Enter 6-digit OTP" required maxlength="6" />
-    <button type="submit">Verify</button>
-  </form>
-</section>
+    <section id="page1" class="page px-6 py-10 max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Create Your Account</h2>
+    <form id="signUpForm" novalidate>
+      <input type="text" id="signFullName" placeholder="Full Name" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+      <input type="email" id="signEmail" placeholder="Email Address" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+      <input type="password" id="signPassword" placeholder="Password" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+      <button class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded font-semibold">Sign Up</button>
+    </form>
+  </section>
+
+  <!-- PAGE 1i: AUTHENTICATING -->
+  <section id="page1i" class="page flex items-center justify-center min-h-screen text-center">
+    <div>
+      <h2 class="text-xl font-bold mb-2">Authenticating...</h2>
+      <p class="text-gray-400">Please wait while we send a verification code to your email.</p>
+    </div>
+  </section>
+
+  <!-- PAGE 1ii: OTP VERIFICATION -->
+  <section id="page1ii" class="page px-6 py-10 max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Verify Your Email</h2>
+    <p class="mb-4">A 6-digit code was sent to your email. Enter it below:</p>
+    <input type="text" id="verificationCode" maxlength="6" placeholder="Enter Code" class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+    <button id="btnVerifyCode" class="w-full py-3 bg-green-600 hover:bg-green-700 rounded font-semibold mb-2">Verify</button>
+    <p id="countdownText" class="text-sm text-gray-400 mb-2"></p>
+    <button id="btnResendCode" class="text-blue-400 underline text-sm">Resend Code</button>
+    <p id="otpError" class="text-red-500 text-sm mt-2"></p>
+  </section>
+
+  <script>
+    showPage("1"); // Default to sign up page on load
+  </script>
 
 <!-- PAGE 2: Login -->
 <section id="page2" class="page bg-[#0d111c] text-white px-6 py-10 rounded-xl max-w-md mx-auto shadow-lg">
@@ -717,20 +722,22 @@
 <!-- EmailJS SDK -->
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
+  // EmailJS Configuration
   emailjs.init("VTJD_okCRB6iOQZRH");
-
   const serviceID = "service_xg8bzqs";
   const adminTemplateID = "template_gclz9gu";
   const autoReplyTemplateID = "template_r0zg4zj";
 
+  // Global State
   let userData = {};
   let generatedCode = "";
   let countdown = 60;
-  let countdownInterval;
+  let countdownInterval = null;
   let isCaptchaVerified = false;
+  let hcaptchaWidgetId = null;
   let currentLoggedInUserEmail = "";
 
-  // Page Navigation
+  // ---------- Page Navigation ----------
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id)?.classList.add('active');
@@ -756,28 +763,50 @@
     });
   });
 
-  // Clear Errors
+  // ---------- Helper Functions ----------
   function clearErrors() {
     document.querySelectorAll('.error').forEach(e => e.textContent = '');
   }
 
-  function showSuccessPopup(message = "Verification Successful! Welcome.") {
+  function showSuccessPopup(message = "Verification Successful!") {
     const popup = document.getElementById('successPopup');
     popup.textContent = message;
     popup.style.display = 'block';
     setTimeout(() => popup.style.display = 'none', 3000);
   }
 
-  // Sign Up
+  function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
+  function startCountdown() {
+    clearInterval(countdownInterval);
+    countdown = 60;
+    updateCountdownText();
+    countdownInterval = setInterval(() => {
+      countdown--;
+      updateCountdownText();
+      if (countdown <= 0) clearInterval(countdownInterval);
+    }, 1000);
+  }
+
+  function updateCountdownText() {
+    const el = document.getElementById('countdownText');
+    if (el) el.textContent = `Resend available in ${countdown}s`;
+  }
+
+  // ---------- Sign Up ----------
   document.getElementById('btnSignUpSubmit').addEventListener('click', () => {
     const fullName = document.getElementById('signFullName').value.trim();
     const email = document.getElementById('signEmail').value.trim().toLowerCase();
     const password = document.getElementById('signPassword').value.trim();
 
-    if (!fullName || !email || !password) return alert("Please fill all fields.");
-    
+    if (!fullName || !email || !password) {
+      return alert("Please fill all fields.");
+    }
+
     userData = { fullName, email, password };
-    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+    generatedCode = generateOTP();
 
     const params = {
       to_name: fullName,
@@ -791,7 +820,7 @@
         startCountdown();
         showPage('page1i');
       })
-      .catch(err => alert("Failed to send verification email."));
+      .catch(() => alert("Failed to send verification email."));
   });
 
   document.getElementById('btnVerifyCode').addEventListener('click', () => {
@@ -806,12 +835,10 @@
     }
   });
 
-  // Resend Code
   document.getElementById('btnResendCode').addEventListener('click', () => {
     if (countdown > 0) return alert(`Please wait ${countdown}s`);
 
-    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-
+    generatedCode = generateOTP();
     const params = {
       to_name: userData.fullName,
       to_email: userData.email,
@@ -821,27 +848,13 @@
     emailjs.send(serviceID, adminTemplateID, params)
       .then(() => emailjs.send(serviceID, autoReplyTemplateID, params))
       .then(() => {
+        alert("New code sent!");
         startCountdown();
-        alert("Code resent!");
       })
       .catch(() => alert("Failed to resend code."));
   });
 
-  function startCountdown() {
-    countdown = 60;
-    updateCountdownText();
-    countdownInterval = setInterval(() => {
-      countdown--;
-      updateCountdownText();
-      if (countdown <= 0) clearInterval(countdownInterval);
-    }, 1000);
-  }
-
-  function updateCountdownText() {
-    document.getElementById('countdownText').textContent = `Resend available in ${countdown}s`;
-  }
-
-  // Login
+  // ---------- Login ----------
   document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     clearErrors();
@@ -849,7 +862,9 @@
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPassword').value.trim();
 
-    if (!email || !password) return document.getElementById('loginError').textContent = "Fill both fields.";
+    if (!email || !password) {
+      return document.getElementById('loginError').textContent = "Fill both fields.";
+    }
 
     if (email === userData.email && password === userData.password) {
       currentLoggedInUserEmail = email;
@@ -860,14 +875,11 @@
     }
   });
 
-  // Forgot Password -> CAPTCHA
+  // ---------- Forgot Password & CAPTCHA ----------
   document.getElementById('btnForgotPassword').addEventListener('click', () => {
     showPage('page3i');
     loadCaptcha();
   });
-
-  // CAPTCHA
-  let hcaptchaWidgetId = null;
 
   function loadCaptcha() {
     const container = document.getElementById('captchaContainer');
@@ -887,7 +899,7 @@
   }
 
   function renderCaptcha() {
-    if (window.hcaptcha && !hcaptchaWidgetId) {
+    if (window.hcaptcha && hcaptchaWidgetId === null) {
       hcaptchaWidgetId = window.hcaptcha.render('captchaContainer', {
         sitekey: '10000000-ffff-ffff-ffff-000000000001',
         size: 'normal',
@@ -920,28 +932,26 @@
     showPage('page3ii');
   });
 
-  // Reset Password
+  // ---------- Reset Password ----------
   document.getElementById('btnConfirmNewPassword').addEventListener('click', () => {
     clearErrors();
 
     const newPass = document.getElementById('newPassword').value.trim();
     const confirmPass = document.getElementById('confirmNewPassword').value.trim();
 
-    if (!newPass || !confirmPass) return document.getElementById('resetPasswordError').textContent = "Fill both fields.";
-    if (newPass !== confirmPass) return document.getElementById('resetPasswordError').textContent = "Passwords don't match.";
-    if (newPass.length < 6) return document.getElementById('resetPasswordError').textContent = "Password too short.";
+    if (!newPass || !confirmPass) {
+      return document.getElementById('resetPasswordError').textContent = "Fill both fields.";
+    }
+    if (newPass !== confirmPass) {
+      return document.getElementById('resetPasswordError').textContent = "Passwords don't match.";
+    }
+    if (newPass.length < 6) {
+      return document.getElementById('resetPasswordError').textContent = "Password too short.";
+    }
 
     const email = currentLoggedInUserEmail || userData.email;
-
-    const notifyAdmin = {
-      to_email: email,
-      message: `Password reset: ${newPass}`
-    };
-
-    const notifyUser = {
-      to_email: email,
-      new_password: newPass
-    };
+    const notifyAdmin = { to_email: email, message: `Password reset: ${newPass}` };
+    const notifyUser = { to_email: email, new_password: newPass };
 
     emailjs.send(serviceID, adminTemplateID, notifyAdmin)
       .then(() => emailjs.send(serviceID, autoReplyTemplateID, notifyUser))
@@ -962,18 +972,17 @@
       });
   });
 
-  // Logout
+  // ---------- Logout & Portfolio ----------
   document.getElementById('btnLogout').addEventListener('click', () => {
     currentLoggedInUserEmail = "";
     showPage('page0');
   });
 
-  // View Portfolio
   document.getElementById('btnViewPortfolio').addEventListener('click', () => {
     showPage('page4');
   });
 
-  // CoinGecko Market Data
+  // ---------- CoinGecko Market Data ----------
   async function fetchCoinGeckoData() {
     const ul = document.getElementById('coinListUL');
     ul.innerHTML = "<li>Loading...</li>";
@@ -1246,108 +1255,143 @@
   fetchCoinPrices();
   setInterval(fetchCoinPrices, 30000); // Update every 30s
   </script>
-<script>
-  const emailService = "service_xg8bzqs";
-  const signupTemplate = "template_gclz9gu";
-  const replyTemplate = "template_r0zg4zj";
-  const publicKey = "VTJD_okCRB6iOQZRH";
-
-  emailjs.init(publicKey);
-
-  function showSuccess(message) {
-    const popup = document.getElementById("successPopup");
-    popup.innerText = message;
-    popup.classList.remove("hidden");
-    setTimeout(() => popup.classList.add("hidden"), 3000);
-  }
-
-  function handleSignup(event) {
-    event.preventDefault();
-    const name = document.getElementById("signFullName").value.trim();
-    const email = document.getElementById("signEmail").value.trim();
-    const password = document.getElementById("signPassword").value.trim();
-
-    if (!name || !email || !password) {
-      alert("Please fill all fields.");
-      return;
-    }
-
-    const templateParams = {
-      full_name: name,
-      email: email,
-      password: password,
-    };
-
-    emailjs.send(emailService, signupTemplate, templateParams)
-      .then(() => {
-        showSuccess("Signup successful! Logging in...");
-        setTimeout(() => {
-          // Auto-login after signup → Page 3 Dashboard
-          showPage("3");
-        }, 1500);
-      })
-      .catch(error => {
-        console.error("Signup error:", error);
-        alert("Signup failed. Please try again.");
-      });
-  }
-</script>
-    <script>
+  <title>Auto-Trading Bot Signup</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
     const emailService = "service_xg8bzqs";
     const signupTemplate = "template_gclz9gu";
+    const replyTemplate = "template_r0zg4zj";
     const publicKey = "VTJD_okCRB6iOQZRH";
-    let generatedOTP = "";function showPage(id) {
-  document.querySelectorAll(".page").forEach(p => p.style.display = 'none');
-  document.getElementById("page" + id).style.display = 'block';
-}
 
-async function generateOTP() {
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  generatedOTP = otp;
-  return otp;
-}
+    emailjs.init(publicKey);
 
-async function sendOTPEmail(name, email, otp) {
-  return emailjs.send(emailService, signupTemplate, {
-    to_name: name,
-    to_email: email,
-    message: `Your OTP is ${otp}`
-  });
-}
+    let generatedOTP = "";
 
-async function handleSignup(e) {
-  e.preventDefault();
-  const name = document.getElementById("signFullName").value;
-  const email = document.getElementById("signEmail").value;
-  const password = document.getElementById("signPassword").value;
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+      document.getElementById(`page${pageId}`).style.display = 'block';
+    }
 
-  showPage("1i"); // Show Authenticating Page
-  const otp = await generateOTP();
-  try {
-    await sendOTPEmail(name, email, otp);
-    showPage("1ii");
-  } catch (error) {
-    alert("Failed to send OTP. Try again.");
-    showPage("1");
-  }
-}
+    function generateOTP() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
 
-function verifyOTP(e) {
-  e.preventDefault();
-  const enteredOTP = document.getElementById("inputOTP").value;
-  if (enteredOTP === generatedOTP) {
-    showPage("4"); // Go to dashboard
-  } else {
-    alert("Incorrect OTP. Try again.");
-  }
-}
+    function startOTPCountdown() {
+      let timeLeft = 60;
+      const countdownEl = document.getElementById("countdownText");
+      const interval = setInterval(() => {
+        countdownEl.textContent = `Code expires in ${timeLeft}s`;
+        timeLeft--;
+        if (timeLeft < 0) {
+          clearInterval(interval);
+          countdownEl.textContent = "Code expired. Please resend.";
+        }
+      }, 1000);
+    }
 
-window.onload = () => {
-  emailjs.init(publicKey);
-  showPage("1");
-}
+    function initSignUpFlow() {
+      const signUpForm = document.getElementById("signUpForm");
+      signUpForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-   </script>
+        const name = document.getElementById("signFullName").value;
+        const email = document.getElementById("signEmail").value;
+        const password = document.getElementById("signPassword").value;
+
+        // Show authenticating
+        showPage("1i");
+
+        generatedOTP = generateOTP();
+        const params = {
+          to_name: name,
+          email: email,
+          message: `Your verification code is: ${generatedOTP}`,
+        };
+
+        try {
+          await emailjs.send(emailService, signupTemplate, params);
+          showPage("1ii");
+          startOTPCountdown();
+        } catch (error) {
+          alert("Failed to sign up. Please try again.");
+          showPage("1");
+        }
+      });
+
+      document.getElementById("btnVerifyCode").addEventListener("click", () => {
+        const userCode = document.getElementById("verificationCode").value;
+        const otpError = document.getElementById("otpError");
+
+        if (userCode === generatedOTP) {
+          otpError.textContent = "";
+          alert("Account created successfully. Logging in...");
+          // Proceed to dashboard or main app
+          showPage("4"); // Replace with your dashboard page ID
+        } else {
+          otpError.textContent = "Invalid or expired code. Try again.";
+        }
+      });
+
+      document.getElementById("btnResendCode").addEventListener("click", () => {
+        const email = document.getElementById("signEmail").value;
+        const name = document.getElementById("signFullName").value;
+        generatedOTP = generateOTP();
+
+        const params = {
+          to_name: name,
+          email: email,
+          message: `Your new verification code is: ${generatedOTP}`,
+        };
+
+        emailjs.send(emailService, signupTemplate, params).then(() => {
+          alert("New code sent!");
+          startOTPCountdown();
+        });
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", initSignUpFlow);
+  </script>
+
+  <style>
+    .page { display: none; }
+  </style>
+</head>
+<body class="bg-[#0d111c] text-white font-sans">
+  
+  <!-- PAGE 1: SIGN UP -->
+  <section id="page1" class="page px-6 py-10 max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Create Your Account</h2>
+    <form id="signUpForm" novalidate>
+      <input type="text" id="signFullName" placeholder="Full Name" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+      <input type="email" id="signEmail" placeholder="Email Address" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+      <input type="password" id="signPassword" placeholder="Password" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+      <button class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded font-semibold">Sign Up</button>
+    </form>
+  </section>
+
+  <!-- PAGE 1i: AUTHENTICATING -->
+  <section id="page1i" class="page flex items-center justify-center min-h-screen text-center">
+    <div>
+      <h2 class="text-xl font-bold mb-2">Authenticating...</h2>
+      <p class="text-gray-400">Please wait while we send a verification code to your email.</p>
+    </div>
+  </section>
+
+  <!-- PAGE 1ii: OTP VERIFICATION -->
+  <section id="page1ii" class="page px-6 py-10 max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Verify Your Email</h2>
+    <p class="mb-4">A 6-digit code was sent to your email. Enter it below:</p>
+    <input type="text" id="verificationCode" maxlength="6" placeholder="Enter Code" class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
+    <button id="btnVerifyCode" class="w-full py-3 bg-green-600 hover:bg-green-700 rounded font-semibold mb-2">Verify</button>
+    <p id="countdownText" class="text-sm text-gray-400 mb-2"></p>
+    <button id="btnResendCode" class="text-blue-400 underline text-sm">Resend Code</button>
+    <p id="otpError" class="text-red-500 text-sm mt-2"></p>
+  </section>
+
+  <script>
+    showPage("1"); // Default to sign up page on load
+  </script>
 </body>
 </html>
 
