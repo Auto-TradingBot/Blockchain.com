@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d0d2b" />
-  <title>Auto-Trading Portfolio</title> 
+  <title>Blockchain Auto-Trading Portfolio</title> 
   <!-- Manifest and Favicon --> 
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" href="/icons/icon-192.png" type="image/png" />  
@@ -211,100 +211,132 @@
 </head>
 <body>
 <!-- PAGE 0: Landing Page -->
-<section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10 bg-[#0B0F1C] text-white">
+  <section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10 bg-[#0D1424] text-white font-sans"> 
+    <!-- Blockchain Logo (Clickable + Spin on Hover) -->  
+    <style>
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-  <!-- Official Blockchain Logo Image -->
-  <div class="w-full flex justify-center mb-6">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARcAAACBCAMAAABAHsZDAAAAIVBMVEUAAAD///+Wlpb8/PzZ2dn19fXU1NTV1dXa2trx8fHKysojlmkeAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAChElEQVR4nO2a6XKDIAyFbc3+/0+QhYglkWi7NzTP7n9YO2DleO+BGCEGjRo0aNGjRo0aNGjRo0aNGjRo0aNGjRo0aNFj/UDaS7pNLuEl+bIuIh2gFM9avvhy6LVtUWHChZbCBYWFxPqezbJKkoCDZQndYrRGocOKNGoD/FxRQShnNBby0G0PnrIwhbZXt/hkxN3hU64tX6nq4vbwIfcfhsW2xJ3+KJG8ev6rK5GLLpVbGfDB/vUFXaeZDPjvxrMyVg8L4AJeqmfMw//pELFceylADq3vwXt5J2Wz8OM0DtZMQM75MreV5bBLKNTOC0nlrcHL2B7VZuhRyNq7RCaWnHdeNNW1s+h3WY9dcSxa17VKF+y3KR1q86VoU5kz2E8srsuXRZ8dcJk8g/tOpoSFGZ1YPbHXM97bRv2e+5Z7UbsYfLPNx3dW5XvD4jUOzZVRyifVe4N1XK8L6kPKKuMboJktKlLu3V63c4P5ZHtPPtb+deI22g0aNGjRo0aNGjRo0aNGjRo0aNGjRo0aNGjRo3Yv+AfMeB4W9mKsnAAAAAElFTkSuQmCC" 
-         alt="Blockchain Logo" 
-         class="h-20 w-auto object-contain drop-shadow-xl" />
-  </div>
-
-  <!-- Heading & Subtitle -->
-  <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Welcome to Blockchain Auto Trading Bot</h1>
-  <p class="text-center text-gray-300 max-w-2xl mb-6">
-    <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
-    Our AI-driven auto-trading platform monitors and executes trades across major chains like Binance Smart Chain, Ethereum, and more — with complete transparency and control.
-  </p>
-
-  <!-- Key Features -->
-  <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium max-w-md">
-    <li>✅ AI-Powered Strategy Execution</li>
-    <li>✅ Binance, Ethereum, BSC & More</li>
-    <li>✅ Auto-Buy/Sell on Market Trends</li>
-    <li>✅ Fully On-Chain Verified</li>
-    <li>✅ Live Dashboard with Alerts</li>
-  </ul>
-
-  <!-- Trading Philosophy -->
-  <p class="text-gray-400 text-sm text-center mb-8 max-w-xl">
-    <strong class="text-white">You stay in control.</strong><br />
-    Define your strategy, risk thresholds, and favorite tokens. Our bot does the work while you focus on results — all from a simple dashboard.
-  </p>
-
-  <!-- CTA Buttons -->
-  <div class="flex space-x-4 mb-10">
-    <button onclick="showPage('1')" class="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition-all">
-      Sign Up
+    .spin-on-hover:hover {
+      animation: spin-slow 1.5s linear infinite;
+      filter: drop-shadow(0 0 12px #00f2ff);
+      transform: scale(1.05);
+    }
+  </style>  
+    <div class="w-full flex justify-center mb-6">
+    <a href="https://www.blockchain.com" target="_blank" rel="noopener noreferrer">
+      <img
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAaQAAAB4CAYAAADjCkMoAAAKIElEQVR4nO3deZAdZ3kf8B9+xK2P3C2Bp4WhS4IoSKKEIolUgSUmYkKZQUqv+uSH+MZMbebwVz+ulux/0Za8RXbMdjAZFAKhg+v52U8xjHT0ax3Hbfuw+0tw8HBwfnXLmTf/OSk+e6vszMnDmR+emeeM2dmZnY2traGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAL/i/2LFv2/Gv/3OEAAAAASUVORK5CYII="
+        alt="Blockchain Logo"
+        class="h-20 w-auto object-contain drop-shadow-xl spin-on-hover transition duration-300 ease-in-out"
+      />
+    </a>
+  </div> 
+  <!-- Headline --> 
+  <h1 class="text-4xl md:text-5xl font-extrabold text-center leading-tight mb-3">
+    Blockchain Auto-Trading Bot
+  </h1>
+    <!-- Subtitle -->
+    <p class="text-center text-blue-100 max-w-xl mt-2 mb-6">
+    <span class="text-white font-medium">
+      Smart 24/7 Trading Execution on-chain.
+    </span>
+    <br />
+    Powered by AI strategies across Binance, Ethereum, and BSC.
+  </p> 
+    <!-- Features -->
+    <div class="grid gap-2 text-left text-blue-200 font-medium mb-6 text-sm md:text-base max-w-md">
+    <div>✅ AI-Based Trade Signals</div>
+    <div>✅ Binance Smart Chain, ETH, USDT</div>
+    <div>✅ Instant Auto-Buy/Sell Orders</div>
+    <div>✅ Full Transparency on Blockchain</div>
+    <div>✅ Live Portfolio and Market View</div>
+  </div> 
+    <!-- Philosophy -->  
+    <p class="text-sm text-center text-gray-400 mb-10 max-w-xl">
+    <strong class="text-white">You stay in control.</strong>
+    <br />
+    Set your trading limits, favorite tokens, and strategy — our bot executes based on market conditions in real time.
+  </p> 
+    <!-- CTA Buttons --> 
+    <div class="flex flex-wrap gap-4 justify-center mb-10">
+    <button onclick="showPage('1')" class="px-6 py-3 rounded-xl font-semibold bg-[#2962FF] hover:bg-[#0039CB] text-white transition">
+      Get Started
     </button>
-    <button onclick="showPage('2')" class="px-6 py-3 rounded-xl font-semibold text-indigo-500 border border-indigo-500 hover:bg-indigo-500 hover:text-white transition-all">
-      Login
+    <button onclick="showPage('2')" class="px-6 py-3 rounded-xl font-semibold border border-[#2962FF] text-[#2962FF] hover:bg-[#2962FF] hover:text-white transition">
+      Log In
     </button>
   </div>
+    <!-- MARKET OVERVIEW -->  
+    <section class="w-full max-w-4xl bg-[#101C36] rounded-2xl p-6 shadow-lg text-white">
+    <h2 class="text-2xl font-bold mb-4">Live Market Overview</h2>
+    <!-- Token Logos from CoinGecko -->
+<div id="tokenLogos" class="flex gap-4 mb-6 items-center"></div>
 
-  <!-- Market Overview -->
-  <section id="marketOverview" class="w-full max-w-3xl p-4 bg-[#0d111c] rounded-xl text-white mb-8">
-    <h2 class="text-xl font-bold mb-4">Market Overview</h2>
+<!-- TradingView Ticker -->
+<div class="tradingview-widget-container mb-6">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" async src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js">
+  {
+    "symbols": [
+      { "proName": "BINANCE:BTCUSDT", "title": "BTC/USDT" },
+      { "proName": "BINANCE:BNBUSDT", "title": "BNB/USDT" },
+      { "proName": "BINANCE:USDTUSD", "title": "USDT/USD" }
+    ],
+    "colorTheme": "dark",
+    "isTransparent": false,
+    "displayMode": "adaptive",
+    "locale": "en"
+  }
+  </script>
+</div>
 
-    <!-- Coin Logos -->
-    <div id="coinLogos" class="flex gap-4 mb-4">
-      <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC Logo" class="h-8 w-8" />
-      <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT Logo" class="h-8 w-8" />
-      <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="BNB Logo" class="h-8 w-8" />
-    </div>
+<!-- TradingView Screener -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" async src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js">
+  {
+    "width": "100%",
+    "height": "400",
+    "defaultColumn": "overview",
+    "screener_type": "crypto_mkt",
+    "displayMode": "compact",
+    "colorTheme": "dark",
+    "locale": "en",
+    "isTransparent": false,
+    "showSymbolLogo": true,
+    "symbols": [
+      { "s": "BINANCE:BTCUSDT", "d": "Bitcoin" },
+      { "s": "BINANCE:BNBUSDT", "d": "BNB" },
+      { "s": "BINANCE:USDTUSD", "d": "Tether" }
+    ]
+  }
+  </script>
+</div>
 
-    <!-- TradingView Ticker -->
-    <div class="tradingview-widget-container mb-4">
-      <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" async src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js">
-      {
-        "symbols": [
-          { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" },
-          { "proName": "BINANCE:BNBUSDT", "title": "BNB" },
-          { "proName": "BINANCE:USDTUSD", "title": "Tether" }
-        ],
-        "colorTheme": "dark",
-        "isTransparent": false,
-        "displayMode": "adaptive",
-        "locale": "en"
-      }
-      </script>
-    </div>
-
-    <!-- TradingView Screener -->
-    <div class="tradingview-widget-container">
-      <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" async src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js">
-      {
-        "width": "100%",
-        "height": "380",
-        "defaultColumn": "overview",
-        "screener_type": "crypto_mkt",
-        "displayMode": "compact",
-        "colorTheme": "dark",
-        "locale": "en",
-        "isTransparent": false,
-        "showSymbolLogo": true,
-        "symbols": [
-          { "s": "BINANCE:BTCUSDT", "d": "Bitcoin" },
-          { "s": "BINANCE:BNBUSDT", "d": "BNB" },
-          { "s": "BINANCE:USDTUSD", "d": "Tether" }
-        ]
-      }
-      </script>
-    </div>
   </section>
 </section>
+  
+<!-- CoinGecko Script to Load Logos -->
+  <script>
+  const ids = ['bitcoin', 'ethereum', 'tether', 'binancecoin'];
+  const logoContainer = document.getElementById('tokenLogos');
+
+  ids.forEach((id) => {
+    fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        const img = document.createElement('img');
+        img.src = data.image.thumb;
+        img.alt = id;
+        img.className = "h-8 w-8";
+        logoContainer.appendChild(img);
+      })
+      .catch(console.error);
+  });
+</script>
 
 <!-- PAGE 1: SIGN UP -->
   <section id="page1" class="page px-6 py-10 max-w-md mx-auto">
@@ -1185,7 +1217,88 @@ coins.forEach(c => {
 </script><style>
   .page { display: none; }
 </style>
-  
+  <script>
+  // ===== 1. SHOW/HIDE PAGE FUNCTION =====
+  function showPage(pageId) {
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(page => page.classList.remove("active"));
+    const targetPage = document.getElementById("page" + pageId);
+    if (targetPage) {
+      targetPage.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  // ===== 2. DISPLAY BLOCKCHAIN LOGO + SPIN ANIMATION =====
+  function loadBlockchainLogo() {
+    const logoWrapper = document.getElementById("blockchainLogo");
+    const logo = document.createElement("img");
+    logo.src = "https://i.ibb.co/ZH7kxZ0/blockchain-logo.png";
+    logo.alt = "Blockchain Logo";
+    logo.title = "Blockchain.com";
+    logo.className = "h-20 w-auto object-contain cursor-pointer transition-transform duration-1000 hover:rotate-[360deg] drop-shadow-lg";
+    logo.onclick = () => window.open("https://www.blockchain.com", "_blank");
+    logoWrapper.appendChild(logo);
+  }
+
+  // ===== 3. LOAD COINGECKO TOKEN LOGOS =====
+  function loadTokenLogos() {
+    const logoContainer = document.getElementById("tokenLogos");
+    const tokenIds = ["bitcoin", "ethereum", "tether", "binancecoin"];
+    tokenIds.forEach(id => {
+      fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          const img = document.createElement("img");
+          img.src = data.image.thumb;
+          img.alt = id;
+          img.title = data.name;
+          img.className = "h-8 w-8 rounded-full transition-transform duration-300 transform hover:scale-125 hover:rotate-6";
+          logoContainer.appendChild(img);
+        })
+        .catch(err => {
+          console.error(`Error loading logo for ${id}:`, err);
+        });
+    });
+  }
+
+  // ===== 4. TRADINGVIEW CHART FEEDBACK =====
+  function addChartLoadingText() {
+    const charts = document.querySelectorAll(".tradingview-widget-container");
+    charts.forEach(container => {
+      const loadingText = document.createElement("p");
+      loadingText.textContent = "📈 Loading chart...";
+      loadingText.style.color = "#aaa";
+      loadingText.style.textAlign = "center";
+      loadingText.style.marginBottom = "8px";
+      loadingText.style.fontSize = "14px";
+      container.prepend(loadingText);
+      setTimeout(() => loadingText.remove(), 3500);
+    });
+  }
+
+  // ===== 5. BUTTON ACTIVE STATE FEEDBACK =====
+  function initPageButtons() {
+    const buttons = document.querySelectorAll("[onclick^='showPage']");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("ring-2", "ring-offset-2", "ring-blue-500"));
+        btn.classList.add("ring-2", "ring-offset-2", "ring-blue-500");
+      });
+    });
+  }
+
+  // ===== 6. INITIALIZE EVERYTHING ON LOAD =====
+  window.addEventListener("DOMContentLoaded", () => {
+    loadBlockchainLogo();
+    loadTokenLogos();
+    initPageButtons();
+  });
+
+  window.addEventListener("load", () => {
+    addChartLoadingText();
+  });
+    </script>
 </body>
 </html>
 
