@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Blockchain Auto-Trading System</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<style>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
   /* Dark Blue Gradient Background & font */
   body, html {
     margin: 0; padding: 0; height: 100%;
@@ -162,37 +163,37 @@
   }
 </style>
 </head>
+</body>
 
   <!-- PAGE 0: Landing Page -->
-  <section id="page0" class="min-h-screen flex flex-col items-center justify-center px-6 py-10">
-    <!-- Logo -->
-    <img src="https://seeklogo.com/images/B/blockchain-logo-9D3FE9D96F-seeklogo.com.png" alt="Blockchain Logo" class="h-16 mb-6 animate-pulse" />
-
-    <!-- Heading -->
+  <section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10">
+    <!-- Official Blockchain.com SVG Logo -->
+    <div class="h-16 w-16 mb-6 animate-pulse" aria-label="Blockchain Logo" role="img">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247 257" fill="none" class="h-full w-full">
+        <path fill="#333" d="M17 135.9v-19.9l107.6-62.1 107.7 62v19.9l-107.7 62.1L17 135.9z"/>
+        <path fill="#F0B90B" d="M17 154.2l-0.1-37.6L124.5 55.4v39.6L17 154.2z"/>
+        <path fill="#1E2326" d="M134.2 95v-39.6l107.8 61.1v37.6L134.2 95z"/>
+        <path fill="#F0B90B" d="M17 118.7v19.9l107.6 62.1 107.7-62v-19.9l-107.7-62.1L17 118.7z"/>
+        <path fill="#1E2326" d="M134.2 158.6v39.6L17 197.8v-39.6l117.2 0.4z"/>
+      </svg>
+    </div>
+    
     <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Welcome to Blockchain Auto Trading Bot</h1>
-
-    <!-- Subheading -->
     <p class="text-center text-gray-300 max-w-2xl mb-6">
-      <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
+      <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
       Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system leveraging AI, real-time market data, and smart contracts to trade securely.
     </p>
-
-    <!-- Features -->
-    <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium">
+    <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium max-w-md">
       <li>✅ AI-Powered Strategy Execution</li>
       <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
       <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
       <li>✅ Secure, Transparent, and On-Chain Verified</li>
       <li>✅ Real-Time Profit Dashboard & Alerts</li>
     </ul>
-
-    <!-- Control Note -->
     <p class="text-gray-400 text-sm text-center mb-8 max-w-xl">
-      <strong class="text-white">You stay in control.</strong><br>
+      <strong class="text-white">You stay in control.</strong><br />
       Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
     </p>
-
-    <!-- Buttons -->
     <div class="flex space-x-4 mb-10">
       <button onclick="showPage('1')" class="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition-all">
         Sign Up
@@ -201,15 +202,10 @@
         Login
       </button>
     </div>
-
-    <!-- Coin Logos -->
-    <div class="flex space-x-6 items-center justify-center" id="coinLogos" aria-label="Supported exchanges and coins">
-      <!-- Logos injected by JS -->
-    </div>
-  </section>
+    <div class="flex space-x-6 items-center justify-center" id="coinLogos" aria-label="Supported exchanges and coins"></div>
+  </section>>
 
   
-
 <!-- PAGE 1: Sign Up -->
 <section id="page1" class="page" aria-label="Sign Up page">
   <h2>Sign Up</h2>
@@ -1054,6 +1050,42 @@
           coinLogos.appendChild(img);
         })
         .catch(err => console.error(`Error loading ${coin} logo`, err));
+    });
+  </script>
+  <!-- Scripts -->
+  <script>
+    // Navigation function
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+        page.style.display = 'none';
+      });
+      const target = document.getElementById('page' + pageId);
+      if(target) {
+        target.classList.add('active');
+        target.style.display = 'block';
+      }
+    }
+
+    // Show landing on load
+    document.addEventListener('DOMContentLoaded', () => {
+      showPage('0');
+
+      // Load CoinGecko logos
+      const coinLogos = document.getElementById("coinLogos");
+      const coins = ['binancecoin', 'ethereum', 'tether'];
+      coins.forEach(coin => {
+        fetch(`https://api.coingecko.com/api/v3/coins/${coin}`)
+          .then(res => res.json())
+          .then(data => {
+            const img = document.createElement("img");
+            img.src = data.image.small;
+            img.alt = data.name;
+            img.className = "w-10 h-10";
+            coinLogos.appendChild(img);
+          })
+          .catch(err => console.error(`Error loading ${coin} logo`, err));
+      });
     });
   </script>
 
