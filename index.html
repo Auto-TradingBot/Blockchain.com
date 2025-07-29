@@ -208,12 +208,32 @@
   </div>
 
   <!-- Coin Logos + Live Price Performance -->
+<!-- Coin Logos + Live Price Performance -->
 <section id="marketOverview" class="p-4 bg-[#0d111c] rounded-xl text-white">
   <h2 class="text-xl font-bold mb-4">Market Overview</h2>
   
   <!-- Coin Logos -->
   <div id="coinLogos" class="flex gap-4 mb-4">
     <!-- Logos will be injected by JS -->
+  </div>
+
+  <!-- TradingView Widget -->
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" },
+        { "proName": "BINANCE:ETHUSDT", "title": "Ethereum" },
+        { "proName": "BINANCE:BNBUSDT", "title": "BNB" },
+        { "proName": "BINANCE:USDTUSD", "title": "Tether" }
+      ],
+      "colorTheme": "dark",
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "locale": "en"
+    }
+    </script>
   </div>
 
   <!-- Live TradingView Widget -->
