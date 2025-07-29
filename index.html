@@ -207,13 +207,34 @@
     </button>
   </div>
 
+  <!-- Coin Logos + Live Price Performance -->
+<section id="marketOverview" class="p-4 bg-[#0d111c] rounded-xl text-white">
+  <h2 class="text-xl font-bold mb-4">Market Overview</h2>
+  
   <!-- Coin Logos -->
-  <div class="flex space-x-6 items-center justify-center mb-8" aria-label="Supported exchanges and coins">
-    <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=026" alt="BNB" class="h-8 w-8">
-    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=026" alt="ETH" class="h-8 w-8">
-    <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=026" alt="USDT" class="h-8 w-8">
-    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026" alt="BTC" class="h-8 w-8">
+  <div id="coinLogos" class="flex gap-4 mb-4">
+    <!-- Logos will be injected by JS -->
   </div>
+
+  <!-- TradingView Widget -->
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        { "proName": "BINANCE:BTCUSDT", "title": "Bitcoin" },
+        { "proName": "BINANCE:ETHUSDT", "title": "Ethereum" },
+        { "proName": "BINANCE:BNBUSDT", "title": "BNB" },
+        { "proName": "BINANCE:USDTUSD", "title": "Tether" }
+      ],
+      "colorTheme": "dark",
+      "isTransparent": false,
+      "displayMode": "adaptive",
+      "locale": "en"
+    }
+    </script>
+  </div>
+</section>
 
   <!-- Live TradingView Widget -->
   <div class="w-full max-w-3xl h-[380px] mb-6">
@@ -1124,6 +1145,35 @@
     container.appendChild(img);
   });
   </script>
+  <!-- HTML container to hold logos -->
+<div id="coinLogos" class="flex space-x-4 items-center mb-6"></div>
+
+<!-- CoinGecko Script -->
+<script>
+  async function loadCoinLogos() {
+    const container = document.getElementById("coinLogos");
+    const coinIds = ["bitcoin", "ethereum", "binancecoin", "tether"];
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIds.join(",")}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      data.forEach(coin => {
+        const img = document.createElement("img");
+        img.src = coin.image;
+        img.alt = `${coin.name} logo`;
+        img.title = `${coin.name} (${coin.symbol.toUpperCase()})`;
+        img.className = "h-8 w-8 hover:scale-110 transition-all";
+        container.appendChild(img);
+      });
+    } catch (error) {
+      console.error("Failed to fetch CoinGecko logos:", error);
+    }
+  }
+
+  loadCoinLogos();
+</script>
 
 </body>
 </html>
