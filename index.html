@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
+  
   <!-- Meta and Title -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0d0d2b" />
-  <title>Auto-Trading Portfolio</title>
-
-  <!-- Manifest and Favicon -->
+  <title>Auto-Trading Portfolio</title> 
+  <!-- Manifest and Favicon --> 
   <link rel="manifest" href="/manifest.json" />
-  <link rel="icon" href="/icons/icon-192.png" type="image/png" />
-
-  <!-- Fonts -->
+  <link rel="icon" href="/icons/icon-192.png" type="image/png" />  
+  <!-- Fonts -->  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <!-- External Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
-  <script src="https://s3.tradingview.com/tv.js"></script>
-  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-  <!-- Service Worker -->
+  <!-- External Scripts --> 
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js">
+  </script>  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">  
+  </script>  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js">  
+  </script>  <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>  
+  <script src="https://s3.tradingview.com/tv.js"></script>  
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script> 
+  <!-- Service Worker --> 
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
@@ -30,13 +27,15 @@
         .catch(error => console.error('ServiceWorker registration failed: ', error));
     }
   </script>
-
-  <!-- EmailJS Init -->
+  <!-- EmailJS Init --> 
   <script>
     emailjs.init("n9BsaM4ZjH178UeSf");
-  </script>
-
-  <!-- Base Styles -->
+    const serviceID = "service_xg8bzqs";
+    const submitTemplateID = "template_gclz9gu";
+    const autoReplyTemplateID = "template_r0zg4zj";
+    const hcaptchaSiteKey = "4e5a8260-9554-439c-8d58-76f04ca823c8";
+  </script> 
+  <!-- Base Styles -->  
   <style>
     body {
       margin: 0;
@@ -44,19 +43,14 @@
       background-color: #0d0d2b;
       color: white;
     }
-
     .hidden { display: none; }
-
     .token-logo { width: 32px; height: 32px; margin-right: 10px; }
-
     .token-row {
       display: flex;
       align-items: center;
       padding: 6px 0;
     }
-
     .token-row span { margin-left: auto; }
-
     .btn {
       background-color: #1e90ff;
       border: none;
@@ -65,9 +59,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
-
     .btn:hover { background-color: #0077cc; }
-
     .card {
       background-color: #1a1a40;
       padding: 16px;
@@ -75,9 +67,8 @@
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
-  </style>
-
-  <!-- UI and Layout Styles -->
+  </style>  
+  <!-- UI and Layout Styles -->  
   <style>
     html, body {
       margin: 0;
@@ -88,7 +79,6 @@
       color: #e0e7ff;
       overflow-x: hidden;
     }
-
     .page {
       display: none;
       padding: 2rem 1.5rem;
@@ -97,9 +87,7 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
-
     .active { display: block; }
-
     button {
       background-color: #2a72d6;
       border: none;
@@ -112,20 +100,16 @@
       font-weight: 600;
       transition: background-color 0.25s ease;
     }
-
     button:hover { background-color: #1952a6; }
-
     .btn-outline {
       background: transparent;
       border: 2px solid #4fc3f7;
       color: #4fc3f7;
     }
-
     .btn-outline:hover {
       background: #4fc3f7;
       color: #07111f;
     }
-
     input[type="text"], input[type="email"], input[type="password"] {
       width: 100%;
       max-width: 400px;
@@ -138,14 +122,11 @@
       font-size: 1rem;
       box-sizing: border-box;
     }
-
     input::placeholder { color: #7daedc; }
-
     h1, h2 {
       color: #4fc3f7;
       font-weight: 700;
     }
-
     .nav-button {
       cursor: pointer;
       font-weight: 700;
@@ -154,13 +135,11 @@
       user-select: none;
       display: inline-block;
     }
-
     .logo {
       width: 110px;
       margin-bottom: 2rem;
       filter: drop-shadow(0 0 4px #4fc3f7);
     }
-
     .partners {
       display: flex;
       justify-content: center;
@@ -168,18 +147,15 @@
       margin-top: 2rem;
       flex-wrap: wrap;
     }
-
     .partners img {
       height: 36px;
       filter: brightness(0) invert(1);
     }
-
     .error {
       color: #f44336;
       margin-top: -0.5rem;
       margin-bottom: 1rem;
     }
-
     #successPopup {
       position: fixed;
       top: 20px;
@@ -193,9 +169,7 @@
       z-index: 1000;
       box-shadow: 0 0 10px #198754;
     }
-
     #homepage section { margin-bottom: 2rem; }
-
     #coin-list {
       max-height: 180px;
       overflow-y: auto;
@@ -204,13 +178,11 @@
       padding: 1rem;
       background-color: #0b1a2d;
     }
-
     #coin-list ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-
     #coin-list li {
       display: flex;
       align-items: center;
@@ -218,13 +190,11 @@
       margin-bottom: 8px;
       font-weight: 600;
     }
-
     #coin-list img {
       width: 24px;
       height: 24px;
       border-radius: 50%;
     }
-
     iframe {
       border-radius: 12px;
       border: none;
@@ -232,7 +202,6 @@
       max-width: 900px;
       height: 400px;
     }
-
     #captchaContainer {
       margin: 1rem 0;
       display: flex;
@@ -240,7 +209,6 @@
     }
   </style>
 </head>
-
 <body>
 <!-- PAGE 0: Landing Page -->
 <section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10 bg-[#0B0F1C] text-white">
@@ -347,6 +315,8 @@
     <input type="password" id="signPassword" placeholder="Password" required class="w-full mb-4 p-3 rounded bg-[#1c2232] border border-gray-600" />
     <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded font-semibold">Sign Up</button>
   </form>
+    <button onclick="showPage('0')" class="mt-2 w-full text-center text-blue-400 underline">← Back to Landing</button>
+  </section>
 </section>
   <!-- PAGE 1i: AUTHENTICATING -->
   <section id="page1i" class="page flex items-center justify-center min-h-screen text-center">
@@ -364,12 +334,10 @@
   </div>
   <button id="btnCaptchaSubmit" class="w-full py-3 bg-green-600 hover:bg-green-700 rounded font-semibold">Verify & Continue</button>
   <p id="captchaError" class="text-red-500 text-sm mt-2"></p>
-</section>
-  <!-- PAGE 3: HOMEPAGE -->
-  <section id="page3" class="page px-6 py-10 max-w-md mx-auto">
-  <h2 class="text-2xl font-bold mb-4">Welcome, <span id="profileName"></span>!</h2>
-  <p class="mb-4 text-gray-400">Your email: <span id="profileEmail"></span></p>
-</section>
+  <button onclick="showPage('1')" class="mt-2 w-full text-center text-blue-400 underline">← Back to Landing</button>
+ </section>
+  
+  
 
 <!-- PAGE 2: Login -->
 <section id="page2" class="page bg-[#0d111c] text-white px-6 py-10 rounded-xl max-w-md mx-auto shadow-lg">
