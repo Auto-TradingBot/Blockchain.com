@@ -319,24 +319,6 @@
   </section>
 </section>
   
-<!-- CoinGecko Script to Load Logos -->
-  <script>
-  const ids = ['bitcoin', 'ethereum', 'tether', 'binancecoin'];
-  const logoContainer = document.getElementById('tokenLogos');
-
-  ids.forEach((id) => {
-    fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        const img = document.createElement('img');
-        img.src = data.image.thumb;
-        img.alt = id;
-        img.className = "h-8 w-8";
-        logoContainer.appendChild(img);
-      })
-      .catch(console.error);
-  });
-</script>
 
 <!-- PAGE 1: SIGN UP -->
   <section id="page1" class="page px-6 py-10 max-w-md mx-auto">
