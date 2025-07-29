@@ -207,7 +207,6 @@
     </button>
   </div>
 
-  <!-- Coin Logos + Live Price Performance -->
 <!-- Coin Logos + Live Price Performance -->
 <section id="marketOverview" class="p-4 bg-[#0d111c] rounded-xl text-white">
   <h2 class="text-xl font-bold mb-4">Market Overview</h2>
@@ -235,6 +234,7 @@
     }
     </script>
   </div>
+</section>
 
   <!-- Live TradingView Widget -->
   <div class="w-full max-w-3xl h-[380px] mb-6">
@@ -627,21 +627,23 @@
   </nav>
 
 </div>
+<!-- For live coins display on homepage -->
+<ul id="coinListUL" class="space-y-2 text-sm text-gray-700">
+  <!-- Coins will be injected here -->
+</ul>
 
-<!-- Success Popup -->
-<div id="successPopup" role="alert" aria-live="assertive" aria-atomic="true">Verification Successful! Welcome.</div>
-
-<!-- Include EmailJS SDK -->
+<!-- Success popup -->
+<div id="successPopup" class="fixed top-5 right-5 bg-green-500 text-white py-2 px-4 rounded shadow-lg hidden"></div>
+<!-- EmailJS SDK -->
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
 <script>
-  emailjs.init("VTJD_okCRB6iOQZRH");
+  emailjs.init("VTJD_okCRB6iOQZRH"); // Your EmailJS public key
 
   const serviceID = "service_xg8bzqs";
   const adminTemplateID = "template_gclz9gu";
   const autoReplyTemplateID = "template_r0zg4zj";
 
-  // State variables
   let generatedCode = "";
   let userData = {};
   let countdown = 60;
@@ -649,53 +651,52 @@
   let isCaptchaVerified = false;
   let currentLoggedInUserEmail = "";
 
-  // Page helper
+  // Show specific page
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const page = document.getElementById(id);
     if (page) page.classList.add('active');
-    // Clear errors on page change
     clearErrors();
+    if (id === 'page3') fetchCoinGeckoData();
   }
+
   function clearErrors() {
     document.querySelectorAll('.error').forEach(e => e.textContent = '');
   }
-  // Show success popup
+
   function showSuccessPopup(message = "Verification Successful! Welcome.") {
     const popup = document.getElementById('successPopup');
     popup.textContent = message;
     popup.style.display = 'block';
-    setTimeout(() => {
-      popup.style.display = 'none';
-    }, 3000);
+    setTimeout(() => popup.style.display = 'none', 3000);
   }
 
-  // NAVIGATION BUTTONS
-  document.getElementById('btnGoSignUp').addEventListener('click', () => showPage('page1'));
-  document.getElementById('btnGoLogin').addEventListener('click', () => showPage('page2'));
-  document.getElementById('btnBackToLandingFromSignUp').addEventListener('click', () => showPage('page0'));
-  document.getElementById('btnBackToLandingFromLogin').addEventListener('click', () => showPage('page0'));
-  document.getElementById('btnBackToSignUpFromVerify').addEventListener('click', () => showPage('page1'));
-  document.getElementById('btnBackToLoginFromCaptcha').addEventListener('click', () => {
-    isCaptchaVerified = false;
-    showPage('page2');
+  // Navigation Buttons
+  const btnMap = {
+    btnGoSignUp: 'page1',
+    btnGoLogin: 'page2',
+    btnBackToLandingFromSignUp: 'page0',
+    btnBackToLandingFromLogin: 'page0',
+    btnBackToSignUpFromVerify: 'page1',
+    btnBackToLoginFromCaptcha: 'page2',
+    btnBackToLoginFromReset: 'page2',
+    btnBackToHomeFromPortfolio: 'page3',
+  };
+  Object.entries(btnMap).forEach(([btnID, pageID]) => {
+    document.getElementById(btnID)?.addEventListener('click', () => {
+      if (btnID === 'btnBackToLoginFromCaptcha') isCaptchaVerified = false;
+      showPage(pageID);
+    });
   });
-  document.getElementById('btnBackToLoginFromReset').addEventListener('click', () => showPage('page2'));
-  document.getElementById('btnBackToHomeFromPortfolio').addEventListener('click', () => showPage('page3'));
 
-  // SIGN UP
+  // Sign Up
   document.getElementById('btnSignUpSubmit').addEventListener('click', () => {
     const fullName = document.getElementById('signFullName').value.trim();
     const email = document.getElementById('signEmail').value.trim().toLowerCase();
     const password = document.getElementById('signPassword').value.trim();
-
-    if (!fullName || !email || !password) {
-      alert("Please fill all fields.");
-      return;
-    }
-
+    if (!fullName || !email || !password) return alert("Please fill all fields.");
     userData = { fullName, email, password };
-    generatedCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
 
     const templateParams = {
       to_name: fullName,
@@ -703,54 +704,48 @@
       message: `Your verification code is ${generatedCode}`
     };
 
-    emailjs.send(serviceID, adminTemplateID, templateParams).then(() => {
-      return emailjs.send(serviceID, autoReplyTemplateID, templateParams);
-    }).then(() => {
-      startCountdown();
-      showPage('page1i');
-    }).catch(err => {
-      alert("Failed to send verification email. Please try again later.");
-      console.error(err);
-    });
+    emailjs.send(serviceID, adminTemplateID, templateParams)
+      .then(() => emailjs.send(serviceID, autoReplyTemplateID, templateParams))
+      .then(() => {
+        startCountdown();
+        showPage('page1i');
+      })
+      .catch(err => {
+        alert("Failed to send verification email.");
+        console.error(err);
+      });
   });
 
-  // OTP Verification
   document.getElementById('btnVerifyCode').addEventListener('click', () => {
     const codeInput = document.getElementById('verificationCode').value.trim();
     if (codeInput === generatedCode) {
       showSuccessPopup();
-      document.getElementById('welcomeUserName').textContent= `Hello, ${userData.fullName}`;
+      document.getElementById('welcomeUserName').textContent = `Hello, ${userData.fullName}`;
       currentLoggedInUserEmail = userData.email;
-      showPage('page3'); // Show homepage after verification
+      showPage('page3');
     } else {
-      document.getElementById('otpError').textContent = "Incorrect verification code. Please try again.";
+      document.getElementById('otpError').textContent = "Incorrect verification code.";
     }
   });
 
-  // Resend OTP Code
+  // Resend Code
   document.getElementById('btnResendCode').addEventListener('click', () => {
-    if (countdown > 0) {
-      alert(`Please wait ${countdown}s before resending.`);
-      return;
-    }
-    generatedCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+    if (countdown > 0) return alert(`Please wait ${countdown}s.`);
+    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
     const templateParams = {
       to_name: userData.fullName,
       to_email: userData.email,
       message: `Your new verification code is ${generatedCode}`
     };
-    emailjs.send(serviceID, adminTemplateID, templateParams).then(() => {
-      return emailjs.send(serviceID, autoReplyTemplateID, templateParams);
-    }).then(() => {
-      startCountdown();
-      alert("Verification code resent.");
-    }).catch(err => {
-      alert("Failed to resend code.");
-      console.error(err);
-    });
+    emailjs.send(serviceID, adminTemplateID, templateParams)
+      .then(() => emailjs.send(serviceID, autoReplyTemplateID, templateParams))
+      .then(() => {
+        startCountdown();
+        alert("Verification code resent.");
+      })
+      .catch(err => alert("Failed to resend code."));
   });
 
-  // Countdown timer for resend button text
   function startCountdown() {
     countdown = 60;
     updateCountdownText();
@@ -760,49 +755,42 @@
       if (countdown <= 0) clearInterval(countdownInterval);
     }, 1000);
   }
+
   function updateCountdownText() {
     document.getElementById('countdownText').textContent = `Resend available in ${countdown}s`;
   }
 
-  // LOGIN FORM SUBMIT
+  // Login
   document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     clearErrors();
-
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPassword').value.trim();
-
-    if (!email || !password) {
-      document.getElementById('loginError').textContent = "Please fill in both fields.";
-      return;
-    }
-
-    // For demo: Simple login validation against userData object
+    if (!email || !password) return document.getElementById('loginError').textContent = "Fill both fields.";
     if (email === userData.email && password === userData.password) {
       currentLoggedInUserEmail = email;
       document.getElementById('welcomeUserName').textContent = `Hello, ${userData.fullName}`;
-      showPage('page3'); // Go to homepage
+      showPage('page3');
     } else {
-      document.getElementById('loginError').textContent = "Invalid email or password.";
+      document.getElementById('loginError').textContent = "Invalid credentials.";
     }
   });
 
-  // FORGOT PASSWORD BUTTON - Open CAPTCHA page
+  // Forgot Password -> CAPTCHA
   document.getElementById('btnForgotPassword').addEventListener('click', () => {
     showPage('page3i');
     loadCaptcha();
   });
 
-  // CAPTCHA Integration (using hCaptcha for example)
-  // Replace with your chosen public captcha provider. Here we demo with hCaptcha.
+  // CAPTCHA (hCaptcha)
+  let hcaptchaWidgetId = null;
   function loadCaptcha() {
     const container = document.getElementById('captchaContainer');
-    container.innerHTML = ""; // Clear previous if any
-    // Insert hCaptcha widget script and div
-    const captchaScriptId = 'hcaptcha-script';
-    if (!document.getElementById(captchaScriptId)) {
+    container.innerHTML = "";
+    const scriptId = 'hcaptcha-script';
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
-      script.id = captchaScriptId;
+      script.id = scriptId;
       script.src = 'https://hcaptcha.com/1/api.js?render=explicit';
       script.async = true;
       script.defer = true;
@@ -812,146 +800,114 @@
       renderCaptcha();
     }
   }
-  let hcaptchaWidgetId = null;
+
   function renderCaptcha() {
     if (window.hcaptcha && !hcaptchaWidgetId) {
       hcaptchaWidgetId = window.hcaptcha.render('captchaContainer', {
-        sitekey: '10000000-ffff-ffff-ffff-000000000001', // demo public test key - replace with your own
+        sitekey: '10000000-ffff-ffff-ffff-000000000001',
         size: 'normal',
         callback: onCaptchaSuccess,
         'error-callback': onCaptchaError,
-        'expired-callback': onCaptchaExpired,
+        'expired-callback': onCaptchaExpired
       });
       document.getElementById('btnCaptchaVerify').disabled = true;
     }
   }
+
   function onCaptchaSuccess(token) {
     isCaptchaVerified = true;
     document.getElementById('btnCaptchaVerify').disabled = false;
     document.getElementById('captchaError').textContent = "";
   }
+
   function onCaptchaError() {
     isCaptchaVerified = false;
     document.getElementById('btnCaptchaVerify').disabled = true;
-    document.getElementById('captchaError').textContent = "Captcha error, please retry.";
+    document.getElementById('captchaError').textContent = "Captcha error, retry.";
   }
+
   function onCaptchaExpired() {
     isCaptchaVerified = false;
     document.getElementById('btnCaptchaVerify').disabled = true;
-    document.getElementById('captchaError').textContent = "Captcha expired, please retry.";
+    document.getElementById('captchaError').textContent = "Captcha expired, retry.";
   }
 
-  // CAPTCHA Verify button
   document.getElementById('btnCaptchaVerify').addEventListener('click', () => {
-    if (!isCaptchaVerified) {
-      alert("Please complete the captcha.");
-      return;
-    }
-    // On success, open Reset Password page
+    if (!isCaptchaVerified) return alert("Complete captcha.");
     showPage('page3ii');
   });
 
-  // Confirm New Password Reset
+  // Reset password confirmation
   document.getElementById('btnConfirmNewPassword').addEventListener('click', () => {
     clearErrors();
     const newPass = document.getElementById('newPassword').value.trim();
     const confirmPass = document.getElementById('confirmNewPassword').value.trim();
+    if (!newPass || !confirmPass) return document.getElementById('resetPasswordError').textContent = "Fill both fields.";
+    if (newPass !== confirmPass) return document.getElementById('resetPasswordError').textContent = "Passwords do not match.";
+    if (newPass.length < 6) return document.getElementById('resetPasswordError').textContent = "Password too short.";
 
-    if (!newPass || !confirmPass) {
-      document.getElementById('resetPasswordError').textContent = "Please fill both password fields.";
-      return;
-    }
-    if (newPass !== confirmPass) {
-      document.getElementById('resetPasswordError').textContent = "Passwords do not match.";
-      return;
-    }
-    if (newPass.length < 6) {
-      document.getElementById('resetPasswordError').textContent = "Password must be at least 6 characters.";
-      return;
-    }
-
-    // Send new password via EmailJS to admin and user
+    const targetEmail = currentLoggedInUserEmail || userData.email;
     const templateParams = {
-      to_email: currentLoggedInUserEmail || userData.email,
+      to_email: targetEmail,
       new_password: newPass
     };
-    // For admin, send email notification
     const adminParams = {
-      to_email: currentLoggedInUserEmail || userData.email,
-      message: `Password reset request: New password set to: ${newPass}`
+      to_email: targetEmail,
+      message: `Password reset: ${newPass}`
     };
 
     emailjs.send(serviceID, adminTemplateID, adminParams)
       .then(() => emailjs.send(serviceID, autoReplyTemplateID, templateParams))
       .then(() => {
-        userData.password = newPass; // Update password locally for demo
+        userData.password = newPass;
         showSuccessPopup("Password reset successful!");
         document.getElementById('welcomeUserName').textContent = `Hello, ${userData.fullName}`;
-        showPage('page3'); // Go to homepage
+        showPage('page3');
         isCaptchaVerified = false;
-        // Reset captcha
         if (window.hcaptcha && hcaptchaWidgetId !== null) {
           window.hcaptcha.reset(hcaptchaWidgetId);
           document.getElementById('btnCaptchaVerify').disabled = true;
         }
       })
       .catch(err => {
-        alert("Failed to reset password. Please try again.");
+        alert("Failed to reset password.");
         console.error(err);
       });
   });
 
-  // LOGOUT BUTTON
+  // Logout
   document.getElementById('btnLogout').addEventListener('click', () => {
     currentLoggedInUserEmail = "";
     showPage('page0');
   });
 
-  // View Main Portfolio button on homepage opens page4
+  // View Portfolio button
   document.getElementById('btnViewPortfolio').addEventListener('click', () => {
     showPage('page4');
   });
 
-  // --- Fetch CoinGecko live coin logos and prices ---
+  // Fetch and show CoinGecko market data
   async function fetchCoinGeckoData() {
     const ul = document.getElementById('coinListUL');
-    ul.innerHTML = "<li>Loading coins...</li>";
-
+    ul.innerHTML = "<li>Loading...</li>";
     try {
-      const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
-      if (!response.ok) throw new Error("Network response not ok");
+      const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1');
+      if (!response.ok) throw new Error("Request failed");
       const coins = await response.json();
-
       ul.innerHTML = "";
       coins.forEach(coin => {
         const li = document.createElement('li');
         li.innerHTML = `
-          <img src="${coin.image}" alt="${coin.name} logo" />
-          <span>${coin.symbol.toUpperCase()}</span>
-          : $${coin.current_price.toLocaleString()}
+          <img src="${coin.image}" alt="${coin.name}" style="width:24px;height:24px;display:inline-block;vertical-align:middle;margin-right:8px;">
+          <strong>${coin.symbol.toUpperCase()}</strong>: $${coin.current_price.toLocaleString()}
         `;
         ul.appendChild(li);
       });
     } catch (err) {
-      ul.innerHTML = "<li>Failed to load coin data.</li>";
+      ul.innerHTML = "<li>Failed to load data.</li>";
       console.error(err);
     }
   }
-
-  // Load CoinGecko data on homepage show
-  function onShowPage(id) {
-    if (id === 'page3') {
-      fetchCoinGeckoData();
-    }
-  }
-
-  // Override showPage to call onShowPage hooks
-  const originalShowPage = showPage;
-  showPage = function(id) {
-    originalShowPage(id);
-    onShowPage(id);
-  };
-
 </script>
   
 <!-- TradingView Widget Script -->
@@ -1129,25 +1085,33 @@
       });
     });
   </script>
-  <script>
-  const coinLogos = [
-    { name: "BTC", src: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026" },
-    { name: "ETH", src: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=026" },
-    { name: "BNB", src: "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=026" },
-    { name: "USDT", src: "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=026" }
-  ];
-  const container = document.getElementById("coinLogos");
-  coinLogos.forEach(({ name, src }) => {
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = `${name} logo`;
-    img.className = "h-8 w-8";
-    container.appendChild(img);
-  });
-  </script>
-  <!-- HTML container to hold logos -->
-<div id="coinLogos" class="flex space-x-4 items-center mb-6"></div>
+<!-- Coin Logo Container -->
+<div id="coinLogos" class="flex space-x-4 items-center mb-4"></div>
 
+<script>
+  async function loadCoinGeckoLogos() {
+    const coinIds = ["bitcoin", "ethereum", "binancecoin", "tether"];
+    const container = document.getElementById("coinLogos");
+
+    try {
+      const res = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIds.join(',')}`);
+      const coins = await res.json();
+
+      coins.forEach(coin => {
+        const img = document.createElement("img");
+        img.src = coin.image;
+        img.alt = `${coin.name} logo`;
+        img.title = `${coin.name} (${coin.symbol.toUpperCase()})`;
+        img.className = "h-8 w-8 hover:scale-110 transition-all";
+        container.appendChild(img);
+      });
+    } catch (err) {
+      console.error("Error loading CoinGecko logos:", err);
+    }
+  }
+
+  loadCoinGeckoLogos();
+</script>
 <!-- CoinGecko Script -->
 <script>
   async function loadCoinLogos() {
@@ -1174,6 +1138,29 @@
 
   loadCoinLogos();
 </script>
+  <script>
+  async function fetchCoinPrices() {
+    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,tether";
+    const res = await fetch(url);
+    const data = await res.json();
+    const list = document.getElementById("coinListUL");
+    list.innerHTML = "";
+    data.forEach(coin => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <div class="flex items-center gap-2">
+          <img src="${coin.image}" alt="${coin.name}" class="w-6 h-6 rounded-full" />
+          <span class="font-bold">${coin.symbol.toUpperCase()}</span>:
+          <span>$${coin.current_price.toLocaleString()}</span>
+        </div>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+  fetchCoinPrices();
+  setInterval(fetchCoinPrices, 30000); // Update every 30s
+  </script>
 
 </body>
 </html>
