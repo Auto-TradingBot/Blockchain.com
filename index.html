@@ -213,7 +213,8 @@
   <input type="email" id="signEmail" placeholder="Email Address" autocomplete="email" required />
   <input type="password" id="signPassword" placeholder="Password" autocomplete="new-password" required />
   <button id="btnSignUpSubmit">Sign Up</button>
-  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Landing Page" id="btnBackToLandingFromSignUp">&lt; Back</div>
+  <button type="button" onclick="showPage('0')" class="mt-2 text-center text-blue-600 underline">Back to Landing</button>
+  </form>
 </section>
 
 <!-- PAGE 1i: OTP Verification -->
@@ -238,8 +239,9 @@
     <p class="error" id="loginError" aria-live="assertive"></p>
   </form>
   <button id="btnForgotPassword" class="btn-outline" aria-label="Forgot Password">Forgot Password / Reset</button>
-  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Landing Page" id="btnBackToLandingFromLogin">&lt; Back</div>
-</section>
+  <button type="button" onclick="showPage('0')" class="mt-2 text-center text-blue-600 underline">Back to Landing</button>
+    </form>
+  </section>
 
 <!-- PAGE 3i: Forgot Password / CAPTCHA Verification -->
 <section id="page3i" class="page" aria-label="Forgot Password CAPTCHA Verification">
@@ -1052,7 +1054,7 @@
         .catch(err => console.error(`Error loading ${coin} logo`, err));
     });
   </script>
-  <!-- Scripts -->
+   <!-- Scripts -->
   <script>
     // Navigation function
     function showPage(pageId) {
