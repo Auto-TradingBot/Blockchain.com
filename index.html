@@ -162,35 +162,53 @@
   }
 </style>
 </head>
-<body>
 
-<!-- PAGE 0: Landing Page -->
-<section id="page0" class="page active" role="main" aria-label="Landing page">
-  <img src="https://seeklogo.com/images/B/blockchain-logo-9D3FE9D96F-seeklogo.com.png" alt="Blockchain Logo" class="logo" />
-  <h1>Welcome to Blockchain Auto Trading Bot</h1>
-  <p><strong>24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
-    Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system that leverages advanced algorithms, real-time market data, and smart contract technology to trade your assets efficiently and securely.
-  </p>
-  <ul>
-    <li>✅ AI-Powered Strategy Execution</li>
-    <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
-    <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
-    <li>✅ Secure, Transparent, and On-Chain Verified</li>
-    <li>✅ Real-Time Profit Dashboard & Alerts</li>
-  </ul>
-  <p><strong>You stay in control.</strong><br>
-    Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
-  </p>
-  <div>
-    <button id="btnGoSignUp">Sign Up</button>
-    <button class="btn-outline" id="btnGoLogin">Login</button>
-  </div>
-  <div class="partners" aria-label="Supported exchanges and coins">
-    <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" alt="Binance" />
-    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" />
-    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" />
-  </div>
-</section>
+  <!-- PAGE 0: Landing Page -->
+  <section id="page0" class="min-h-screen flex flex-col items-center justify-center px-6 py-10">
+    <!-- Logo -->
+    <img src="https://seeklogo.com/images/B/blockchain-logo-9D3FE9D96F-seeklogo.com.png" alt="Blockchain Logo" class="h-16 mb-6 animate-pulse" />
+
+    <!-- Heading -->
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Welcome to Blockchain Auto Trading Bot</h1>
+
+    <!-- Subheading -->
+    <p class="text-center text-gray-300 max-w-2xl mb-6">
+      <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br><br>
+      Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system leveraging AI, real-time market data, and smart contracts to trade securely.
+    </p>
+
+    <!-- Features -->
+    <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium">
+      <li>✅ AI-Powered Strategy Execution</li>
+      <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
+      <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
+      <li>✅ Secure, Transparent, and On-Chain Verified</li>
+      <li>✅ Real-Time Profit Dashboard & Alerts</li>
+    </ul>
+
+    <!-- Control Note -->
+    <p class="text-gray-400 text-sm text-center mb-8 max-w-xl">
+      <strong class="text-white">You stay in control.</strong><br>
+      Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+    </p>
+
+    <!-- Buttons -->
+    <div class="flex space-x-4 mb-10">
+      <button onclick="showPage('1')" class="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition-all">
+        Sign Up
+      </button>
+      <button onclick="showPage('2')" class="px-6 py-3 rounded-xl font-semibold text-indigo-500 border border-indigo-500 hover:bg-indigo-500 hover:text-white transition-all">
+        Login
+      </button>
+    </div>
+
+    <!-- Coin Logos -->
+    <div class="flex space-x-6 items-center justify-center" id="coinLogos" aria-label="Supported exchanges and coins">
+      <!-- Logos injected by JS -->
+    </div>
+  </section>
+
+  
 
 <!-- PAGE 1: Sign Up -->
 <section id="page1" class="page" aria-label="Sign Up page">
@@ -1019,5 +1037,26 @@
       .catch(err => console.error('Service Worker registration failed:', err));
     }
   </script>
+
+  <!-- CoinGecko API Script -->
+  <script>
+    const coinLogos = document.getElementById("coinLogos");
+    const coins = ['binancecoin', 'ethereum', 'tether'];
+
+    coins.forEach(coin => {
+      fetch(`https://api.coingecko.com/api/v3/coins/${coin}`)
+        .then(res => res.json())
+        .then(data => {
+          const img = document.createElement("img");
+          img.src = data.image.small;
+          img.alt = data.name;
+          img.className = "w-10 h-10";
+          coinLogos.appendChild(img);
+        })
+        .catch(err => console.error(`Error loading ${coin} logo`, err));
+    });
+  </script>
+
 </body>
 </html>
+
