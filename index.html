@@ -164,84 +164,120 @@
 </style>
 </head>
 </body>
+<!-- PAGE 0: Landing Page -->
+<section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10 bg-[#0B0F1C] text-white">
+  <!-- Official Blockchain Logo -->
+  <div class="h-20 w-20 mb-6 animate-pulse" aria-label="Blockchain Logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="w-full h-full">
+      <rect width="256" height="256" fill="none" />
+      <path fill="#121D33" d="M116.28 7.44L15.78 62.57C10.3 65.58 6.75 71.36 6.75 77.78v100.44c0 6.42 3.55 12.2 9.03 15.21l100.5 55.13c5.41 2.97 12.05 2.97 17.46 0l100.5-55.13c5.48-3.01 9.03-8.79 9.03-15.21V77.78c0-6.42-3.55-12.2-9.03-15.21L133.74 7.44c-5.41-2.97-12.05-2.97-17.46 0z"/>
+      <path fill="#00AEEF" d="M128 38.62l76.4 41.86v83.04L128 205.38l-76.4-41.86V80.48L128 38.62z"/>
+    </svg>
+  </div>
 
-  <!-- PAGE 0: Landing Page -->
-  <section id="page0" class="page active min-h-screen flex flex-col items-center justify-center px-6 py-10">
-    <!-- Official Blockchain.com SVG Logo -->
-    <div class="h-16 w-16 mb-6 animate-pulse" aria-label="Blockchain Logo" role="img">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247 257" fill="none" class="h-full w-full">
-        <path fill="#333" d="M17 135.9v-19.9l107.6-62.1 107.7 62v19.9l-107.7 62.1L17 135.9z"/>
-        <path fill="#F0B90B" d="M17 154.2l-0.1-37.6L124.5 55.4v39.6L17 154.2z"/>
-        <path fill="#1E2326" d="M134.2 95v-39.6l107.8 61.1v37.6L134.2 95z"/>
-        <path fill="#F0B90B" d="M17 118.7v19.9l107.6 62.1 107.7-62v-19.9l-107.7-62.1L17 118.7z"/>
-        <path fill="#1E2326" d="M134.2 158.6v39.6L17 197.8v-39.6l117.2 0.4z"/>
-      </svg>
-    </div>
-    
-    <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Welcome to Blockchain Auto Trading Bot</h1>
-    <p class="text-center text-gray-300 max-w-2xl mb-6">
-      <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
-      Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system leveraging AI, real-time market data, and smart contracts to trade securely.
-    </p>
-    <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium max-w-md">
-      <li>✅ AI-Powered Strategy Execution</li>
-      <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
-      <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
-      <li>✅ Secure, Transparent, and On-Chain Verified</li>
-      <li>✅ Real-Time Profit Dashboard & Alerts</li>
-    </ul>
-    <p class="text-gray-400 text-sm text-center mb-8 max-w-xl">
-      <strong class="text-white">You stay in control.</strong><br />
-      Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
-    </p>
-    <div class="flex space-x-4 mb-10">
-      <button onclick="showPage('1')" class="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition-all">
-        Sign Up
-      </button>
-      <button onclick="showPage('2')" class="px-6 py-3 rounded-xl font-semibold text-indigo-500 border border-indigo-500 hover:bg-indigo-500 hover:text-white transition-all">
-        Login
-      </button>
-    </div>
-    <div class="flex space-x-6 items-center justify-center" id="coinLogos" aria-label="Supported exchanges and coins"></div>
-  </section>>
+  <!-- Heading & Subtitle -->
+  <h1 class="text-3xl md:text-4xl font-bold text-center mb-4">Welcome to Blockchain Auto Trading Bot</h1>
+  <p class="text-center text-gray-300 max-w-2xl mb-6">
+    <strong class="text-white">24/7 Intelligent Crypto Trading. Powered by Blockchain.</strong><br /><br />
+    Take your crypto trading to the next level with our cutting-edge Blockchain Auto Trading Bot — a fully automated system leveraging AI, real-time market data, and smart contracts to trade securely.
+  </p>
 
-  
-<!-- PAGE 1: Sign Up -->
-<section id="page1" class="page" aria-label="Sign Up page">
-  <h2>Sign Up</h2>
-  <input type="text" id="signFullName" placeholder="Full Name" autocomplete="name" required />
-  <input type="email" id="signEmail" placeholder="Email Address" autocomplete="email" required />
-  <input type="password" id="signPassword" placeholder="Password" autocomplete="new-password" required />
-  <button id="btnSignUpSubmit">Sign Up</button>
-  <button type="button" onclick="showPage('0')" class="mt-2 text-center text-blue-600 underline">Back to Landing</button>
+  <!-- Key Features -->
+  <ul class="text-sm md:text-base text-left space-y-2 mb-6 text-blue-100 font-medium max-w-md">
+    <li>✅ AI-Powered Strategy Execution</li>
+    <li>✅ Integrated with Binance, Ethereum, BSC & More</li>
+    <li>✅ Auto-Buy/Sell at Optimal Market Conditions</li>
+    <li>✅ Secure, Transparent, and On-Chain Verified</li>
+    <li>✅ Real-Time Profit Dashboard & Alerts</li>
+  </ul>
+
+  <!-- Trading Philosophy -->
+  <p class="text-gray-400 text-sm text-center mb-8 max-w-xl">
+    <strong class="text-white">You stay in control.</strong><br />
+    Set your trading goals, stop-loss limits, and preferred pairs. Let the bot do the rest while you monitor your profits from an intuitive dashboard.
+  </p>
+
+  <!-- CTA Buttons -->
+  <div class="flex space-x-4 mb-10">
+    <button onclick="showPage('1')" class="px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition-all">
+      Sign Up
+    </button>
+    <button onclick="showPage('2')" class="px-6 py-3 rounded-xl font-semibold text-indigo-500 border border-indigo-500 hover:bg-indigo-500 hover:text-white transition-all">
+      Login
+    </button>
+  </div>
+
+  <!-- Coin Logos -->
+  <div class="flex space-x-6 items-center justify-center mb-8" aria-label="Supported exchanges and coins">
+    <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=026" alt="BNB" class="h-8 w-8">
+    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=026" alt="ETH" class="h-8 w-8">
+    <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=026" alt="USDT" class="h-8 w-8">
+    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026" alt="BTC" class="h-8 w-8">
+  </div>
+
+  <!-- Live TradingView Widget -->
+  <div class="w-full max-w-3xl h-[380px] mb-6">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+      {
+        "width": "100%",
+        "height": "380",
+        "defaultColumn": "overview",
+        "screener_type": "crypto_mkt",
+        "displayMode": "compact",
+        "colorTheme": "dark",
+        "locale": "en",
+        "isTransparent": false,
+        "showSymbolLogo": true,
+        "symbols": [
+          { "s": "BINANCE:BTCUSDT", "d": "Bitcoin" },
+          { "s": "BINANCE:ETHUSDT", "d": "Ethereum" },
+          { "s": "BINANCE:BNBUSDT", "d": "BNB" },
+          { "s": "BINANCE:USDTUSD", "d": "Tether" }
+        ]
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
+  <!-- PAGE 1: Sign Up -->
+<section id="page1" class="page bg-[#0d111c] text-white px-6 py-10 rounded-xl max-w-md mx-auto shadow-lg">
+  <h2 class="text-2xl font-bold mb-4">Create Your Account</h2>
+  <form id="signUpForm" novalidate>
+    <input type="text" id="signFullName" placeholder="Full Name" autocomplete="name" required class="w-full mb-4 p-3 rounded-lg bg-[#1c2232] border border-gray-600" />
+    <input type="email" id="signEmail" placeholder="Email Address" autocomplete="email" required class="w-full mb-4 p-3 rounded-lg bg-[#1c2232] border border-gray-600" />
+    <input type="password" id="signPassword" placeholder="Password" autocomplete="new-password" required class="w-full mb-4 p-3 rounded-lg bg-[#1c2232] border border-gray-600" />
+    <button id="btnSignUpSubmit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold">Sign Up</button>
   </form>
+  <button onclick="showPage('0')" class="mt-4 w-full text-center text-blue-400 underline">← Back to Landing</button>
 </section>
 
 <!-- PAGE 1i: OTP Verification -->
-<section id="page1i" class="page" aria-label="Email Verification page">
-  <h2>Email Verification</h2>
-  <p>Check your email and enter the 6-digit code:</p>
-  <input type="text" id="verificationCode" placeholder="Enter Verification Code" maxlength="6" autocomplete="one-time-code" required />
-  <button id="btnVerifyCode">Verify</button>
-  <p id="countdownText"></p>
-  <button id="btnResendCode">Resend Code</button>
-  <div class="nav-button" tabindex="0" role="button" aria-label="Back to Sign Up" id="btnBackToSignUpFromVerify">&lt; Back</div>
-  <p class="error" id="otpError" aria-live="assertive"></p>
+<section id="page1i" class="page bg-[#0d111c] text-white px-6 py-10 rounded-xl max-w-md mx-auto shadow-lg">
+  <h2 class="text-2xl font-bold mb-4">Email Verification</h2>
+  <p class="mb-4">A 6-digit code has been sent to your email. Enter it below:</p>
+  <input type="text" id="verificationCode" placeholder="Enter Verification Code" maxlength="6" autocomplete="one-time-code" required class="w-full mb-4 p-3 rounded-lg bg-[#1c2232] border border-gray-600" />
+  <button id="btnVerifyCode" class="w-full py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold mb-2">Verify</button>
+  <p id="countdownText" class="text-sm text-gray-400 mb-2"></p>
+  <button id="btnResendCode" class="text-blue-400 underline text-sm">Resend Code</button>
+  <button id="btnBackToSignUpFromVerify" onclick="showPage('1')" class="mt-4 w-full text-center text-blue-400 underline">← Back to Sign Up</button>
+  <p class="error text-red-500 text-sm mt-2" id="otpError" aria-live="assertive"></p>
 </section>
 
 <!-- PAGE 2: Login -->
-<section id="page2" class="page" aria-label="Login page">
-  <h2>Login</h2>
+<section id="page2" class="page bg-[#0d111c] text-white px-6 py-10 rounded-xl max-w-md mx-auto shadow-lg">
+  <h2 class="text-2xl font-bold mb-4">Login to Your Account</h2>
   <form id="loginForm" novalidate>
-    <input type="email" id="loginEmail" name="login_email" placeholder="Email" autocomplete="email" required />
-    <input type="password" id="loginPassword" name="login_password" placeholder="Password" autocomplete="current-password" required />
-    <button type="submit" id="btnLoginSubmit">Login</button>
-    <p class="error" id="loginError" aria-live="assertive"></p>
+    <input type="email" id="loginEmail" name="login_email" placeholder="Email" autocomplete="email" required class="w-full mb-4 p-3 rounded-lg bg-[#1c2232] border border-gray-600" />
+    <input type="password" id="loginPassword" name="login_password" placeholder="Password" autocomplete="current-password" required class="w-full mb-4 p-3 rounded-lg bg-[#1c2232] border border-gray-600" />
+    <button type="submit" id="btnLoginSubmit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold">Login</button>
+    <p class="error text-red-500 text-sm mt-2" id="loginError" aria-live="assertive"></p>
   </form>
-  <button id="btnForgotPassword" class="btn-outline" aria-label="Forgot Password">Forgot Password / Reset</button>
-  <button type="button" onclick="showPage('0')" class="mt-2 text-center text-blue-600 underline">Back to Landing</button>
-    </form>
-  </section>
+  <button id="btnForgotPassword" class="w-full mt-4 text-sm text-blue-400 underline">Forgot Password / Reset</button>
+  <button onclick="showPage('0')" class="mt-2 w-full text-center text-blue-400 underline">← Back to Landing</button>
+</section>
 
 <!-- PAGE 3i: Forgot Password / CAPTCHA Verification -->
 <section id="page3i" class="page" aria-label="Forgot Password CAPTCHA Verification">
@@ -1036,24 +1072,6 @@
     }
   </script>
 
-  <!-- CoinGecko API Script -->
-  <script>
-    const coinLogos = document.getElementById("coinLogos");
-    const coins = ['binancecoin', 'ethereum', 'tether'];
-
-    coins.forEach(coin => {
-      fetch(`https://api.coingecko.com/api/v3/coins/${coin}`)
-        .then(res => res.json())
-        .then(data => {
-          const img = document.createElement("img");
-          img.src = data.image.small;
-          img.alt = data.name;
-          img.className = "w-10 h-10";
-          coinLogos.appendChild(img);
-        })
-        .catch(err => console.error(`Error loading ${coin} logo`, err));
-    });
-  </script>
    <!-- Scripts -->
   <script>
     // Navigation function
@@ -1089,6 +1107,22 @@
           .catch(err => console.error(`Error loading ${coin} logo`, err));
       });
     });
+  </script>
+  <script>
+  const coinLogos = [
+    { name: "BTC", src: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=026" },
+    { name: "ETH", src: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=026" },
+    { name: "BNB", src: "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=026" },
+    { name: "USDT", src: "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=026" }
+  ];
+  const container = document.getElementById("coinLogos");
+  coinLogos.forEach(({ name, src }) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = `${name} logo`;
+    img.className = "h-8 w-8";
+    container.appendChild(img);
+  });
   </script>
 
 </body>
